@@ -1,0 +1,16 @@
+html {
+  height: 100%;
+  margin: 0;
+  scroll-behavior: smooth;
+}
+body {
+  margin: 0;
+  height: 100%;
+  background-color: $color-primary-background;
+  color: $color-primary-foreground;
+  font-family: $font-body;
+  font-size: $base-font-size;
+  text-align: left;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}

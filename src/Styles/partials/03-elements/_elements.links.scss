@@ -1,0 +1,10 @@
+a,
+.a {
+  color: $color-light-hyperlink;
+  text-decoration: none;
+
+  &:hover {
+    color: $color-light-hyperlink-highlight;
+    text-decoration: none;
+  }
+}

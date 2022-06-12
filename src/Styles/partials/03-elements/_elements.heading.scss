@@ -1,0 +1,21 @@
+h1 {
+  font-size: to-rem(36);
+  font-family: $font-heading;
+  text-shadow: 2px 2px $color-grey-border;
+}
+h2 {
+  font-size: to-rem(32);
+  font-family: $font-heading;
+}
+h3,
+.h3 {
+  font-size: to-rem(22);
+}
+h4,
+.h4 {
+  font-size: to-rem(18);
+}
+h5,
+.h5 {
+  font-size: to-rem(16);
+}

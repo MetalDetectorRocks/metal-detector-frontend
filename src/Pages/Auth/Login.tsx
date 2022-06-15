@@ -6,14 +6,11 @@ export const Login = () => {
 
   const login = (event: React.SyntheticEvent) => {
     event.preventDefault();
-    console.log("TEST button");
     const target = event.target as typeof event.target & {
       email: { value: string };
       password: { value: string };
     }
-    const email = target.email.value;
-    const password = target.password.value;
-    AuthService.login(email, password);
+    AuthService.login(target.email.value, target.password.value);
   }
 
   return (

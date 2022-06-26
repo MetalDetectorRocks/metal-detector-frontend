@@ -6,7 +6,7 @@ import { Navigate } from 'react-router-dom'
 import axios from '../../Config/axios.config'
 
 export interface LoginResponse {
-  readonly email: string
+  readonly username: string
   readonly token: string
   readonly roles: string[]
 }
@@ -20,7 +20,7 @@ export interface ErrorResponse {
 
 export const Login = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false)
-  const [email, setEmail] = useState('')
+  const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [errorMessage, setErrorMessage] = useState('')
   const [, setCookie] = useCookies(['Authorization'])
@@ -31,7 +31,7 @@ export const Login = () => {
 
     await axios
       .post('/rest/v1/login', {
-        email: email,
+        username: username,
         password: password,
       })
       .then((response: AxiosResponse<LoginResponse>) => {
@@ -50,8 +50,8 @@ export const Login = () => {
       })
   }
 
-  const handleEmailValueChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setEmail(event.target.value)
+  const handleUsernameValueChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setUsername(event.target.value)
   }
 
   const handlePasswordValueChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -69,10 +69,10 @@ export const Login = () => {
       <h2>Login</h2>
       <form onSubmit={handleSubmit.bind(this)}>
         <TextField
-          type="email"
-          name="email"
+          type="text"
+          name="username"
           label="Username"
-          onChange={handleEmailValueChange.bind(this)}
+          onChange={handleUsernameValueChange.bind(this)}
           required
           autoFocus
         />

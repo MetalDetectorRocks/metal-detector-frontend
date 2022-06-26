@@ -1,5 +1,5 @@
-import Axios, {AxiosRequestConfig, AxiosResponse} from 'axios'
-import {PathLike} from 'fs'
+import Axios, { AxiosRequestConfig, AxiosResponse } from 'axios'
+import { PathLike } from 'fs'
 import qs from 'qs'
 
 const axios = Axios.create({
@@ -12,7 +12,7 @@ const axios = Axios.create({
     'Content-Type': 'application/json',
     Accept: 'application/json',
   },
-  paramsSerializer: (params: PathLike) => qs.stringify(params, {indices: false}),
+  paramsSerializer: (params: PathLike) => qs.stringify(params, { indices: false }),
 })
 
 axios.interceptors.request.use(async (config: AxiosRequestConfig) => {

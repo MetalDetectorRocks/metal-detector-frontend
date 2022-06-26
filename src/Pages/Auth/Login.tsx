@@ -1,9 +1,9 @@
-import React, {useState} from 'react'
-import {Button, TextField} from '@mui/material'
-import {AxiosError, AxiosResponse} from 'axios'
-import {useCookies} from 'react-cookie'
-import {Navigate} from 'react-router-dom'
-import axios from "../../Config/axios.config";
+import React, { useState } from 'react'
+import { Button, TextField } from '@mui/material'
+import { AxiosError, AxiosResponse } from 'axios'
+import { useCookies } from 'react-cookie'
+import { Navigate } from 'react-router-dom'
+import axios from '../../Config/axios.config'
 
 export interface LoginResponse {
   readonly email: string
@@ -29,10 +29,11 @@ export const Login = () => {
     event.preventDefault()
     setErrorMessage('')
 
-    await axios.post('/rest/v1/login', {
-      email: email,
-      password: password,
-    })
+    await axios
+      .post('/rest/v1/login', {
+        email: email,
+        password: password,
+      })
       .then((response: AxiosResponse<LoginResponse>) => {
         setCookie('Authorization', `Bearer ${response.data.token}`, {
           path: '/', // ToDo: this correct?
@@ -62,29 +63,29 @@ export const Login = () => {
   }
 
   return isLoggedIn ? (
-    <Navigate to="/my-artists"/>
+    <Navigate to="/my-artists" />
   ) : (
-           <>
-             <h2>Login</h2>
-             <form onSubmit={handleSubmit.bind(this)}>
-               <TextField
-                 type="email"
-                 name="email"
-                 label="Username"
-                 onChange={handleEmailValueChange.bind(this)}
-                 required
-                 autoFocus
-               />
-               <TextField
-                 type="password"
-                 name="password"
-                 label="Password"
-                 onChange={handlePasswordValueChange.bind(this)}
-                 required
-               />
-               {renderErrorMessage()}
-               <Button type="submit">Login</Button>
-             </form>
-           </>
-         )
+    <>
+      <h2>Login</h2>
+      <form onSubmit={handleSubmit.bind(this)}>
+        <TextField
+          type="email"
+          name="email"
+          label="Username"
+          onChange={handleEmailValueChange.bind(this)}
+          required
+          autoFocus
+        />
+        <TextField
+          type="password"
+          name="password"
+          label="Password"
+          onChange={handlePasswordValueChange.bind(this)}
+          required
+        />
+        {renderErrorMessage()}
+        <Button type="submit">Login</Button>
+      </form>
+    </>
+  )
 }

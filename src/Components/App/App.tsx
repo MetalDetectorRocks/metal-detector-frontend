@@ -1,9 +1,7 @@
 import React from 'react'
-import {AppRouter} from '../../Router/AppRouter'
-import {configureAxios} from "../../Config/axios.config";
+import { AppRouter } from '../../Router/AppRouter'
 
 const App: React.FC = () => {
-  configureAxios();
   return (
     <>
       <AppRouter />

@@ -1,29 +1,26 @@
-import {configure} from 'axios-hooks'
-import Axios from 'axios'
-import {PathLike} from "fs";
-import qs from 'qs';
+import Axios, {AxiosRequestConfig, AxiosResponse} from 'axios'
+import {PathLike} from 'fs'
+import qs from 'qs'
 
-export function configureAxios() {
-  const axios = Axios.create({
-    baseURL: "http://localhost:8080",
-    withCredentials: false,
-    timeout: 60000,
-    headers: {
-      "Cache-Control": "no-cache, no-store, must-revalidate",
-      Pragma: "no-cache",
-      "Content-Type": "application/json",
-      Accept: "application/json",
-    },
-    paramsSerializer: (params: PathLike) => qs.stringify(params, {indices: false}),
-  });
+const axios = Axios.create({
+  baseURL: 'http://localhost:8080',
+  withCredentials: false,
+  timeout: 60000,
+  headers: {
+    'Cache-Control': 'no-cache, no-store, must-revalidate',
+    Pragma: 'no-cache',
+    'Content-Type': 'application/json',
+    Accept: 'application/json',
+  },
+  paramsSerializer: (params: PathLike) => qs.stringify(params, {indices: false}),
+})
 
-  configure({
-    axios: axios,
-    defaultOptions: {
-      manual: true,
-      useCache: false,
-      ssr: false,
-      autoCancel: false
-    }
-  });
-}
+axios.interceptors.request.use(async (config: AxiosRequestConfig) => {
+  const csrfToken = await Axios.get('http://localhost:8080/rest/v1/csrf').then(
+    (response: AxiosResponse) => response.data.token,
+  )
+  config.headers!['X-CSRF-TOKEN'] = csrfToken
+  return config
+})
+
+export default axios

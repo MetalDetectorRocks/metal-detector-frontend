@@ -8,16 +8,16 @@ export const MyArtists = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      return await axios.get('http://localhost:8080/rest/v1/my-artists', {
+      return await axios.get('/rest/v1/my-artists', {
         headers: { Authorization: cookies.Authorization },
       })
     }
     fetchData()
       .then((response: AxiosResponse) => {
-        console.log(`success: ${response.data}`)
+        console.log(`success: ${JSON.stringify(response.data)}`)
       })
       .catch((error: AxiosError) => {
-        console.log(`error: ${error.response?.data}`)
+        console.log(`error: ${JSON.stringify(error.response?.data)}`)
       })
   }, [])
 

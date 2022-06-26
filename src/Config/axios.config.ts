@@ -1,6 +1,7 @@
 import Axios, { AxiosRequestConfig, AxiosResponse } from 'axios'
 import { PathLike } from 'fs'
 import qs from 'qs'
+import { LOGIN } from './endpoints.config'
 
 const axios = Axios.create({
   baseURL: 'http://localhost:8080',
@@ -16,10 +17,14 @@ const axios = Axios.create({
 })
 
 axios.interceptors.request.use(async (config: AxiosRequestConfig) => {
-  const csrfToken = await Axios.get('http://localhost:8080/rest/v1/csrf').then(
-    (response: AxiosResponse) => response.data.token,
-  )
-  config.headers!['X-CSRF-TOKEN'] = csrfToken
+  // ToDo: only protected pages need csrf
+  if (config.url != LOGIN) {
+    // ToDo: somehow don't use Axios (but axios)?
+    const csrfToken = await Axios.get('http://localhost:8080/rest/v1/csrf').then(
+      (response: AxiosResponse) => response.data.token,
+    )
+    config.headers!['X-CSRF-TOKEN'] = csrfToken
+  }
   return config
 })
 

@@ -1,9 +1,10 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Button, TextField } from '@mui/material'
 import { AxiosError, AxiosResponse } from 'axios'
 import { useCookies } from 'react-cookie'
 import { Navigate } from 'react-router-dom'
 import axios from '../../Config/axios.config'
+import { LOGIN } from '../../Config/endpoints.config'
 
 export interface LoginResponse {
   readonly username: string
@@ -23,14 +24,20 @@ export const Login = () => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [errorMessage, setErrorMessage] = useState('')
-  const [, setCookie] = useCookies(['Authorization'])
+  const [cookie, setCookie] = useCookies(['Authorization'])
+
+  useEffect(() => {
+    if (cookie.Authorization != null) {
+      setIsLoggedIn(true)
+    }
+  }, [])
 
   const handleSubmit = async (event: React.SyntheticEvent) => {
     event.preventDefault()
     setErrorMessage('')
 
     await axios
-      .post('/rest/v1/login', {
+      .post(LOGIN, {
         username: username,
         password: password,
       })

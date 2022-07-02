@@ -1,0 +1,22 @@
+@import '../../../Styles/partials/01-settings/settings.breakpoints';
+@import '../../../Styles/partials/02-general/general.to-rem';
+@import '../../../Styles/partials/01-settings/settings.colors';
+
+.search {
+  margin-left: to-rem(25);
+  margin-right: to-rem(25);
+  display: none;
+
+  @include respond-above(md) {
+    display: block;
+  }
+  & input {
+    padding: to-rem(10) to-rem(15);
+    font-size: to-rem(22);
+    font-family: $font-heading;
+    font-weight: 400;
+    line-height: 1.5;
+    height: to-rem(18);
+    color: $color-primary-foreground;
+  }
+}

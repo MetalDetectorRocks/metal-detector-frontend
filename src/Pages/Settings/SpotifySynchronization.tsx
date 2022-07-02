@@ -1,3 +1,3 @@
 export const SpotifySynchronization = () => {
-  return <h2>SpotifySynchronization</h2>
+  return <h1>SpotifySynchronization</h1>
 }

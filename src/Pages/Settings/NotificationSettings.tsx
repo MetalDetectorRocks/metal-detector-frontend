@@ -1,3 +1,3 @@
 export const NotificationSettings = () => {
-  return <h2>NotificationSettings</h2>
+  return <h1>NotificationSettings</h1>
 }

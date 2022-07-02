@@ -1,3 +1,3 @@
 export const MyArtists = () => {
-  return <h2>MyArtists</h2>
+  return <h1>My Artists</h1>
 }

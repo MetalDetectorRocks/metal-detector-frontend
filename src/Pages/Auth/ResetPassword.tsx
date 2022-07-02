@@ -1,3 +1,3 @@
 export const ResetPassword = () => {
-  return <h2>ResetPassword</h2>
+  return <h1>ResetPassword</h1>
 }

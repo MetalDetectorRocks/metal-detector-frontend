@@ -1,0 +1,22 @@
+@import '../../../Styles/partials/01-settings/settings.colors';
+@import '../../../Styles/partials/02-general/general.to-rem';
+
+.user-menu {
+  overflow: visible;
+  border: 1px solid $color-primary-border;
+
+  &:before {
+    content: '';
+    display: block;
+    position: absolute;
+    top: 0;
+    right: to-rem(25);
+    width: to-rem(10);
+    height: to-rem(10);
+    background-color: $color-primary-background;
+    transform: translateY(-50%) rotate(45deg);
+    z-index: 0;
+    border-top: 1px solid $color-primary-border;
+    border-left: 1px solid $color-primary-border;
+  }
+}

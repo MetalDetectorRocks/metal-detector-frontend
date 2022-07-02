@@ -15,6 +15,20 @@ import { SearchResults } from '../Pages/SearchResults'
 import { ForgotPassword } from '../Pages/Auth/ForgotPassword'
 import { ResetPassword } from '../Pages/Auth/ResetPassword'
 import { Register } from '../Pages/Auth/Register'
+import {
+  myArtists,
+  account,
+  releases,
+  search,
+  notificationSettings,
+  spotifySynchronization,
+  privacyPolicy,
+  imprint,
+  login,
+  forgotPassword,
+  register,
+  resetPassword,
+} from './InternalRoutes'
 
 export const AppRouter = () => {
   return (
@@ -22,21 +36,21 @@ export const AppRouter = () => {
       <Routes>
         <Route path="/" element={<MainLayout />}>
           <Route index element={<Home />} />
-          <Route path="releases" element={<Releases />} />
-          <Route path="my-artists" element={<MyArtists />} />
-          <Route path="artists/search" element={<SearchResults />} />
-          <Route path="settings/account-details" element={<AccountDetails />} />
-          <Route path="settings/notification-settings" element={<NotificationSettings />} />
-          <Route path="settings/spotify-synchronization" element={<SpotifySynchronization />} />
-          <Route path="imprint" element={<Imprint />} />
-          <Route path="privacy-policy" element={<PrivacyPolicy />} />
+          <Route path={releases.path} element={<Releases />} />
+          <Route path={myArtists.path} element={<MyArtists />} />
+          <Route path={search.path} element={<SearchResults />} />
+          <Route path={account.path} element={<AccountDetails />} />
+          <Route path={notificationSettings.path} element={<NotificationSettings />} />
+          <Route path={spotifySynchronization.path} element={<SpotifySynchronization />} />
+          <Route path={imprint.path} element={<Imprint />} />
+          <Route path={privacyPolicy.path} element={<PrivacyPolicy />} />
           <Route path="*" element={<NotFound />} />
         </Route>
         <Route element={<AuthLayout />}>
-          <Route path="login" element={<Login />} />
-          <Route path="register" element={<Register />} />
-          <Route path="forgot-password" element={<ForgotPassword />} />
-          <Route path="reset-password" element={<ResetPassword />} />
+          <Route path={login.path} element={<Login />} />
+          <Route path={register.path} element={<Register />} />
+          <Route path={forgotPassword.path} element={<ForgotPassword />} />
+          <Route path={resetPassword.path} element={<ResetPassword />} />
         </Route>
       </Routes>
     </BrowserRouter>

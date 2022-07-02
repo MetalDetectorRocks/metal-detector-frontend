@@ -1,0 +1,13 @@
+@import '../../../Styles/partials/01-settings/settings.colors';
+@import '../../../Styles/partials/02-general/general.to-rem';
+
+.user-menu {
+  &__item {
+    &-active li {
+      background-color: $color-secondary-highlight;
+    }
+  }
+  &__item-logout {
+    margin-top: to-rem(8)
+  }
+}

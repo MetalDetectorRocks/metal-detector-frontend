@@ -1,3 +1,3 @@
 export const SearchResults = () => {
-  return <h2>SearchResults</h2>
+  return <h1>SearchResults</h1>
 }

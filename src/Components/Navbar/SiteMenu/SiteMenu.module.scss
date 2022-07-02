@@ -1,0 +1,20 @@
+@import '../../../Styles/partials/01-settings/settings.colors';
+@import '../../../Styles/partials/02-general/general.to-rem';
+
+.site-menu {
+  display: flex;
+  align-items: center;
+
+  &__item {
+    color: $color-menu-foreground;
+    font-weight: bold;
+    font-size: to-rem(14);
+    padding: 0 to-rem(10);
+    white-space: nowrap;
+
+    &:hover,
+    &-active {
+      color: $color-primary-highlight;
+    }
+  }
+}

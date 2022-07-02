@@ -1,3 +1,3 @@
 export const Imprint = () => {
-  return <h2>Imprint</h2>
+  return <h1>Imprint</h1>
 }

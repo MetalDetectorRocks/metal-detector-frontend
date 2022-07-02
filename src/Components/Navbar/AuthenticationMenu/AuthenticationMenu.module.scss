@@ -1,0 +1,11 @@
+@import '../../../Styles/partials/02-general/general.to-rem';
+
+.authentication-menu {
+  display: flex;
+  margin-left: to-rem(16);
+
+  & a {
+    margin-right: to-rem(8);
+    min-width: to-rem(70);
+  }
+}

@@ -1,0 +1,9 @@
+@import '../../../Styles/partials/01-settings/settings.colors';
+
+.site-menu {
+  &__item {
+    &-active li {
+      background-color: $color-secondary-highlight;
+    }
+  }
+}

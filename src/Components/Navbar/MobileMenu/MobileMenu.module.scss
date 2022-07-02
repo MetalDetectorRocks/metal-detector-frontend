@@ -1,0 +1,22 @@
+@import '../../../Styles/partials/01-settings/settings.breakpoints';
+@import '../../../Styles/partials/01-settings/settings.colors';
+@import '../../../Styles/partials/02-general/general.to-rem';
+
+.mobile-menu {
+  &__open-icon {
+    @include respond-above(md) {
+      display: none;
+    }
+  }
+  &__drawer {
+    border-right: 1px solid $color-primary-border;
+    width: to-rem(250);
+    height: 100%;
+  }
+  &__control {
+    text-align: right;
+  }
+  &__nav {
+    margin-bottom: to-rem(20);
+  }
+}

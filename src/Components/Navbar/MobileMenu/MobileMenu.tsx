@@ -24,7 +24,7 @@ const MobileMenu = (props: MobileMenuProps) => {
   return (
     <>
       <Box component={'div'} className={classes['mobile-menu']}>
-        <IconButton size="large" color="inherit" className={classes['mobile-menu__open-icon']} onClick={toggleDrawer}>
+        <IconButton size="medium" className={classes['mobile-menu__open-icon']} onClick={toggleDrawer}>
           <MenuIcon />
         </IconButton>
         <Drawer

@@ -3,20 +3,48 @@
 @import '../../../Styles/partials/01-settings/settings.colors';
 
 .search {
-  margin-left: to-rem(25);
-  margin-right: to-rem(25);
-  display: none;
+  margin-left: to-rem(14);
+  border: 0;
 
   @include respond-above(md) {
     display: block;
+    border: 1px solid $color-primary-border;
+    margin-left: to-rem(25);
+    margin-right: to-rem(25);
   }
+
   & input {
-    padding: to-rem(10) to-rem(15);
+    padding: to-rem(4);
     font-size: to-rem(22);
     font-family: $font-heading;
     font-weight: 400;
     line-height: 1.5;
-    height: to-rem(18);
+    height: to-rem(14);
     color: $color-primary-foreground;
+
+    @include respond-above(md) {
+      height: to-rem(18);
+      padding: to-rem(10) to-rem(15);
+    }
+
+    &::placeholder {
+      font-size: to-rem(20);
+
+      @include respond-above(md) {
+        font-size: to-rem(22);
+      }
+    }
+  }
+
+  &__go-icon {
+    display: block;
+    padding: 0;
+    margin-top: to-rem(4);
+    margin-left: to-rem(4);
+    margin-right: to-rem(12);
+
+    @include respond-above(md) {
+      display: none;
+    }
   }
 }

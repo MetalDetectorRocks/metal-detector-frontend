@@ -1,3 +1,3 @@
 export const AccountDetails = () => {
-  return <h2>AccountDetails</h2>
+  return <h1>AccountDetails</h1>
 }

@@ -73,7 +73,7 @@ export const Login = () => {
     <Navigate to="/my-artists" />
   ) : (
     <>
-      <h2>Login</h2>
+      <h1>Login</h1>
       <form onSubmit={handleSubmit.bind(this)}>
         <TextField
           type="text"

@@ -1,0 +1,45 @@
+@import '../../Styles/partials/01-settings/settings.breakpoints';
+@import '../../Styles/partials/01-settings/settings.colors';
+@import '../../Styles/partials/02-general/general.to-rem';
+
+.app-bar {
+  border-bottom: to-rem(1) solid $color-primary-border;
+
+  &__wrapper {
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0;
+
+    @include respond-above(md) {
+      padding-left: to-rem(16);
+      padding-right: to-rem(16);
+    }
+  }
+
+  &__toolbar {
+    max-width: to-rem(1440);
+    margin: 0 auto;
+    justify-content: space-between;
+  }
+
+  &__search-icon {
+    @include respond-above(md) {
+      display: none;
+    }
+  }
+
+  &__logo {
+    width: to-rem(200);
+    @include respond-above(sm) {
+      width: to-rem(250);
+    }
+  }
+
+  &__menu {
+    display: none;
+    @include respond-above(md) {
+      display: flex;
+    }
+  }
+}

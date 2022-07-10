@@ -10,7 +10,7 @@ export const MyArtists = () => {
   useEffect(() => {
     const fetchData = async () => {
       return await axios.get(myArtists.path, {
-        headers: { Authorization: cookies.Authorization },
+        headers: { Authorization: cookies.Authorization }, // ToDo do this somewhere else?
       })
     }
     fetchData()

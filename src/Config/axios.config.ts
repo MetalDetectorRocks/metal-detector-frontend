@@ -4,7 +4,7 @@ import qs from 'qs'
 import { login } from '../Router/RestRoutes'
 
 const axios = Axios.create({
-  baseURL: 'http://localhost:8080',
+  baseURL: 'http://localhost:8080', // ToDo: parameterize base url
   withCredentials: true,
   timeout: 60000,
   headers: {

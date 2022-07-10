@@ -2,14 +2,14 @@ import { useEffect } from 'react'
 import { useCookies } from 'react-cookie'
 import { AxiosError, AxiosResponse } from 'axios'
 import axios from '../Config/axios.config'
-import { MY_ARTISTS } from '../Config/endpoints.config'
+import { myArtists } from '../Router/RestRoutes'
 
 export const MyArtists = () => {
   const [cookies, ,] = useCookies(['Authorization'])
 
   useEffect(() => {
     const fetchData = async () => {
-      return await axios.get(MY_ARTISTS, {
+      return await axios.get(myArtists.path, {
         headers: { Authorization: cookies.Authorization },
       })
     }

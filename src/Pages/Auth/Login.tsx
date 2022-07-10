@@ -1,16 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import { Button, TextField } from '@mui/material'
-import { AxiosError, AxiosResponse } from 'axios'
+import { AxiosError } from 'axios'
 import { useCookies } from 'react-cookie'
 import { Navigate } from 'react-router-dom'
 import axios from '../../Config/axios.config'
-import { LOGIN } from '../../Config/endpoints.config'
-
-export interface LoginResponse {
-  readonly username: string
-  readonly token: string
-  readonly roles: string[]
-}
+import { login } from '../../Router/RestRoutes'
 
 export interface ErrorResponse {
   readonly timestamp: Date
@@ -24,7 +18,7 @@ export const Login = () => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [errorMessage, setErrorMessage] = useState('')
-  const [cookie, setCookie] = useCookies(['Authorization'])
+  const [cookie] = useCookies(['Authorization'])
 
   useEffect(() => {
     if (cookie.Authorization != null) {
@@ -37,19 +31,11 @@ export const Login = () => {
     setErrorMessage('')
 
     await axios
-      .post(LOGIN, {
+      .post(login.path, {
         username: username,
         password: password,
       })
-      .then((response: AxiosResponse<LoginResponse>) => {
-        setCookie('Authorization', `Bearer ${response.data.token}`, {
-          path: '/', // ToDo: this correct?
-          maxAge: 300,
-          domain: 'localhost', // ToDo: change later
-          secure: false, // ToDo: change later
-          // httpOnly: true, // ToDo: can only be set by server...
-          sameSite: 'lax', // ToDo: this correct?
-        })
+      .then(() => {
         setIsLoggedIn(true)
       })
       .catch((error: AxiosError<ErrorResponse>) => {
@@ -63,10 +49,6 @@ export const Login = () => {
 
   const handlePasswordValueChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setPassword(event.target.value)
-  }
-
-  const renderErrorMessage = () => {
-    return <div>{errorMessage}</div>
   }
 
   return isLoggedIn ? (
@@ -90,7 +72,7 @@ export const Login = () => {
           onChange={handlePasswordValueChange.bind(this)}
           required
         />
-        {renderErrorMessage()}
+        {errorMessage != '' && <p>{errorMessage}</p>}
         <Button type="submit">Login</Button>
       </form>
     </>

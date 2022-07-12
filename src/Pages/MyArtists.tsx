@@ -2,9 +2,10 @@ import React, { useEffect, useState } from 'react'
 import { AxiosError, AxiosResponse } from 'axios'
 import axios from '../Config/axios.config'
 import { myArtists } from '../Router/RestRoutes'
-import { Card, CardHeader, CardMedia, Grid, Pagination } from '@mui/material'
+import { Card, CardContent, CardHeader, CardMedia, Grid, Typography } from '@mui/material'
 import Container from '@mui/material/Container'
 import { useSearchParams } from 'react-router-dom'
+import DefaultPagination from '../Components/Pagination/DefaultPagination'
 
 export interface MyArtistsResponse {
   readonly myArtists: Artist[]
@@ -69,24 +70,20 @@ export const MyArtists = () => {
             <Grid item xs={3} key={myArtistsResponse?.myArtists.indexOf(artist)}>
               <Card variant={'outlined'}>
                 <CardMedia component={'img'} alt={'artist image'} image={artist.mediumImage} />
-                <CardHeader title={artist.artistName} subheader={`followed since : ${artist.followedSince}`} />
+                <CardHeader title={artist.artistName} />
+                <CardContent>
+                  <Typography>Followed since {new Date(artist.followedSince).toLocaleDateString()}</Typography>
+                </CardContent>
               </Card>
             </Grid>
           ))}
         </Grid>
       </div>
       <div>
-        {myArtistsResponse?.pagination && myArtistsResponse.pagination.totalPages > 0 ? (
-          <Pagination
-            count={myArtistsResponse.pagination.totalPages}
-            showFirstButton
-            showLastButton
-            boundaryCount={2}
-            onChange={handleOnChange}
-          />
-        ) : (
-          ''
-        )}
+        <DefaultPagination
+          totalPages={myArtistsResponse?.pagination.totalPages == null ? 0 : myArtistsResponse?.pagination.totalPages}
+          onChange={handleOnChange}
+        />
       </div>
     </Container>
   )

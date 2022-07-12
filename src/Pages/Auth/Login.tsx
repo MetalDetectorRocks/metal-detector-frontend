@@ -15,9 +15,9 @@ export interface ErrorResponse {
 
 export const Login = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false)
-  const [username, setUsername] = useState('')
-  const [password, setPassword] = useState('')
-  const [errorMessage, setErrorMessage] = useState('')
+  const [username, setUsername] = useState<string | null>(null)
+  const [password, setPassword] = useState<string | null>(null)
+  const [errorMessage, setErrorMessage] = useState<string | null>(null)
   const [cookie] = useCookies(['Authorization'])
 
   useEffect(() => {
@@ -28,7 +28,7 @@ export const Login = () => {
 
   const handleSubmit = async (event: React.SyntheticEvent) => {
     event.preventDefault()
-    setErrorMessage('')
+    setErrorMessage(null)
 
     await axios
       .post(login.path, {
@@ -52,28 +52,28 @@ export const Login = () => {
   }
 
   return isLoggedIn ? (
-    <Navigate to="/my-artists" />
+    <Navigate to={'/my-artists'} />
   ) : (
     <>
       <h1>Login</h1>
       <form onSubmit={handleSubmit.bind(this)}>
         <TextField
-          type="text"
-          name="username"
-          label="Username"
+          type={'text'}
+          name={'username'}
+          label={'Username'}
           onChange={handleUsernameValueChange.bind(this)}
           required
           autoFocus
         />
         <TextField
-          type="password"
-          name="password"
-          label="Password"
+          type={'password'}
+          name={'password'}
+          label={'Password'}
           onChange={handlePasswordValueChange.bind(this)}
           required
         />
-        {errorMessage != '' && <p>{errorMessage}</p>}
-        <Button type="submit">Login</Button>
+        {errorMessage != null && <p>{errorMessage}</p>}
+        <Button type={'submit'}>Login</Button>
       </form>
     </>
   )

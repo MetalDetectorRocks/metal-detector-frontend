@@ -6,29 +6,7 @@ import { Card, CardContent, CardHeader, CardMedia, Grid, Typography } from '@mui
 import Container from '@mui/material/Container'
 import { useSearchParams } from 'react-router-dom'
 import DefaultPagination from '../Components/Pagination/DefaultPagination'
-
-export interface MyArtistsResponse {
-  readonly myArtists: Artist[]
-  readonly pagination: BackendPagination
-}
-
-export interface Artist {
-  readonly externalId: string
-  readonly artistName: string
-  readonly thumbnailImage: string
-  readonly smallImage: string
-  readonly mediumImage: string
-  readonly largeImage: string
-  readonly followedSince: string
-  readonly source: string
-  readonly follower: number
-}
-
-export interface BackendPagination {
-  readonly currentPage: number
-  readonly itemsPerPage: number
-  readonly totalPages: number
-}
+import { MyArtistsResponse } from '../Api/responseTypes'
 
 export const MyArtists = () => {
   const [myArtistsResponse, setMyArtistsResponse] = useState<MyArtistsResponse | null>(null)
@@ -57,34 +35,30 @@ export const MyArtists = () => {
   return (
     <Container maxWidth={'lg'}>
       <h1>MyArtists</h1>
-      <div>
-        <Grid
-          container
-          spacing={{ xs: 2, md: 3 }}
-          columns={{ xs: 4, sm: 8, md: 12 }}
-          direction={'row'}
-          alignItems={'flex-start'}
-          justifyContent={'flex-start'}
-        >
-          {myArtistsResponse?.myArtists.map((artist) => (
-            <Grid item xs={3} key={myArtistsResponse?.myArtists.indexOf(artist)}>
-              <Card variant={'outlined'}>
-                <CardMedia component={'img'} alt={'artist image'} image={artist.mediumImage} />
-                <CardHeader title={artist.artistName} />
-                <CardContent>
-                  <Typography>Followed since {new Date(artist.followedSince).toLocaleDateString()}</Typography>
-                </CardContent>
-              </Card>
-            </Grid>
-          ))}
-        </Grid>
-      </div>
-      <div>
-        <DefaultPagination
-          totalPages={myArtistsResponse?.pagination.totalPages == null ? 0 : myArtistsResponse?.pagination.totalPages}
-          onChange={handleOnChange}
-        />
-      </div>
+      <Grid
+        container
+        spacing={{ xs: 2, md: 3 }}
+        columns={{ xs: 4, sm: 8, md: 12 }}
+        direction={'row'}
+        alignItems={'flex-start'}
+        justifyContent={'flex-start'}
+      >
+        {myArtistsResponse?.myArtists.map((artist) => (
+          <Grid item xs={3} key={myArtistsResponse?.myArtists.indexOf(artist)}>
+            <Card variant={'outlined'}>
+              <CardMedia component={'img'} alt={'artist image'} image={artist.mediumImage} />
+              <CardHeader title={artist.artistName} />
+              <CardContent>
+                <Typography>Followed since {new Date(artist.followedSince).toLocaleDateString()}</Typography>
+              </CardContent>
+            </Card>
+          </Grid>
+        ))}
+      </Grid>
+      <DefaultPagination
+        totalPages={myArtistsResponse?.pagination.totalPages == null ? 0 : myArtistsResponse?.pagination.totalPages}
+        onChange={handleOnChange}
+      />
     </Container>
   )
 }

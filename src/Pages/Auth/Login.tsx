@@ -5,13 +5,7 @@ import { useCookies } from 'react-cookie'
 import { Navigate } from 'react-router-dom'
 import axios from '../../Config/axios.config'
 import { login } from '../../Router/RestRoutes'
-
-export interface ErrorResponse {
-  readonly timestamp: Date
-  readonly status: number
-  readonly error: string
-  readonly messages: string[]
-}
+import { ErrorResponse } from '../../Api/responseTypes'
 
 export const Login = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false)

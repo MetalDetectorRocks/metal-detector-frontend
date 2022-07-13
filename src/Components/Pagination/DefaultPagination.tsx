@@ -7,10 +7,18 @@ export type PaginationProps = {
 }
 
 const DefaultPagination = (props: PaginationProps) => {
-  return props.totalPages > 0 ? (
-    <Pagination count={props.totalPages} showFirstButton showLastButton boundaryCount={2} onChange={props.onChange} />
-  ) : (
-    <div />
+  return (
+    <>
+      {props.totalPages > 0 && (
+        <Pagination
+          count={props.totalPages}
+          showFirstButton
+          showLastButton
+          boundaryCount={2}
+          onChange={props.onChange}
+        />
+      )}
+    </>
   )
 }
 

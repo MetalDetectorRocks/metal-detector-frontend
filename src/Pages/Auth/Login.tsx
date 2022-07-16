@@ -3,7 +3,7 @@ import { Button, TextField } from '@mui/material'
 import { AxiosError } from 'axios'
 import { useCookies } from 'react-cookie'
 import { Navigate } from 'react-router-dom'
-import axios from '../../Config/axios.config'
+import axios from '../../Config/axios-old.config'
 import { login } from '../../Router/RestRoutes'
 import { ErrorResponse } from '../../Api/responseTypes'
 

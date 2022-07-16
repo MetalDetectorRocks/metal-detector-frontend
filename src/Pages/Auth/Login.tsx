@@ -1,18 +1,25 @@
 import React, { useEffect, useState } from 'react'
-import { Button, TextField } from '@mui/material'
-import { AxiosError } from 'axios'
+import { Typography } from '@mui/material'
 import { useCookies } from 'react-cookie'
 import { Navigate } from 'react-router-dom'
-import axios from '../../Config/axios-old.config'
 import { login } from '../../Router/RestRoutes'
+import useAxios from 'axios-hooks'
+import LoginForm from '../../Components/Login/LoginForm'
+import { AxiosError } from 'axios'
 import { ErrorResponse } from '../../Api/responseTypes'
 
 export const Login = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false)
   const [username, setUsername] = useState<string | null>(null)
   const [password, setPassword] = useState<string | null>(null)
-  const [errorMessage, setErrorMessage] = useState<string | null>(null)
   const [cookie] = useCookies(['Authorization'])
+  const [{ loading, error }, executePost] = useAxios(
+    {
+      url: login.path,
+      method: 'POST',
+    },
+    { manual: true },
+  )
 
   useEffect(() => {
     if (cookie.Authorization != null) {
@@ -22,18 +29,12 @@ export const Login = () => {
 
   const handleSubmit = async (event: React.SyntheticEvent) => {
     event.preventDefault()
-    setErrorMessage(null)
-
-    await axios
-      .post(login.path, {
-        username: username,
-        password: password,
-      })
+    executePost({ data: { username: username, password: password } })
       .then(() => {
         setIsLoggedIn(true)
       })
       .catch((error: AxiosError<ErrorResponse>) => {
-        setErrorMessage(error.response?.data.messages.join(' ') as string)
+        console.log(error.response?.data)
       })
   }
 
@@ -50,25 +51,13 @@ export const Login = () => {
   ) : (
     <>
       <h1>Login</h1>
-      <form onSubmit={handleSubmit.bind(this)}>
-        <TextField
-          type={'text'}
-          name={'username'}
-          label={'Username'}
-          onChange={handleUsernameValueChange.bind(this)}
-          required
-          autoFocus
-        />
-        <TextField
-          type={'password'}
-          name={'password'}
-          label={'Password'}
-          onChange={handlePasswordValueChange.bind(this)}
-          required
-        />
-        {errorMessage != null && <p>{errorMessage}</p>}
-        <Button type={'submit'}>Login</Button>
-      </form>
+      <LoginForm
+        handleSubmit={handleSubmit}
+        handleUsernameValueChange={handleUsernameValueChange}
+        handlePasswordValueChange={handlePasswordValueChange}
+      ></LoginForm>
+      {loading && <Typography>Loading...</Typography>}
+      {error && <p>{error.response?.data.messages.join(' ')}</p>}
     </>
   )
 }

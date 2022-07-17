@@ -5,6 +5,9 @@ import reportWebVitals from './reportWebVitals'
 import './Styles/main.scss'
 import { StyledEngineProvider, ThemeProvider } from '@mui/material'
 import { darkTheme } from './Theme'
+import configureAxios from './Config/axios.config'
+
+configureAxios()
 
 const root = ReactDOM.createRoot(document.getElementById('root')!)
 root.render(

@@ -12,7 +12,7 @@ export type LoginProps = {
 const LoginForm = (props: LoginProps) => {
   const [username, setUsername] = useState<string | null>(null)
   const [password, setPassword] = useState<string | null>(null)
-  const [{ loading, error }, executePost] = useAxios(
+  const [{ loading, error }, executePost] = useAxios<void>(
     {
       url: login.path,
       method: 'POST',

@@ -5,11 +5,15 @@ import React, { useState } from 'react'
 import useAxios from 'axios-hooks'
 import { myArtists } from '../../Router/RestRoutes'
 import DefaultPagination from '../Pagination/DefaultPagination'
-import { Artist } from '../../Api/responseTypes'
+import { Artist, MyArtistsResponse } from '../../Api/responseTypes'
 
 const ArtistGrid = () => {
   const [page, setPage] = useState(1)
-  const [{ data, loading, error }] = useAxios({ url: myArtists.path, method: 'GET', params: { page } })
+  const [{ data, loading, error }] = useAxios<MyArtistsResponse>({
+    url: myArtists.path,
+    method: 'GET',
+    params: { page },
+  })
 
   const handlePaginationChange = (event: React.ChangeEvent<unknown>, page: number) => {
     event.preventDefault()

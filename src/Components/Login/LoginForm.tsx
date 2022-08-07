@@ -1,9 +1,10 @@
-import { Button, TextField, Typography } from '@mui/material'
+import { Button, TextField } from '@mui/material'
 import React, { useState } from 'react'
 import useAxios from 'axios-hooks'
 import { login } from '../../Router/RestRoutes'
 import { AxiosError } from 'axios'
 import { ErrorResponse } from '../../Api/responseTypes'
+import LoadingSpinner from '../Common/LoadingSpinner'
 
 export type LoginProps = {
   setIsLoggedIn: (isLoggedIn: boolean) => void
@@ -39,9 +40,10 @@ const LoginForm = (props: LoginProps) => {
     setPassword(event.target.value)
   }
 
-  return (
+  return loading ? (
+    <LoadingSpinner />
+  ) : (
     <>
-      {loading && <Typography>Loading...</Typography>}
       {error && <p>{error.response?.data.messages.join(' ')}</p>}
       <form onSubmit={handleSubmit.bind(this)}>
         <TextField

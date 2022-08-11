@@ -1,7 +1,7 @@
-import classes from './LoadingSpinner.module.scss'
+import { CircularProgress } from '@mui/material'
 
 const LoadingSpinner = () => {
-  return <div className={classes['loadingSpinner']} />
+  return <CircularProgress color="inherit" sx={{ position: 'absolute', top: '50%', left: '50%' }} />
 }
 
 export default LoadingSpinner

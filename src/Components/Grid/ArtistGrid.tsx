@@ -6,6 +6,7 @@ import useAxios from 'axios-hooks'
 import { myArtists } from '../../Router/RestRoutes'
 import DefaultPagination from '../Pagination/DefaultPagination'
 import { Artist, MyArtistsResponse } from '../../Api/responseTypes'
+import LoadingSpinner from '../Common/LoadingSpinner'
 
 const ArtistGrid = () => {
   const [page, setPage] = useState(1)
@@ -21,9 +22,10 @@ const ArtistGrid = () => {
     setPage(page)
   }
 
-  return (
+  return loading ? (
+    <LoadingSpinner />
+  ) : (
     <>
-      {loading && <Typography>Loading...</Typography>}
       {error && <Typography>Ooops...</Typography>}
       <Grid
         container

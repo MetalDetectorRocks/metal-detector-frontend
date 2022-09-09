@@ -28,12 +28,12 @@
     "@types/react-router-dom": "^5.3.3",
     "axios": "^0.27.2",
     "axios-hooks": "3.1.5",
-    "node-sass": "^7.0.3",
     "react": "^18.1.0",
+    "react-cookie": "4.1.1",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.4.1",
     "react-scripts": "5.0.1",
-    "react-cookie": "4.1.1",
+    "sass": "^1.54.8",
     "typescript": "^4.8.3",
     "web-vitals": "^3.0.2"
   },
@@ -48,7 +48,7 @@
     "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-promise": "^5.2.0",
     "eslint-plugin-react": "^7.31.8",
-    "eslint-plugin-react-hooks":"^4.6.0",
+    "eslint-plugin-react-hooks": "^4.6.0",
     "prettier": "^2.7.1"
   },
   "eslintConfig": {

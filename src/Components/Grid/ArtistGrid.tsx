@@ -37,7 +37,7 @@ const ArtistGrid = () => {
         justifyContent={'flex-start'}
       >
         {data?.myArtists?.map((artist: Artist) => (
-          <Grid item xs={3} key={data.myArtists?.indexOf(artist)}>
+          <Grid item xs={3} key={data.myArtists.indexOf(artist)}>
             <ArtistCard name={artist.artistName} followedSince={artist.followedSince} image={artist.mediumImage} />
           </Grid>
         ))}

@@ -1,3 +1,9 @@
+import ResetPasswordForm from '../../Components/Auth/ResetPassword/ResetPasswordForm'
+
 export const ResetPassword = () => {
-  return <h1>ResetPassword</h1>
+  return (
+    <>
+      <ResetPasswordForm />
+    </>
+  )
 }

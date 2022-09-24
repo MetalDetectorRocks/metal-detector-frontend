@@ -1,0 +1,17 @@
+@import '../../Styles/partials/02-general/general.to-rem';
+
+.auth-container {
+  padding: to-rem(12);
+  max-width: 100%;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  &__logo {
+    margin-top: to-rem(30);
+    margin-bottom: to-rem(30);
+    max-width: 100%;
+    height: auto;
+  }
+}

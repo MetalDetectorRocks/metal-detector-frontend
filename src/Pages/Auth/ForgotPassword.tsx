@@ -1,3 +1,9 @@
+import ForgotPasswordForm from '../../Components/Auth/ForgotPassword/ForgotPasswordForm'
+
 export const ForgotPassword = () => {
-  return <h1>Forgot Password</h1>
+  return (
+    <>
+      <ForgotPasswordForm />
+    </>
+  )
 }

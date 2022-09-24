@@ -1,0 +1,14 @@
+@import '../../Styles/partials/02-general/general.to-rem';
+
+.auth-footer {
+  &__menu {
+    list-style: none;
+    padding-left: to-rem(16);
+  }
+  &__menu-item {
+    display: inline-block;
+  }
+  &__menu-item:not(:last-child) {
+    margin-right: to-rem(16);
+  }
+}

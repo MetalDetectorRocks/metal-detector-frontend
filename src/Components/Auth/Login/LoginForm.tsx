@@ -1,10 +1,11 @@
 import { Button, TextField } from '@mui/material'
 import React, { useState } from 'react'
 import useAxios from 'axios-hooks'
-import { login } from '../../Router/RestRoutes'
+import { login } from '../../../Router/RestRoutes'
 import { AxiosError } from 'axios'
-import { ErrorResponse } from '../../Api/responseTypes'
-import LoadingSpinner from '../Common/LoadingSpinner'
+import { ErrorResponse } from '../../../Api/responseTypes'
+import LoadingSpinner from '../../Common/LoadingSpinner'
+import AuthBox from '../AuthBox'
 
 export type LoginProps = {
   setIsLoggedIn: (isLoggedIn: boolean) => void
@@ -43,7 +44,8 @@ const LoginForm = (props: LoginProps) => {
   return loading ? (
     <LoadingSpinner />
   ) : (
-    <>
+    <AuthBox>
+      <h2>Sign in</h2>
       {error && <p>{error.response?.data.messages.join(' ')}</p>}
       <form onSubmit={handleSubmit.bind(this)}>
         <TextField
@@ -63,7 +65,7 @@ const LoginForm = (props: LoginProps) => {
         />
         <Button type={'submit'}>Login</Button>
       </form>
-    </>
+    </AuthBox>
   )
 }
 

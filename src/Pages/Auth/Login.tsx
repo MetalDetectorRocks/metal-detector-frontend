@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useCookies } from 'react-cookie'
 import { Navigate } from 'react-router-dom'
-import LoginForm from '../../Components/Login/LoginForm'
+import LoginForm from '../../Components/Auth/Login/LoginForm'
 
 export const Login = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false)
@@ -17,7 +17,6 @@ export const Login = () => {
     <Navigate to={'/my-artists'} />
   ) : (
     <>
-      <h1>Login</h1>
       <LoginForm setIsLoggedIn={setIsLoggedIn} />
     </>
   )

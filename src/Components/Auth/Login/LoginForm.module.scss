@@ -1,0 +1,13 @@
+@import '../../../Styles/partials/02-general/general.to-rem';
+
+.form > * {
+  margin-bottom: to-rem(12);
+}
+
+.form {
+  &__footer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+}

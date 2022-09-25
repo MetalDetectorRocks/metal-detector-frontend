@@ -6,7 +6,12 @@
   max-width: to-rem(400);
   padding: to-rem(16);
   margin: auto;
-  background-color: $color-dark-card-background;
+  background-color: $color-primary-background;
   border: 1px solid $color-primary-border;
   border-radius: to-rem(6);
+
+  &__heading {
+    margin-top: to-rem(8);
+    font-size: to-rem(24);
+  }
 }

@@ -4,10 +4,16 @@ import { ReactNode } from 'react'
 
 export type AuthBoxProps = {
   children: ReactNode
+  title: string
 }
 
 const AuthBox = (props: AuthBoxProps) => {
-  return <Box className={classes['auth-box']}>{props.children}</Box>
+  return (
+    <Box className={classes['auth-box']}>
+      <h2 className={classes['auth-box__heading']}>{props.title}</h2>
+      {props.children}
+    </Box>
+  )
 }
 
 export default AuthBox

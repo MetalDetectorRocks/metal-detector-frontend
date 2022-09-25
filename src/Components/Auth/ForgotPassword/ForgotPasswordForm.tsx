@@ -2,8 +2,8 @@ import AuthBox from '../AuthBox'
 
 const ForgotPasswordForm = () => {
   return (
-    <AuthBox>
-      <h2>Forgot Password</h2>
+    <AuthBox title={'Forgot Password'}>
+      <></>
     </AuthBox>
   )
 }

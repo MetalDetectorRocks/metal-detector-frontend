@@ -6,6 +6,7 @@ const darkThemeColorScheme = {
   primaryForeground: '#d3d3d3',
   mutedForeground: '#818181',
   primaryBorder: '#2c3138',
+  secondaryBorder: '#bebebe',
   primaryHighlight: '#bebebe',
   secondaryHighlight: 'rgba(44, 49, 56, 0.35)',
   menuForeground: '#fcfcfc',
@@ -34,7 +35,7 @@ export const darkTheme = createTheme({
       defaultProps: {
         sx: {
           color: 'white',
-          borderColor: 'white',
+          borderColor: colorScheme.secondaryBorder,
           textTransform: 'none',
           '&:hover': {
             color: 'white',
@@ -66,6 +67,13 @@ export const darkTheme = createTheme({
         sx: {
           border: `1px solid ${colorScheme.primaryBorder}`,
           borderRadius: '0.25rem',
+        },
+      },
+    },
+    MuiFormLabel: {
+      defaultProps: {
+        sx: {
+          color: 'white',
         },
       },
     },

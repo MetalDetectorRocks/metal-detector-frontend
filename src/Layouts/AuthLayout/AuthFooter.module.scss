@@ -7,6 +7,7 @@
   }
   &__menu-item {
     display: inline-block;
+    font-size: to-rem(14);
   }
   &__menu-item:not(:last-child) {
     margin-right: to-rem(16);

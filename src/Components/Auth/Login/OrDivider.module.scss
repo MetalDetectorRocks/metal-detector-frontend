@@ -1,0 +1,19 @@
+@import '../../../Styles/partials/02-general/general.to-rem';
+@import '../../../Styles/partials/01-settings/settings.colors';
+
+.divider {
+  display: flex;
+  align-items: center;
+  margin-top: to-rem(16);
+  margin-bottom: to-rem(24);
+
+  &__label {
+    flex-grow: 1;
+    text-align: center;
+  }
+  &__line {
+    background-color: $color-primary-highlight;
+    flex-grow: 5;
+    height: to-rem(1);
+  }
+}

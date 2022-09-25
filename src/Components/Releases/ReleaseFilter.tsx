@@ -15,10 +15,10 @@ import React, { ChangeEvent, useState } from 'react'
 
 export type ReleaseFilterProps = {
   sort: string
-  handleQuerySubmit: (sort: string) => void
+  handleQuerySubmit: (query: string) => void
   handleSortChange: (sort: string) => void
-  handleDirectionChange: (sort: string) => void
-  handleArtistsFilterChange: (sort: string) => void
+  handleDirectionChange: (direction: string) => void
+  handleArtistsFilterChange: (artistsFilter: string) => void
 }
 
 const ReleaseFilter = (props: ReleaseFilterProps) => {

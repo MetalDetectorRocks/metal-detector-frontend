@@ -1,8 +1,7 @@
 export type RestRoute = {
-  name: string
   path: string
 }
 
-export const login = { name: 'Login', path: '/rest/v1/login' }
-export const myArtists = { name: 'My Artists', path: '/rest/v1/my-artists' }
-export const releases = { name: 'Releases', path: '/rest/v1/releases' }
+export const login = { path: '/rest/v1/login' }
+export const myArtists = { path: '/rest/v1/my-artists' }
+export const releases = { path: '/rest/v1/releases' }

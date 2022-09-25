@@ -1,8 +1,14 @@
 @import '../../Styles/partials/01-settings/settings.colors';
 @import '../../Styles/partials/02-general/general.to-rem';
 
-.releaseFilter {
+.release-filter {
+  display: flex;
+  flex-direction: column;
   min-width: 20%;
   padding-left: to-rem(10);
   border-left: to-rem(1) solid $color-primary-border;
+
+  &__search-button {
+    display: none;
+  }
 }

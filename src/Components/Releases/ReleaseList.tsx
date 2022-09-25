@@ -4,6 +4,7 @@ import { List, ListItem } from '@mui/material'
 import ReleaseCard from '../Card/ReleaseCard'
 import Box from '@mui/material/Box'
 import React from 'react'
+import classes from '../Releases/ReleaseList.module.scss'
 
 export type ReleaseListProps = {
   releases: Release[]
@@ -13,21 +14,11 @@ export type ReleaseListProps = {
 
 const ReleaseList = (props: ReleaseListProps) => {
   return (
-    <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+    <Box className={classes['release-list-box']}>
       <List>
         {props.releases.map((release: Release) => (
           <ListItem key={props.releases.indexOf(release)}>
-            <ReleaseCard
-              artist={release.artist}
-              additionalArtists={release.additionalArtists}
-              albumTitle={release.albumTitle}
-              releaseDate={release.releaseDate}
-              announcementDate={release.announcementDate}
-              genre={release.genre}
-              type={release.type}
-              coverUrl={release.coverUrl}
-              reissue={release.reissue}
-            />
+            <ReleaseCard release={release} />
           </ListItem>
         ))}
       </List>

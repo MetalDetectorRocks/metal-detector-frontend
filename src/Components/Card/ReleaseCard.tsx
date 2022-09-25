@@ -1,35 +1,28 @@
 import { Card, CardContent, CardHeader, CardMedia, Typography } from '@mui/material'
 import classes from '../Card/ReleaseCard.module.scss'
 import Box from '@mui/material/Box'
+import { Release } from '../../Api/responseTypes'
 
 export type ReleaseCardProps = {
-  artist: string
-  additionalArtists: string[]
-  albumTitle: string
-  releaseDate: string
-  announcementDate: string
-  genre: string
-  type: string
-  coverUrl: string
-  reissue: boolean
+  release: Release
 }
 
 const ReleaseCard = (props: ReleaseCardProps) => {
   return (
-    <Card variant={'outlined'} className={classes['releaseCard']}>
+    <Card variant={'outlined'} className={classes['release-card']}>
       <CardMedia
         component={'img'}
         alt={'artist image'}
-        image={props.coverUrl}
-        className={classes['releaseCardMedia']}
+        image={props.release.coverUrl}
+        className={classes['release-card__media']}
       />
-      <Box className={classes['cardContent']}>
-        <CardHeader title={`${props.artist} - ${props.albumTitle}`} />
+      <Box className={classes['release-card__content']}>
+        <CardHeader title={`${props.release.artist} - ${props.release.albumTitle}`} />
         <CardContent>
           <Typography variant={'h6'}>Release date</Typography>
-          <Typography>{props.releaseDate}</Typography>
+          <Typography>{props.release.releaseDate}</Typography>
           <Typography variant={'h6'}>Genre</Typography>
-          <Typography>{props.genre}</Typography>
+          <Typography>{props.release.genre}</Typography>
         </CardContent>
       </Box>
     </Card>

@@ -50,15 +50,7 @@ const ReleaseFilter = (props: ReleaseFilterProps) => {
   }
 
   return (
-    <Box
-      className={classes['releaseFilter']}
-      component={'form'}
-      onSubmit={handleQuerySubmit}
-      sx={{
-        display: 'flex',
-        flexDirection: 'column',
-      }}
-    >
+    <Box className={classes['release-filter']} component={'form'} onSubmit={handleQuerySubmit}>
       <Typography variant={'h6'}>Search</Typography>
       <TextField
         autoComplete={'off'}
@@ -68,7 +60,7 @@ const ReleaseFilter = (props: ReleaseFilterProps) => {
         size={'small'}
         onChange={handleCurrentQueryChange}
       />
-      <Button type={'submit'} sx={{ display: 'none' }} />
+      <Button type={'submit'} className={classes['release-filter__search-button']} />
 
       <Typography variant={'h6'}>Sort by</Typography>
       <Select size={'small'} onChange={handleSortChange} value={props.sort}>

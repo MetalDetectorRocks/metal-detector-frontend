@@ -8,6 +8,7 @@ import { ReleasesResponse } from '../Api/responseTypes'
 import { releases } from '../Router/RestRoutes'
 import LoadingSpinner from '../Components/Common/LoadingSpinner'
 import { Typography } from '@mui/material'
+import classes from '../Pages/Release.module.scss'
 
 export const Releases = () => {
   const [query, setQuery] = useState('')
@@ -33,7 +34,7 @@ export const Releases = () => {
       {loading && <LoadingSpinner />}
       {error && <Typography>Ooops...</Typography>}
       {data?.items && data?.items?.length > 0 && (
-        <Box sx={{ display: 'flex', flexDirection: 'row' }}>
+        <Box className={classes['releases-box']}>
           <ReleaseList
             releases={data.items}
             handlePaginationChange={handlePaginationChange}

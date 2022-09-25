@@ -6,8 +6,10 @@ import './Styles/main.scss'
 import { StyledEngineProvider, ThemeProvider } from '@mui/material'
 import { darkTheme } from './Theme'
 import configureAxios from './Config/axios.config'
+import configureDaysJs from './Config/daysjs.config'
 
 configureAxios()
+configureDaysJs()
 
 const root = ReactDOM.createRoot(document.getElementById('root')!)
 root.render(

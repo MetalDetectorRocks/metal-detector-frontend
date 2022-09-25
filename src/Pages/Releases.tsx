@@ -16,16 +16,27 @@ export const Releases = () => {
   const [direction, setDirection] = useState('asc')
   const [releasesFilter, setReleasesFilter] = useState('all')
   const [page, setPage] = useState(1)
+  const [date, setDate] = useState({
+    dateFrom: '',
+    dateTo: '',
+  })
   const [{ data, loading, error }] = useAxios<ReleasesResponse>({
     url: releases.path,
     method: 'GET',
-    params: { page, sort, direction, releasesFilter, query },
+    params: { page, sort, direction, releasesFilter, query, dateFrom: date.dateFrom, dateTo: date.dateTo },
   })
 
   const handlePaginationChange = (event: ChangeEvent<unknown>, page: number) => {
     event.preventDefault()
     window.scrollTo(0, 0)
     setPage(page)
+  }
+
+  const handleDateChange = (dateFrom: string, dateTo: string) => {
+    setDate({
+      dateFrom: dateFrom,
+      dateTo: dateTo,
+    })
   }
 
   return (
@@ -46,6 +57,7 @@ export const Releases = () => {
             handleSortChange={setSort}
             handleDirectionChange={setDirection}
             handleArtistsFilterChange={setReleasesFilter}
+            handleDateChange={handleDateChange}
           />
         </Box>
       )}

@@ -3,7 +3,7 @@ import ArtistGrid from '../Components/Grid/ArtistGrid'
 
 export const MyArtists = () => {
   return (
-    <Container maxWidth={'lg'}>
+    <Container maxWidth="lg">
       <h1>MyArtists</h1>
       <ArtistGrid />
     </Container>

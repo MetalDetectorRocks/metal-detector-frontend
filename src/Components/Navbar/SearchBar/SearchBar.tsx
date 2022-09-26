@@ -17,7 +17,7 @@ const SearchBar = (props: SearchBarProps) => {
         autoComplete={'off'}
         fullWidth
         className={classes['search']}
-        placeholder={'Search Artist or Release...'}
+        placeholder={'Search Artist...'}
         autoFocus={props.autofocus}
       />
       <IconButton edge="start" size="medium" onClick={handleSearch} className={classes['search__go-icon']}>

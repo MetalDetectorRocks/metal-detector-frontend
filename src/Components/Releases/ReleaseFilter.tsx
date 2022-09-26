@@ -12,7 +12,7 @@ import {
 } from '@mui/material'
 import MenuItem from '@mui/material/MenuItem'
 import React, { ChangeEvent, useState } from 'react'
-import dayjs from 'dayjs'
+import useDaysJs from '../../Hooks/customHooks'
 
 export type ReleaseFilterProps = {
   sort: string
@@ -25,6 +25,7 @@ export type ReleaseFilterProps = {
 
 const ReleaseFilter = (props: ReleaseFilterProps) => {
   const [currentQuery, setCurrentQuery] = useState('')
+  const [today, inOneMonth, oneMonthAgo] = useDaysJs()
 
   const handleQuerySubmit = (event: React.SyntheticEvent) => {
     event.preventDefault()
@@ -58,11 +59,11 @@ const ReleaseFilter = (props: ReleaseFilterProps) => {
     let dateTo = ''
 
     if (value === 'next') {
-      dateFrom = dayjs().format('YYYY-MM-DD')
-      dateTo = dayjs().add(1, 'month').format('YYYY-MM-DD')
+      dateFrom = today
+      dateTo = inOneMonth
     } else if (value === 'last') {
-      dateFrom = dayjs().subtract(1, 'month').format('YYYY-MM-DD')
-      dateTo = dayjs().format('YYYY-MM-DD')
+      dateFrom = oneMonthAgo
+      dateTo = today
     }
 
     props.handleDateChange(dateFrom, dateTo)

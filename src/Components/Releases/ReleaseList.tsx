@@ -10,6 +10,7 @@ export type ReleaseListProps = {
   releases: Release[]
   pagination: BackendPagination
   handlePaginationChange: (event: React.ChangeEvent<unknown>, page: number) => void
+  showAnnouncementDate: boolean
 }
 
 const ReleaseList = (props: ReleaseListProps) => {
@@ -18,7 +19,7 @@ const ReleaseList = (props: ReleaseListProps) => {
       <List>
         {props.releases.map((release: Release) => (
           <ListItem key={props.releases.indexOf(release)}>
-            <ReleaseCard release={release} />
+            <ReleaseCard release={release} showAnnouncementDate={props.showAnnouncementDate} />
           </ListItem>
         ))}
       </List>

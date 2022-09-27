@@ -1,10 +1,10 @@
 import dayjs from 'dayjs'
 
 function useDaysJs(): string[] {
-  const inOneMonth = dayjs().add(1, 'month').format(DateFormat.UTC)
-  const oneMonthAgo = dayjs().subtract(1, 'month').format(DateFormat.UTC)
-  const today = dayjs().format(DateFormat.UTC)
-  return [today, inOneMonth, oneMonthAgo]
+  const today = dayjs()
+  const inOneMonth = today.add(1, 'month')
+  const oneMonthAgo = today.subtract(1, 'month')
+  return [today.format(DateFormat.UTC), inOneMonth.format(DateFormat.UTC), oneMonthAgo.format(DateFormat.UTC)]
 }
 
 enum DateFormat {

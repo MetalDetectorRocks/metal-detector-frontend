@@ -7,18 +7,21 @@ import { StyledEngineProvider, ThemeProvider } from '@mui/material'
 import { darkTheme } from './Theme'
 import configureAxios from './Config/axios.config'
 import configureDaysJs from './Config/daysjs.config'
+import { AuthProvider } from './Context/AuthProvider'
 
-configureAxios()
+configureAxios() // ToDo DanielW: maybe not needed this way, decide later
 configureDaysJs()
 
 const root = ReactDOM.createRoot(document.getElementById('root')!)
 root.render(
   <React.StrictMode>
-    <StyledEngineProvider injectFirst>
-      <ThemeProvider theme={darkTheme}>
-        <App />
-      </ThemeProvider>
-    </StyledEngineProvider>
+    <AuthProvider>
+      <StyledEngineProvider injectFirst>
+        <ThemeProvider theme={darkTheme}>
+          <App />
+        </ThemeProvider>
+      </StyledEngineProvider>
+    </AuthProvider>
   </React.StrictMode>,
 )
 

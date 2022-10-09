@@ -5,7 +5,7 @@ import Box from '@mui/material/Box'
 import { ChangeEvent, useState } from 'react'
 import useAxios from 'axios-hooks'
 import { ReleasesResponse } from '../Api/responseTypes'
-import { releases } from '../Router/RestRoutes'
+import { REST_ROUTES } from '../Router/RestRoutes'
 import LoadingSpinner from '../Components/Common/LoadingSpinner'
 import { Typography } from '@mui/material'
 import classes from '../Pages/Release.module.scss'
@@ -21,7 +21,7 @@ export const Releases = () => {
     dateTo: '',
   })
   const [{ data, loading, error }] = useAxios<ReleasesResponse>({
-    url: releases.path,
+    url: REST_ROUTES.releases,
     method: 'GET',
     params: { page, sort, direction, releasesFilter, query, dateFrom: date.dateFrom, dateTo: date.dateTo },
   })

@@ -31,6 +31,7 @@ export const darkTheme = createTheme({
     divider: colorScheme.primaryBorder,
   },
   components: {
+    // TODO DanielW: should be overridden in scss
     MuiButton: {
       defaultProps: {
         sx: {
@@ -59,14 +60,6 @@ export const darkTheme = createTheme({
       defaultProps: {
         sx: {
           color: colorScheme.primaryForeground,
-        },
-      },
-    },
-    MuiTextField: {
-      defaultProps: {
-        sx: {
-          border: `1px solid ${colorScheme.primaryBorder}`,
-          borderRadius: '0.25rem',
         },
       },
     },

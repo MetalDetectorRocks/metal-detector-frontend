@@ -24,9 +24,9 @@ import {
   spotifySynchronization,
   privacyPolicy,
   imprint,
-  login,
+  signIn,
   forgotPassword,
-  register,
+  signUp,
   resetPassword,
 } from './InternalRoutes'
 
@@ -47,8 +47,8 @@ export const AppRouter = () => {
           <Route path="*" element={<NotFound />} />
         </Route>
         <Route element={<AuthLayout />}>
-          <Route path={login.path} element={<Login />} />
-          <Route path={register.path} element={<Register />} />
+          <Route path={signIn.path} element={<Login />} />
+          <Route path={signUp.path} element={<Register />} />
           <Route path={forgotPassword.path} element={<ForgotPassword />} />
           <Route path={resetPassword.path} element={<ResetPassword />} />
         </Route>

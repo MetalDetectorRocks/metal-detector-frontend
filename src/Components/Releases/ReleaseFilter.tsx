@@ -12,6 +12,7 @@ import {
 } from '@mui/material'
 import MenuItem from '@mui/material/MenuItem'
 import React, { ChangeEvent, useState } from 'react'
+import useDaysJs from '../../Hooks/customHooks'
 
 export type ReleaseFilterProps = {
   sort: string
@@ -19,10 +20,12 @@ export type ReleaseFilterProps = {
   handleSortChange: (sort: string) => void
   handleDirectionChange: (direction: string) => void
   handleArtistsFilterChange: (artistsFilter: string) => void
+  handleDateChange: (dateFrom: string, dateTo: string) => void
 }
 
 const ReleaseFilter = (props: ReleaseFilterProps) => {
   const [currentQuery, setCurrentQuery] = useState('')
+  const [today, inOneMonth, oneMonthAgo] = useDaysJs()
 
   const handleQuerySubmit = (event: React.SyntheticEvent) => {
     event.preventDefault()
@@ -47,6 +50,23 @@ const ReleaseFilter = (props: ReleaseFilterProps) => {
   const handleArtistsFilterChange = (event: React.SyntheticEvent) => {
     const value = (event.target as HTMLInputElement).value
     props.handleArtistsFilterChange(value)
+  }
+
+  const handleDateChange = (event: React.SyntheticEvent) => {
+    const value = (event.target as HTMLInputElement).value
+
+    let dateFrom = ''
+    let dateTo = ''
+
+    if (value === 'next') {
+      dateFrom = today
+      dateTo = inOneMonth
+    } else if (value === 'last') {
+      dateFrom = oneMonthAgo
+      dateTo = today
+    }
+
+    props.handleDateChange(dateFrom, dateTo)
   }
 
   return (
@@ -88,9 +108,9 @@ const ReleaseFilter = (props: ReleaseFilterProps) => {
       </RadioGroup>
       <Typography variant={'h6'}>Time</Typography>
       <RadioGroup defaultValue={'all'}>
-        <FormControlLabel control={<Radio />} label={'All upcoming'} value={'all'} />
-        <FormControlLabel control={<Radio />} label={'Next 30 days'} value={'next'} />
-        <FormControlLabel control={<Radio />} label={'Last 30 days'} value={'last'} />
+        <FormControlLabel control={<Radio />} label={'All upcoming'} value={'all'} onChange={handleDateChange} />
+        <FormControlLabel control={<Radio />} label={'Next 30 days'} value={'next'} onChange={handleDateChange} />
+        <FormControlLabel control={<Radio />} label={'Last 30 days'} value={'last'} onChange={handleDateChange} />
       </RadioGroup>
     </Box>
   )

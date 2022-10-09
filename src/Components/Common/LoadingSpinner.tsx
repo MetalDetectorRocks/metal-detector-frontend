@@ -1,7 +1,8 @@
 import { CircularProgress } from '@mui/material'
+import classes from '../Common/LoadingSpinner.module.css'
 
 const LoadingSpinner = () => {
-  return <CircularProgress color="inherit" sx={{ position: 'absolute', top: '50%', left: '50%' }} />
+  return <CircularProgress color="inherit" className={classes['loading-spinner']} />
 }
 
 export default LoadingSpinner

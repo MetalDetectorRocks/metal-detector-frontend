@@ -1,8 +1,8 @@
-import axios from 'axios'
+import Axios from 'axios'
 import { PathLike } from 'fs'
 import qs from 'qs'
 
-export default axios.create({
+export default Axios.create({
   baseURL: process.env.REACT_APP_BACKEND_URL,
   withCredentials: true,
   timeout: 60000,

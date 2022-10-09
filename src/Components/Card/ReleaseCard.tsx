@@ -5,6 +5,7 @@ import { Release } from '../../Api/responseTypes'
 
 export type ReleaseCardProps = {
   release: Release
+  showAnnouncementDate: boolean
 }
 
 const ReleaseCard = (props: ReleaseCardProps) => {
@@ -21,6 +22,12 @@ const ReleaseCard = (props: ReleaseCardProps) => {
         <CardContent>
           <Typography variant={'h6'}>Release date</Typography>
           <Typography>{props.release.releaseDate}</Typography>
+          {props.showAnnouncementDate && (
+            <>
+              <Typography variant={'h6'}>Announcement date</Typography>
+              <Typography>{props.release.announcementDate}</Typography>
+            </>
+          )}
           <Typography variant={'h6'}>Genre</Typography>
           <Typography>{props.release.genre}</Typography>
         </CardContent>

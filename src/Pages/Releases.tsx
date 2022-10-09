@@ -50,6 +50,7 @@ export const Releases = () => {
             releases={data.items}
             handlePaginationChange={handlePaginationChange}
             pagination={data.pagination}
+            showAnnouncementDate={sort == 'announcement_date'}
           />
           <ReleaseFilter
             sort={sort}

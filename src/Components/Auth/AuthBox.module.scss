@@ -14,4 +14,8 @@
     margin-top: to-rem(8);
     font-size: to-rem(24);
   }
+
+  &__error {
+    margin-bottom: to-rem(24);
+  }
 }

@@ -3,15 +3,15 @@ import ArtistCard from '../Card/ArtistCard'
 import classes from './ArtistGrid.module.scss'
 import React, { useState } from 'react'
 import useAxios from 'axios-hooks'
-import { myArtists } from '../../Router/RestRoutes'
 import DefaultPagination from '../Pagination/DefaultPagination'
 import { Artist, MyArtistsResponse } from '../../Api/responseTypes'
 import LoadingSpinner from '../Common/LoadingSpinner'
+import { REST_ROUTES } from '../../Router/RestRoutes'
 
 const ArtistGrid = () => {
   const [page, setPage] = useState(1)
   const [{ data, loading, error }] = useAxios<MyArtistsResponse>({
-    url: myArtists.path,
+    url: REST_ROUTES.myArtists,
     method: 'GET',
     params: { page },
   })

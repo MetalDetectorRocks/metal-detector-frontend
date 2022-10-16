@@ -1,0 +1,22 @@
+.MuiLoadingButton {
+  &-root {
+    &.Mui-disabled {
+      border: 1px solid $color-muted-foreground;
+    }
+  }
+
+  &-loadingIndicator {
+    color: $color-primary-foreground;
+  }
+}
+
+.MuiOutlinedInput {
+  &-root {
+    border: 1px solid $color-primary-border;
+    border-radius: to-rem(4);
+
+    &.Mui-focused {
+      border: 0
+    }
+  }
+}

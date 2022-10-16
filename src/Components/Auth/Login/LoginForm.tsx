@@ -1,86 +1,64 @@
-import { Button, FormGroup, TextField } from '@mui/material'
-import React, { useState } from 'react'
-import useAxios from 'axios-hooks'
-import { login } from '../../../Router/RestRoutes'
-import { AxiosError } from 'axios'
-import { ErrorResponse } from '../../../Api/responseTypes'
+import { FormGroup, TextField } from '@mui/material'
 import AuthBox from '../AuthBox'
 import Box from '@mui/material/Box'
 import classes from './LoginForm.module.scss'
-import { forgotPassword, register } from '../../../Router/InternalRoutes'
+import { forgotPassword, signUp } from '../../../Router/InternalRoutes'
 import { NavLink } from 'react-router-dom'
 import OrDivider from './OrDivider'
 import GoogleLogin from './GoogleLogin'
+import { SubmitHandler, useForm } from 'react-hook-form'
+import { SignInRequest } from '../../../Api/Model/Request/SignInRequest'
+import { LoadingButton } from '@mui/lab'
+import useSignIn from '../../../Hooks/useSignIn'
 
-export type LoginProps = {
-  setIsLoggedIn: (isLoggedIn: boolean) => void
-}
+const LoginForm = () => {
+  const { signInHandler, errorMsg, isLoading } = useSignIn()
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm<SignInRequest>({ mode: 'onSubmit' })
 
-const LoginForm = (props: LoginProps) => {
-  const [username, setUsername] = useState<string | null>(null)
-  const [password, setPassword] = useState<string | null>(null)
-  const [{ error }, executePost] = useAxios<void>(
-    {
-      url: login.path,
-      method: 'POST',
-    },
-    { manual: true },
-  )
-
-  const handleSubmit = async (event: React.SyntheticEvent) => {
-    event.preventDefault()
-    executePost({ data: { username: username, password: password } })
-      .then(() => {
-        props.setIsLoggedIn(true)
-      })
-      .catch((error: AxiosError<ErrorResponse>) => {
-        console.log(error.response?.data)
-      })
-  }
-
-  const handleUsernameValueChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setUsername(event.target.value)
-  }
-
-  const handlePasswordValueChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setPassword(event.target.value)
+  const onSubmit: SubmitHandler<SignInRequest> = (request) => {
+    signInHandler(request)
+    reset()
   }
 
   return (
-    <AuthBox title={'Sign in'}>
-      {error && <p>{error.response?.data.messages.join(' ')}</p>}
-      <Box component={'form'}>
+    <AuthBox title={'Sign in'} errorMsg={errorMsg}>
+      <Box component={'form'} onSubmit={handleSubmit(onSubmit)}>
         <FormGroup className={classes['form']}>
           <TextField
             type={'text'}
-            name={'username'}
             label={'Username or email address'}
             variant={'outlined'}
             color={'secondary'}
-            autoComplete={'username'}
-            onChange={handleUsernameValueChange.bind(this)}
-            required
+            autoComplete={'off'}
             autoFocus
+            {...register('username', { required: true })}
+            error={!!errors.username}
+            helperText={errors.username && 'This field is required'}
           />
           <TextField
             type={'password'}
-            name={'password'}
             label={'Password'}
             variant={'outlined'}
             color={'secondary'}
-            autoComplete={'current-password'}
-            onChange={handlePasswordValueChange.bind(this)}
-            required
+            autoComplete={'off'}
+            {...register('password', { required: true })}
+            error={!!errors.password}
+            helperText={errors.username && 'This field is required'}
           />
-          <Button variant={'outlined'} type={'button'} size={'large'} onClick={handleSubmit.bind(this)}>
+          <LoadingButton variant={'outlined'} type={'submit'} size={'large'} loading={isLoading}>
             Sign in
-          </Button>
+          </LoadingButton>
         </FormGroup>
         <OrDivider />
         <GoogleLogin />
         <Box component={'div'} className={classes['form__footer']}>
           <p>
-            New user? <NavLink to={register.path}>Join now!</NavLink>
+            New user? <NavLink to={signUp.path}>Join now!</NavLink>
           </p>
           <p>
             <NavLink to={forgotPassword.path}>{forgotPassword.name}?</NavLink>

@@ -15,7 +15,6 @@ const configureAxios = () => {
       'Content-Type': 'application/json',
       Accept: 'application/json',
     },
-    paramsSerializer: (params: PathLike) => qs.stringify(params, { indices: false }),
   })
 
   axios.interceptors.request.use(async (config: AxiosRequestConfig) => {

@@ -1,6 +1,4 @@
 import Axios, { AxiosRequestConfig, AxiosResponse } from 'axios'
-import { PathLike } from 'fs'
-import qs from 'qs'
 import { configure } from 'axios-hooks'
 import { REST_ROUTES } from '../Router/RestRoutes'
 

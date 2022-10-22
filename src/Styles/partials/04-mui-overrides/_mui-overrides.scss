@@ -1,3 +1,23 @@
+.MuiButton {
+  &-root {
+    color: white;
+    background-color: $color-secondary-background;
+    border-color: $color-primary-border;
+    text-transform: none;
+    &:hover {
+      color: white;
+      border-color: $color-primary-highlight;
+      background-color: $color-secondary-highlight;
+    }
+  }
+}
+
+.MuiFormLabel {
+  &-root {
+    color: $color-primary-foreground;
+  }
+}
+
 .MuiLoadingButton {
   &-root {
     &.Mui-disabled {
@@ -10,6 +30,15 @@
   }
 }
 
+.MuiMenuItem {
+  &-root {
+    color: $color-menu-foreground;
+    &-hover {
+      background-color: $color-secondary-highlight;
+    }
+  }
+}
+
 .MuiOutlinedInput {
   &-root {
     border: 1px solid $color-primary-border;
@@ -18,5 +47,11 @@
     &.Mui-focused {
       border: 0
     }
+  }
+}
+
+.MuiSvgIcon {
+  &-root {
+    color: $color-primary-foreground;
   }
 }

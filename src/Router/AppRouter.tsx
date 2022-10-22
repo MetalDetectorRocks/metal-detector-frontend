@@ -12,6 +12,7 @@ import { AccountDetails } from '../Pages/Settings/AccountDetails'
 import { NotificationSettings } from '../Pages/Settings/NotificationSettings'
 import { SpotifySynchronization } from '../Pages/Settings/SpotifySynchronization'
 import { SearchResults } from '../Pages/SearchResults'
+import { Unauthorized } from '../Pages/Unauthorized'
 import { ForgotPassword } from '../Pages/Auth/ForgotPassword'
 import { ResetPassword } from '../Pages/Auth/ResetPassword'
 import { Register } from '../Pages/Auth/Register'
@@ -29,9 +30,12 @@ import {
   signUp,
   resetPassword,
   adminArea,
+  unauthorized,
 } from './InternalRoutes'
 import { AdminLayout } from '../Layouts/AdminLayout/AdminLayout'
 import { AdminDashboard } from '../Pages/Admin/AdminDashboard'
+import RequireAuth from '../Components/Auth/RequireAuth'
+import { UserRole } from '../Api/Model/UserRole'
 
 export const AppRouter = () => {
   return (
@@ -44,12 +48,15 @@ export const AppRouter = () => {
           <Route path={search.path} element={<SearchResults />} />
           <Route path={imprint.path} element={<Imprint />} />
           <Route path={privacyPolicy.path} element={<PrivacyPolicy />} />
+          <Route path={unauthorized.path} element={<Unauthorized />} />
 
           {/* Protected routes */}
-          <Route path={myArtists.path} element={<MyArtists />} />
-          <Route path={account.path} element={<AccountDetails />} />
-          <Route path={notificationSettings.path} element={<NotificationSettings />} />
-          <Route path={spotifySynchronization.path} element={<SpotifySynchronization />} />
+          <Route element={<RequireAuth allowedRoles={[UserRole.User, UserRole.Administrator]} />}>
+            <Route path={myArtists.path} element={<MyArtists />} />
+            <Route path={account.path} element={<AccountDetails />} />
+            <Route path={notificationSettings.path} element={<NotificationSettings />} />
+            <Route path={spotifySynchronization.path} element={<SpotifySynchronization />} />
+          </Route>
 
           {/* Catch all */}
           <Route path="*" element={<NotFound />} />
@@ -65,7 +72,9 @@ export const AppRouter = () => {
 
         <Route element={<AdminLayout />}>
           {/* Protected routes */}
-          <Route path={adminArea.path} element={<AdminDashboard />} />
+          <Route element={<RequireAuth allowedRoles={[UserRole.Administrator]} />}>
+            <Route path={adminArea.path} element={<AdminDashboard />} />
+          </Route>
         </Route>
       </Routes>
     </BrowserRouter>

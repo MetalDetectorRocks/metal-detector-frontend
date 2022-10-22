@@ -8,7 +8,6 @@
 
   @include respond-above(md) {
     display: block;
-    border: 1px solid $color-primary-border;
     margin-left: to-rem(25);
     margin-right: to-rem(25);
   }

@@ -18,7 +18,7 @@ import { useTheme } from '@mui/material/styles'
 import useMediaQuery from '@mui/material/useMediaQuery'
 
 const Navbar = () => {
-  const [authenticated] = useState(false) // ToDo DanielW: Init auth state
+  const [authenticated] = useState(true) // ToDo DanielW: Init auth state
   const [searchBarOpened, setSearchBarOpened] = useState(false)
   const theme = useTheme()
   const aboveMdBreakpoint = useMediaQuery(theme.breakpoints.up('md'))

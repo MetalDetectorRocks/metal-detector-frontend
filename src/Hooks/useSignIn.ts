@@ -7,11 +7,15 @@ import API from '../Api/Axios'
 import { useAuthContext } from '../Context/AuthContext'
 import { SignInResponse } from '../Api/Model/Response/SignInResponse'
 import { home } from '../Router/InternalRoutes'
-import { useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
+import { User } from '../Api/Model/User'
 
 const useSignIn = () => {
   const { setCtx } = useAuthContext()
   const navigate = useNavigate()
+  const location = useLocation()
+  const from = location.state?.from?.pathname || home.path
+
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [errorMsg, setErrorMsg] = useState<string>('')
 
@@ -21,13 +25,10 @@ const useSignIn = () => {
       .then((response) => {
         const signInResponse = response.data
         setCtx({
-          user: {
-            username: signInResponse.username,
-            roles: signInResponse.roles,
-          },
+          user: new User(signInResponse.username, signInResponse.roles),
           accessToken: signInResponse.token,
         })
-        navigate(home.path)
+        navigate(from, { replace: true })
       })
       .catch((error: AxiosError<ErrorResponse>) => {
         const responseMessage = error.response?.data?.messages[0] || error.message

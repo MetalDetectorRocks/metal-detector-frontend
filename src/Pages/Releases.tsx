@@ -1,4 +1,3 @@
-import Container from '@mui/material/Container'
 import ReleaseList from '../Components/Releases/ReleaseList'
 import ReleaseFilter from '../Components/Releases/ReleaseFilter'
 import Box from '@mui/material/Box'
@@ -40,7 +39,7 @@ export const Releases = () => {
   }
 
   return (
-    <Container maxWidth="lg">
+    <>
       <h1>Releases</h1>
       {loading && <LoadingSpinner />}
       {error && <Typography>Ooops...</Typography>}
@@ -62,6 +61,6 @@ export const Releases = () => {
           />
         </Box>
       )}
-    </Container>
+    </>
   )
 }

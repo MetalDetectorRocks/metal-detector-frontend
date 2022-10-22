@@ -1,5 +1,6 @@
+@use "sass:math";
 @import '../01-settings/settings.typography';
 
 @function to-rem($size-in-px) {
-  @return $size-in-px / 16 * $base-font-size;
+  @return math.div($size-in-px, 16) * $base-font-size;
 }

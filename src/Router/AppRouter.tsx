@@ -36,14 +36,17 @@ import { AdminLayout } from '../Layouts/AdminLayout/AdminLayout'
 import { AdminDashboard } from '../Pages/Admin/AdminDashboard'
 import RequireAuth from '../Components/Auth/RequireAuth'
 import { UserRole } from '../Api/Model/UserRole'
+import useUser from '../Hooks/useUser'
+import { LandingPage } from '../Pages/Landing'
 
 export const AppRouter = () => {
+  const { isAuthenticated } = useUser()
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<MainLayout />}>
           {/* Public routes */}
-          <Route index element={<Home />} />
+          <Route index element={isAuthenticated ? <Home /> : <LandingPage />} />
           <Route path={releases.path} element={<Releases />} />
           <Route path={search.path} element={<SearchResults />} />
           <Route path={imprint.path} element={<Imprint />} />

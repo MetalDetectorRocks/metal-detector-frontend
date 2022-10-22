@@ -16,9 +16,10 @@ import { useState } from 'react'
 import AuthenticationMenu from './AuthenticationMenu/AuthenticationMenu'
 import { useTheme } from '@mui/material/styles'
 import useMediaQuery from '@mui/material/useMediaQuery'
+import useUser from '../../Hooks/useUser'
 
 const Navbar = () => {
-  const [authenticated] = useState(true) // ToDo DanielW: Init auth state
+  const { isAuthenticated } = useUser()
   const [searchBarOpened, setSearchBarOpened] = useState(false)
   const theme = useTheme()
   const aboveMdBreakpoint = useMediaQuery(theme.breakpoints.up('md'))
@@ -36,7 +37,7 @@ const Navbar = () => {
         <Toolbar disableGutters className={classes['app-bar__toolbar']}>
           {renderLogo && (
             <>
-              <MobileMenu authenticated={authenticated} />
+              <MobileMenu authenticated={isAuthenticated} />
               <Link to={home.path}>
                 <Box component={'img'} className={classes['app-bar__logo']} alt={'Metal Detector Logo'} src={logo} />
               </Link>
@@ -44,9 +45,9 @@ const Navbar = () => {
           )}
           {renderSearchBar && <SearchBar autofocus={!aboveMdBreakpoint} />}
           <Box className={classes['app-bar__menu']}>
-            <SiteMenu authenticated={authenticated} />
-            {!authenticated && <AuthenticationMenu />}
-            {authenticated && <UserMenu />}
+            <SiteMenu authenticated={isAuthenticated} />
+            {!isAuthenticated && <AuthenticationMenu />}
+            {isAuthenticated && <UserMenu />}
           </Box>
           <IconButton
             edge="start"

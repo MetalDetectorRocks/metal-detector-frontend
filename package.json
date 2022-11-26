@@ -27,7 +27,7 @@
     "@types/react-dom": "^18.0.9",
     "@types/react-router": "^5.1.19",
     "@types/react-router-dom": "^5.3.3",
-    "axios": "^0.27.2",
+    "axios": "^1.2.0",
     "axios-hooks": "4.0.0",
     "dayjs": "^1.11.6",
     "react": "^18.1.0",
@@ -71,5 +71,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "jest": {
+    "transformIgnorePatterns": ["<rootDir>/node_modules/(?!(axios)/)"]
   }
 }

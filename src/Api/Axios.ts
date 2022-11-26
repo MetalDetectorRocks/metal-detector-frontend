@@ -1,5 +1,4 @@
 import Axios from 'axios'
-import { PathLike } from 'fs'
 import qs from 'qs'
 
 export default Axios.create({
@@ -12,5 +11,5 @@ export default Axios.create({
     'Content-Type': 'application/json',
     Accept: 'application/json',
   },
-  paramsSerializer: (params: PathLike) => qs.stringify(params, { indices: false }),
+  paramsSerializer: { serialize: (params: Record<string, any>) => qs.stringify(params, { indices: false }) },
 })

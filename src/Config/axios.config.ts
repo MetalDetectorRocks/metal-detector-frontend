@@ -1,5 +1,4 @@
 import Axios, { AxiosRequestConfig, AxiosResponse } from 'axios'
-import { PathLike } from 'fs'
 import qs from 'qs'
 import { configure } from 'axios-hooks'
 import { REST_ROUTES } from '../Router/RestRoutes'
@@ -15,7 +14,7 @@ const configureAxios = () => {
       'Content-Type': 'application/json',
       Accept: 'application/json',
     },
-    paramsSerializer: (params: PathLike) => qs.stringify(params, { indices: false }),
+    paramsSerializer: { serialize: (params: Record<string, any>) => qs.stringify(params, { indices: false }) },
   })
 
   axios.interceptors.request.use(async (config: AxiosRequestConfig) => {

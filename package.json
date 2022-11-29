@@ -15,9 +15,9 @@
   "dependencies": {
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",
-    "@mui/icons-material": "^5.10.15",
-    "@mui/lab": "^5.0.0-alpha.109",
-    "@mui/material": "^5.10.15",
+    "@mui/icons-material": "^5.10.16",
+    "@mui/lab": "^5.0.0-alpha.110",
+    "@mui/material": "^5.10.16",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^14.4.3",
@@ -33,7 +33,7 @@
     "react": "^18.1.0",
     "react-cookie": "4.1.1",
     "react-dom": "^18.2.0",
-    "react-hook-form": "^7.39.5",
+    "react-hook-form": "^7.39.7",
     "react-router-dom": "^6.4.3",
     "react-scripts": "5.0.1",
     "sass": "^1.56.1",
@@ -41,8 +41,8 @@
     "web-vitals": "^3.1.0"
   },
   "devDependencies": {
-    "@typescript-eslint/eslint-plugin": "^5.44.0",
-    "@typescript-eslint/parser": "^5.44.0",
+    "@typescript-eslint/eslint-plugin": "^5.45.0",
+    "@typescript-eslint/parser": "^5.45.0",
     "eslint": "^8.28.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-config-standard": "^17.0.0",

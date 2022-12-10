@@ -1,6 +1,19 @@
-export type User = {
-  username: string
-  roles: string[]
-}
+import { UserRole } from './UserRole'
 
-// TODO DanielW: maybe a role enum later and some convenient method to check if user is admin or user
+export class User {
+  username = ''
+  roles: string[] = []
+
+  constructor(username: string, roles: string[]) {
+    this.username = username
+    this.roles = roles
+  }
+
+  isUser() {
+    return this.roles.includes(UserRole.User)
+  }
+
+  isAdmin() {
+    return this.roles.includes(UserRole.Administrator)
+  }
+}

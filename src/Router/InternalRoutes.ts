@@ -19,4 +19,5 @@ export const signUp = { name: 'Register', path: '/sign-up' }
 export const forgotPassword = { name: 'Forgot Password', path: '/forgot-password' }
 export const resetPassword = { name: 'Reset Password', path: '/reset-password' }
 export const logout = { name: 'Logout', path: '/' }
+export const unauthorized = { name: 'Unauthorized', path: '/unauthorized' }
 export const adminArea = { name: 'Admin Area', path: '/admin' }

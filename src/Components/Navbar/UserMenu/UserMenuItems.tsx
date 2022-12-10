@@ -11,12 +11,13 @@ import {
   logout,
   home,
 } from '../../../Router/InternalRoutes'
-import { useState } from 'react'
 import classes from './UserMenuItems.module.scss'
+import useUser from '../../../Hooks/useUser'
 
 const UserMenuItems = () => {
   const navigate = useNavigate()
-  const [isAdmin] = useState(true) // ToDo: init isAdmin vs. isUser
+  const { user } = useUser()
+
   const handleLogout = () => {
     // ToDo: Handle Logout
     navigate(home.path, { replace: true })
@@ -54,7 +55,7 @@ const UserMenuItems = () => {
           {notificationSettings.name}
         </MenuItem>
       </NavLink>
-      {isAdmin && (
+      {user?.isAdmin() && (
         <NavLink to={adminArea.path} className={({ isActive }) => (isActive ? classes['user-menu__item-active'] : '')}>
           <MenuItem>
             <ListItemIcon>

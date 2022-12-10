@@ -41,11 +41,15 @@
 
 .MuiOutlinedInput {
   &-root {
-    border: 1px solid $color-primary-border;
-    border-radius: to-rem(4);
-
+    @include respond-above(md) {
+      border: 1px solid $color-primary-border;
+      border-radius: to-rem(4);
+    }
     &.Mui-focused {
-      border: 0
+      border: 0;
+      @include respond-above(md) {
+        border: 1px solid $color-primary-border;
+      }
     }
   }
 }

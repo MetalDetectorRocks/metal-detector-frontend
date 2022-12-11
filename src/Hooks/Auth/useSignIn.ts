@@ -1,14 +1,14 @@
 import { useState } from 'react'
-import { SignInRequest } from '../Api/Model/Request/SignInRequest'
-import { REST_ROUTES } from '../Router/RestRoutes'
+import { SignInRequest } from '../../Api/Model/Auth/SignInRequest'
+import { REST_ROUTES } from '../../Router/RestRoutes'
 import { AxiosError } from 'axios'
-import { ErrorResponse } from '../Api/responseTypes'
-import API from '../Api/Axios'
-import { useAuthContext } from '../Context/AuthContext'
-import { SignInResponse } from '../Api/Model/Response/SignInResponse'
-import { home } from '../Router/InternalRoutes'
+import { useAuthContext } from '../../Context/AuthContext'
+import { SignInResponse } from '../../Api/Model/Auth/SignInResponse'
+import { home } from '../../Router/InternalRoutes'
 import { useLocation, useNavigate } from 'react-router-dom'
-import { User } from '../Api/Model/User'
+import { User } from '../../Api/Model/User'
+import { API } from '../../Api/Axios'
+import { ErrorResponse } from '../../Api/Model/ErrorResponse'
 
 const useSignIn = () => {
   const { setCtx } = useAuthContext()
@@ -26,11 +26,12 @@ const useSignIn = () => {
         const signInResponse = response.data
         setCtx({
           user: new User(signInResponse.username, signInResponse.roles),
-          accessToken: signInResponse.token,
+          accessToken: signInResponse.accessToken,
         })
         navigate(from, { replace: true })
       })
       .catch((error: AxiosError<ErrorResponse>) => {
+        console.error(error)
         const responseMessage = error.response?.data?.messages[0] || error.message
         setErrorMsg(responseMessage)
       })

@@ -1,20 +1,16 @@
-import { Grid, Typography } from '@mui/material'
+import { Grid } from '@mui/material'
 import ArtistCard from '../Card/ArtistCard'
 import classes from './ArtistGrid.module.scss'
 import React, { useState } from 'react'
-import useAxios from 'axios-hooks'
 import DefaultPagination from '../Pagination/DefaultPagination'
-import { Artist, MyArtistsResponse } from '../../Api/responseTypes'
 import LoadingSpinner from '../Common/LoadingSpinner'
-import { REST_ROUTES } from '../../Router/RestRoutes'
+import useFetchMyArtists from '../../Hooks/useFetchMyArtists'
+import { Artist } from '../../Api/Model/Artists/Artist'
+import ErrorAlert from '../Common/ErrorAlert'
 
 const ArtistGrid = () => {
   const [page, setPage] = useState(1)
-  const [{ data, loading, error }] = useAxios<MyArtistsResponse>({
-    url: REST_ROUTES.myArtists,
-    method: 'GET',
-    params: { page },
-  })
+  const { artists, pagination, isLoading, error } = useFetchMyArtists({ page })
 
   const handlePaginationChange = (event: React.ChangeEvent<unknown>, page: number) => {
     event.preventDefault()
@@ -22,11 +18,11 @@ const ArtistGrid = () => {
     setPage(page)
   }
 
-  return loading ? (
+  return isLoading ? (
     <LoadingSpinner />
   ) : (
     <>
-      {error && <Typography>Ooops...</Typography>}
+      {error && <ErrorAlert />}
       <Grid
         container
         className={classes['artistGrid']}
@@ -36,15 +32,15 @@ const ArtistGrid = () => {
         alignItems={'flex-start'}
         justifyContent={'flex-start'}
       >
-        {data?.myArtists?.map((artist: Artist) => (
-          <Grid item xs={3} key={data.myArtists.indexOf(artist)}>
+        {artists?.map((artist: Artist) => (
+          <Grid item xs={3} key={artist.source + artist.externalId}>
             <ArtistCard name={artist.artistName} followedSince={artist.followedSince} image={artist.mediumImage} />
           </Grid>
         ))}
       </Grid>
       <DefaultPagination
-        totalPages={data?.pagination?.totalPages || 0}
-        currentPage={data?.pagination?.currentPage || 0}
+        totalPages={pagination?.totalPages || 0}
+        currentPage={pagination?.currentPage || 0}
         onChange={handlePaginationChange}
       />
     </>

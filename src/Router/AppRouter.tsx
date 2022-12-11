@@ -36,7 +36,7 @@ import { AdminLayout } from '../Layouts/AdminLayout/AdminLayout'
 import { AdminDashboard } from '../Pages/Admin/AdminDashboard'
 import RequireAuth from '../Components/Auth/RequireAuth'
 import { UserRole } from '../Api/Model/UserRole'
-import useUser from '../Hooks/useUser'
+import useUser from '../Hooks/Auth/useUser'
 import { LandingPage } from '../Pages/Landing'
 
 export const AppRouter = () => {

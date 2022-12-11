@@ -12,7 +12,7 @@ import {
   home,
 } from '../../../Router/InternalRoutes'
 import classes from './UserMenuItems.module.scss'
-import useUser from '../../../Hooks/useUser'
+import useUser from '../../../Hooks/Auth/useUser'
 
 const UserMenuItems = () => {
   const navigate = useNavigate()

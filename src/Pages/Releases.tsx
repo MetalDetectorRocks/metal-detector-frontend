@@ -6,8 +6,8 @@ import useAxios from 'axios-hooks'
 import { ReleasesResponse } from '../Api/responseTypes'
 import { REST_ROUTES } from '../Router/RestRoutes'
 import LoadingSpinner from '../Components/Common/LoadingSpinner'
-import { Typography } from '@mui/material'
 import classes from '../Pages/Release.module.scss'
+import ErrorAlert from '../Components/Common/ErrorAlert'
 
 export const Releases = () => {
   const [query, setQuery] = useState('')
@@ -42,7 +42,7 @@ export const Releases = () => {
     <>
       <h1>Releases</h1>
       {loading && <LoadingSpinner />}
-      {error && <Typography>Ooops...</Typography>}
+      {error && <ErrorAlert />}
       {data?.items && data?.items?.length > 0 && (
         <Box className={classes['releases-box']}>
           <ReleaseList

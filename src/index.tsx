@@ -5,11 +5,9 @@ import reportWebVitals from './reportWebVitals'
 import './Styles/main.scss'
 import { StyledEngineProvider, ThemeProvider } from '@mui/material'
 import { darkTheme } from './Theme'
-import configureAxios from './Config/axios.config'
 import configureDaysJs from './Config/daysjs.config'
 import { AuthProvider } from './Context/AuthProvider'
 
-configureAxios() // ToDo DanielW: maybe not needed this way, decide later
 configureDaysJs()
 
 const root = ReactDOM.createRoot(document.getElementById('root')!)

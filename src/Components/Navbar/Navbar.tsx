@@ -16,7 +16,7 @@ import { useState } from 'react'
 import AuthenticationMenu from './AuthenticationMenu/AuthenticationMenu'
 import { useTheme } from '@mui/material/styles'
 import useMediaQuery from '@mui/material/useMediaQuery'
-import useUser from '../../Hooks/useUser'
+import useUser from '../../Hooks/Auth/useUser'
 
 const Navbar = () => {
   const { isAuthenticated } = useUser()

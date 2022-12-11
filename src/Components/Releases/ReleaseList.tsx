@@ -1,10 +1,11 @@
-import { BackendPagination, Release } from '../../Api/responseTypes'
+import { Release } from '../../Api/responseTypes'
 import DefaultPagination from '../Pagination/DefaultPagination'
 import { List, ListItem } from '@mui/material'
 import ReleaseCard from '../Card/ReleaseCard'
 import Box from '@mui/material/Box'
 import React from 'react'
 import classes from '../Releases/ReleaseList.module.scss'
+import { BackendPagination } from '../../Api/Model/BackendPagination'
 
 export type ReleaseListProps = {
   releases: Release[]

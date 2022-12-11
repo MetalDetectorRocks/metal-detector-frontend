@@ -1,3 +1,10 @@
+.MuiAlert {
+  &-root {
+    background-color: $color-primary-error-background;
+    color: $color-primary-foreground
+  }
+}
+
 .MuiButton {
   &-root {
     color: white;

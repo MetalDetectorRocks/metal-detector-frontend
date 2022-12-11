@@ -1,14 +1,14 @@
 import { createContext, useContext } from 'react'
 import { User } from '../Api/Model/User'
 
-export type Context = {
+export type AuthContextType = {
   user?: User
   accessToken?: string
 }
 
 export type AuthContextProps = {
-  ctx: Context
-  setCtx: (ctx: Context) => void
+  ctx: AuthContextType
+  setCtx: (ctx: AuthContextType) => void
 }
 
 export const AuthContext = createContext<AuthContextProps>({

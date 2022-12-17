@@ -1,11 +1,4 @@
-import { BackendPagination } from './Model/BackendPagination'
-
-export interface ReleasesResponse {
-  readonly items: Release[]
-  readonly pagination: BackendPagination
-}
-
-export interface Release {
+export type Release = {
   readonly artist: string
   readonly additionalArtists: string[]
   readonly albumTitle: string

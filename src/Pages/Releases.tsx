@@ -2,12 +2,10 @@ import ReleaseList from '../Components/Releases/ReleaseList'
 import ReleaseFilter from '../Components/Releases/ReleaseFilter'
 import Box from '@mui/material/Box'
 import { ChangeEvent, useState } from 'react'
-import useAxios from 'axios-hooks'
-import { ReleasesResponse } from '../Api/responseTypes'
-import { REST_ROUTES } from '../Router/RestRoutes'
 import LoadingSpinner from '../Components/Common/LoadingSpinner'
 import classes from '../Pages/Release.module.scss'
 import ErrorAlert from '../Components/Common/ErrorAlert'
+import useFetchReleases from '../Hooks/useFetchReleases'
 
 export const Releases = () => {
   const [query, setQuery] = useState('')
@@ -19,10 +17,14 @@ export const Releases = () => {
     dateFrom: '',
     dateTo: '',
   })
-  const [{ data, loading, error }] = useAxios<ReleasesResponse>({
-    url: REST_ROUTES.releases,
-    method: 'GET',
-    params: { page, sort, direction, releasesFilter, query, dateFrom: date.dateFrom, dateTo: date.dateTo },
+  const { releases, pagination, isLoading, error } = useFetchReleases({
+    page,
+    sort,
+    direction,
+    releasesFilter,
+    query,
+    dateFrom: date.dateFrom,
+    dateTo: date.dateTo,
   })
 
   const handlePaginationChange = (event: ChangeEvent<unknown>, page: number) => {
@@ -41,14 +43,14 @@ export const Releases = () => {
   return (
     <>
       <h1>Releases</h1>
-      {loading && <LoadingSpinner />}
+      {isLoading && <LoadingSpinner />}
       {error && <ErrorAlert />}
-      {data?.items && data?.items?.length > 0 && (
+      {releases && (
         <Box className={classes['releases-box']}>
           <ReleaseList
-            releases={data.items}
+            releases={releases}
             handlePaginationChange={handlePaginationChange}
-            pagination={data.pagination}
+            pagination={pagination}
             showAnnouncementDate={sort == 'announcement_date'}
           />
           <ReleaseFilter

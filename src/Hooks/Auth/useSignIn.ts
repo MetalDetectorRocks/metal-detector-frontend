@@ -6,9 +6,9 @@ import { useAuthContext } from '../../Context/AuthContext'
 import { SignInResponse } from '../../Api/Model/Auth/SignInResponse'
 import { home } from '../../Router/InternalRoutes'
 import { useLocation, useNavigate } from 'react-router-dom'
-import { User } from '../../Api/Model/User'
+import { User } from '../../Api/Model/Auth/User'
 import { API } from '../../Api/Axios'
-import { ErrorResponse } from '../../Api/Model/ErrorResponse'
+import { ErrorResponse } from '../../Api/Model/Common/ErrorResponse'
 
 const useSignIn = () => {
   const { setCtx } = useAuthContext()

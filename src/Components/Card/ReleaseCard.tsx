@@ -1,7 +1,7 @@
 import { Card, CardContent, CardHeader, CardMedia, Typography } from '@mui/material'
 import classes from '../Card/ReleaseCard.module.scss'
 import Box from '@mui/material/Box'
-import { Release } from '../../Api/responseTypes'
+import { Release } from '../../Api/Model/Release/Release'
 
 export type ReleaseCardProps = {
   release: Release

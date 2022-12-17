@@ -35,7 +35,7 @@ import {
 import { AdminLayout } from '../Layouts/AdminLayout/AdminLayout'
 import { AdminDashboard } from '../Pages/Admin/AdminDashboard'
 import RequireAuth from '../Components/Auth/RequireAuth'
-import { UserRole } from '../Api/Model/UserRole'
+import { UserRole } from '../Api/Model/Auth/UserRole'
 import useUser from '../Hooks/Auth/useUser'
 import { LandingPage } from '../Pages/Landing'
 

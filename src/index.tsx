@@ -12,6 +12,11 @@ configureDaysJs()
 
 const root = ReactDOM.createRoot(document.getElementById('root')!)
 root.render(
+  /*
+   * StrictMode renders components twice (on dev but not production)
+   * in order to detect any problems with your code and warn you about
+   * them (which can be quite useful).
+   */
   <React.StrictMode>
     <AuthProvider>
       <StyledEngineProvider injectFirst>

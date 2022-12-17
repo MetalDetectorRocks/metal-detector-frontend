@@ -15,6 +15,7 @@ const paramsSerializer = {
 
 export const API = Axios.create({
   baseURL: BASE_URL,
+  withCredentials: true,
   timeout: TIMEOUT,
   headers: HEADERS,
   paramsSerializer,

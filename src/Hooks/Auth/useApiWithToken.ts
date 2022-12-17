@@ -2,12 +2,16 @@ import useRefreshToken from './useRefreshToken'
 import { useEffect } from 'react'
 import { useAuthContext } from '../../Context/AuthContext'
 import { API_WITH_TOKEN } from '../../Api/Axios'
+import { signIn } from '../../Router/InternalRoutes'
+import { REST_ROUTES } from '../../Router/RestRoutes'
+import { useNavigate } from 'react-router-dom'
 // import useFetchCsrfToken from './useFetchCsrfToken'
 
 const useApiWithToken = () => {
   // const fetchCsrfToken = useFetchCsrfToken()
   const refreshToken = useRefreshToken()
   const { ctx } = useAuthContext()
+  const navigate = useNavigate()
 
   useEffect(() => {
     // const addCsrfTokenInterceptor = API_WITH_TOKEN.interceptors.request.use(
@@ -33,10 +37,10 @@ const useApiWithToken = () => {
       (response) => response,
       async (error) => {
         const prevRequest = error?.config
-        const shouldRefreshToken = error?.response?.status === 401 && !prevRequest?.sent
+        const shouldRefreshToken = error?.response?.status === 401 && prevRequest.url !== REST_ROUTES.refresh
 
-        prevRequest.sent = true
         if (!shouldRefreshToken) {
+          navigate(signIn.path, { replace: true })
           return Promise.reject(error)
         }
 
@@ -55,7 +59,5 @@ const useApiWithToken = () => {
 
   return API_WITH_TOKEN
 }
-
-// TODO DanielW: Handle expiration of refresh token
 
 export default useApiWithToken

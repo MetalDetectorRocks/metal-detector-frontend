@@ -39,6 +39,7 @@ const LoginForm = () => {
             {...register('username', { required: true })}
             error={!!errors.username}
             helperText={errors.username && 'This field is required'}
+            disabled={isLoading}
           />
           <TextField
             type={'password'}
@@ -49,6 +50,7 @@ const LoginForm = () => {
             {...register('password', { required: true })}
             error={!!errors.password}
             helperText={errors.username && 'This field is required'}
+            disabled={isLoading}
           />
           <LoadingButton variant={'outlined'} type={'submit'} size={'large'} loading={isLoading}>
             Sign in

@@ -5,7 +5,7 @@ import React, { useState } from 'react'
 import DefaultPagination from '../Pagination/DefaultPagination'
 import LoadingSpinner from '../Common/LoadingSpinner'
 import useFetchMyArtists from '../../Hooks/useFetchMyArtists'
-import { Artist } from '../../Api/Model/Artists/Artist'
+import { Artist } from '../../Api/Model/Artist/Artist'
 import ErrorAlert from '../Common/ErrorAlert'
 
 const ArtistGrid = () => {

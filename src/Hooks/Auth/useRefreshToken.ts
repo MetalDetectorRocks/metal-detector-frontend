@@ -1,14 +1,16 @@
 import { API_WITH_TOKEN } from '../../Api/Axios'
 import { REST_ROUTES } from '../../Router/RestRoutes'
 import { useAuthContext } from '../../Context/AuthContext'
-import { AccessTokenResponse } from '../../Api/Model/Auth/AccessTokenResponse'
+import { SignInResponse } from '../../Api/Model/Auth/SignInResponse'
+import { User } from '../../Api/Model/Auth/User'
 
 const useRefreshToken = () => {
-  const { ctx, setCtx } = useAuthContext()
+  const { setCtx } = useAuthContext()
 
   return async () => {
-    const response = await API_WITH_TOKEN.get<AccessTokenResponse>(REST_ROUTES.refresh)
-    setCtx({ ...ctx, accessToken: response.data.accessToken })
+    const response = await API_WITH_TOKEN.get<SignInResponse>(REST_ROUTES.refresh)
+    const user = new User(response.data.username, response.data.roles)
+    setCtx({ user, accessToken: response.data.accessToken })
     return response.data.accessToken
   }
 }

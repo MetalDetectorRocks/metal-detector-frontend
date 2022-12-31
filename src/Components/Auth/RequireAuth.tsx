@@ -10,7 +10,7 @@ const RequireAuth = (props: RequireAuthProps) => {
   const { ctx } = useAuthContext()
   const location = useLocation()
 
-  const isAuthenticated = ctx?.user
+  const isAuthenticated = ctx?.accessToken
   const isAllowed = ctx?.user?.roles.find((role) => props.allowedRoles.includes(role))
 
   if (isAllowed) {

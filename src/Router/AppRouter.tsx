@@ -38,45 +38,52 @@ import RequireAuth from '../Components/Auth/RequireAuth'
 import { UserRole } from '../Api/Model/Auth/UserRole'
 import useUser from '../Hooks/Auth/useUser'
 import { LandingPage } from '../Pages/Landing'
+import PersistentLogin from '../Components/Common/PersistentLogin'
 
 export const AppRouter = () => {
   const { isAuthenticated } = useUser()
   return (
     <BrowserRouter>
       <Routes>
+        {/* Public routes */}
         <Route path="/" element={<MainLayout />}>
-          {/* Public routes */}
           <Route index element={isAuthenticated ? <Home /> : <LandingPage />} />
           <Route path={releases.path} element={<Releases />} />
           <Route path={search.path} element={<SearchResults />} />
           <Route path={imprint.path} element={<Imprint />} />
           <Route path={privacyPolicy.path} element={<PrivacyPolicy />} />
           <Route path={unauthorized.path} element={<Unauthorized />} />
-
-          {/* Protected routes */}
-          <Route element={<RequireAuth allowedRoles={[UserRole.User, UserRole.Administrator]} />}>
-            <Route path={myArtists.path} element={<MyArtists />} />
-            <Route path={account.path} element={<AccountDetails />} />
-            <Route path={notificationSettings.path} element={<NotificationSettings />} />
-            <Route path={spotifySynchronization.path} element={<SpotifySynchronization />} />
-          </Route>
-
-          {/* Catch all */}
-          <Route path="*" element={<NotFound />} />
         </Route>
 
+        {/* Protected routes */}
+        <Route element={<PersistentLogin />}>
+          <Route path="/" element={<MainLayout />}>
+            <Route element={<RequireAuth allowedRoles={[UserRole.User, UserRole.Administrator]} />}>
+              <Route path={myArtists.path} element={<MyArtists />} />
+              <Route path={account.path} element={<AccountDetails />} />
+              <Route path={notificationSettings.path} element={<NotificationSettings />} />
+              <Route path={spotifySynchronization.path} element={<SpotifySynchronization />} />
+            </Route>
+          </Route>
+        </Route>
+
+        {/* Catch all */}
+        <Route path="*" element={<NotFound />} />
+
+        {/* Public routes */}
         <Route element={<AuthLayout />}>
-          {/* Public routes */}
           <Route path={signIn.path} element={<Login />} />
           <Route path={signUp.path} element={<Register />} />
           <Route path={forgotPassword.path} element={<ForgotPassword />} />
           <Route path={resetPassword.path} element={<ResetPassword />} />
         </Route>
 
-        <Route element={<AdminLayout />}>
-          {/* Protected routes */}
-          <Route element={<RequireAuth allowedRoles={[UserRole.Administrator]} />}>
-            <Route path={adminArea.path} element={<AdminDashboard />} />
+        {/* Protected routes */}
+        <Route element={<PersistentLogin />}>
+          <Route element={<AdminLayout />}>
+            <Route element={<RequireAuth allowedRoles={[UserRole.Administrator]} />}>
+              <Route path={adminArea.path} element={<AdminDashboard />} />
+            </Route>
           </Route>
         </Route>
       </Routes>

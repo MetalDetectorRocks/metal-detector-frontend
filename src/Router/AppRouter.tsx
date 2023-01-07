@@ -38,7 +38,7 @@ import RequireAuth from '../Components/Auth/RequireAuth'
 import { UserRole } from '../Api/Model/Auth/UserRole'
 import useUser from '../Hooks/Auth/useUser'
 import { LandingPage } from '../Pages/Landing'
-import PersistentLogin from '../Components/Common/PersistentLogin'
+import PersistentLogin from '../Components/Auth/PersistentLogin'
 
 export const AppRouter = () => {
   const { isAuthenticated } = useUser()

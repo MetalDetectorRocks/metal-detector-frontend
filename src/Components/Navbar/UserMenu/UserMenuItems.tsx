@@ -13,14 +13,22 @@ import {
 } from '../../../Router/InternalRoutes'
 import classes from './UserMenuItems.module.scss'
 import useUser from '../../../Hooks/Auth/useUser'
+import useSignOut from '../../../Hooks/Auth/useSignOut'
 
 const UserMenuItems = () => {
   const navigate = useNavigate()
+  const signOut = useSignOut()
   const { user } = useUser()
 
-  const handleLogout = () => {
-    // ToDo: Handle Logout
-    navigate(home.path, { replace: true })
+  const handleSignOut = async () => {
+    await signOut()
+    navigate(
+      {
+        pathname: home.path,
+        search: '?logout',
+      },
+      { replace: true },
+    )
   }
 
   return (
@@ -66,7 +74,7 @@ const UserMenuItems = () => {
         </NavLink>
       )}
       <Divider />
-      <MenuItem onClick={handleLogout} className={classes['user-menu__item-logout']}>
+      <MenuItem onClick={handleSignOut} className={classes['user-menu__item-logout']}>
         <ListItemIcon>
           <Logout fontSize="small" />
         </ListItemIcon>

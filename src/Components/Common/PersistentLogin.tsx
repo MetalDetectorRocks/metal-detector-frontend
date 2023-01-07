@@ -12,6 +12,7 @@ const PersistentLogin = () => {
   useEffect(() => {
     const verifyRefreshToken = async () => {
       try {
+        // TODO DanielW: check if refresh token exists and only then refresh the access token (separate PR)
         await refreshToken()
       } catch (err) {
         console.error(err)

@@ -7,8 +7,13 @@ import { StyledEngineProvider, ThemeProvider } from '@mui/material'
 import { darkTheme } from './Theme'
 import configureDaysJs from './Config/daysjs.config'
 import { AuthProvider } from './Context/AuthProvider'
+import { disableReactDevTools } from '@fvilers/disable-react-devtools'
 
 configureDaysJs()
+
+if (process.env.NODE_ENV === 'production') {
+  disableReactDevTools()
+}
 
 const root = ReactDOM.createRoot(document.getElementById('root')!)
 root.render(

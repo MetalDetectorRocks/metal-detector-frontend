@@ -1,8 +1,11 @@
 import { useEffect, useState } from 'react'
 import useRefreshToken from '../../Hooks/Auth/useRefreshToken'
 import { useAuthContext } from '../../Context/AuthContext'
-import LoadingSpinner from './LoadingSpinner'
+import LoadingSpinner from '../Common/LoadingSpinner'
 import { Outlet } from 'react-router-dom'
+import { API } from '../../Api/Axios'
+import { REST_ROUTES } from '../../Router/RestRoutes'
+import { AuthenticationResponse } from '../../Api/Model/Auth/AuthenticationResponse'
 
 const PersistentLogin = () => {
   const [isLoading, setIsLoading] = useState(true)
@@ -12,8 +15,10 @@ const PersistentLogin = () => {
   useEffect(() => {
     const verifyRefreshToken = async () => {
       try {
-        // TODO DanielW: check if refresh token exists and only then refresh the access token (separate PR)
-        await refreshToken()
+        const authResponse = await API.get<AuthenticationResponse>(REST_ROUTES.authenticated)
+        if (authResponse.data.authenticated) {
+          await refreshToken()
+        }
       } catch (err) {
         console.error(err)
       } finally {

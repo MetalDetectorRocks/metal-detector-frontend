@@ -3,10 +3,6 @@
     background-color: $color-primary-error-background;
     color: $color-primary-foreground
   }
-  &-standardSuccess {
-    background-color: #1A3D1BFF; // TODO DanielW: add success background after logout is merged
-    color: $color-primary-foreground
-  }
 }
 
 .MuiButton {

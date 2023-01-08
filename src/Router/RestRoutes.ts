@@ -1,5 +1,6 @@
 export const REST_ROUTES = {
   signIn: '/rest/v1/auth/login',
+  signUp: '/rest/v1/auth/register',
   refresh: '/rest/v1/auth/refresh',
   csrf: '/rest/v1/csrf',
   myArtists: '/rest/v1/my-artists',

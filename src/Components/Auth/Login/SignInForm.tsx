@@ -1,17 +1,17 @@
 import { FormGroup, TextField } from '@mui/material'
 import AuthBox from '../AuthBox'
 import Box from '@mui/material/Box'
-import classes from './LoginForm.module.scss'
+import classes from './SignInForm.module.scss'
 import { forgotPassword, signUp } from '../../../Router/InternalRoutes'
 import { NavLink } from 'react-router-dom'
-import OrDivider from './OrDivider'
-import GoogleLogin from './GoogleLogin'
+import OrDivider from '../OrDivider'
+import GoogleLogin from '../GoogleLogin'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { SignInRequest } from '../../../Api/Model/Auth/SignInRequest'
 import { LoadingButton } from '@mui/lab'
 import useSignIn from '../../../Hooks/Auth/useSignIn'
 
-const LoginForm = () => {
+const SignInForm = () => {
   const { signInHandler, errorMsg, isLoading } = useSignIn()
   const {
     register,
@@ -71,4 +71,4 @@ const LoginForm = () => {
   )
 }
 
-export default LoginForm
+export default SignInForm

@@ -22,13 +22,7 @@ const UserMenuItems = () => {
 
   const handleSignOut = async () => {
     await signOut()
-    navigate(
-      {
-        pathname: home.path,
-        search: '?logout',
-      },
-      { replace: true },
-    )
+    navigate(home.path, { replace: true })
   }
 
   return (

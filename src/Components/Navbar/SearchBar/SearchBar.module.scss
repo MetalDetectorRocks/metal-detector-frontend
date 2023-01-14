@@ -12,6 +12,13 @@
     margin-right: to-rem(25);
   }
 
+  & div {
+    border: 0 solid $color-primary-border;
+    @include respond-above(md) {
+      border: 1px solid $color-primary-border;
+    }
+  }
+
   & input {
     padding: to-rem(4);
     font-size: to-rem(22);

@@ -3,6 +3,10 @@
     background-color: $color-primary-error-background;
     color: $color-primary-foreground
   }
+  &-standardSuccess {
+    background-color: $color-primary-success-background;
+    color: $color-primary-foreground
+  }
 }
 
 .MuiButton {
@@ -57,10 +61,8 @@
 
 .MuiOutlinedInput {
   &-root {
-    @include respond-above(md) {
-      border: 1px solid $color-primary-border;
-      border-radius: to-rem(4);
-    }
+    border: 1px solid $color-primary-border;
+    border-radius: to-rem(4);
     &.Mui-focused {
       border: 0;
       @include respond-above(md) {

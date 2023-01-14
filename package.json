@@ -37,6 +37,7 @@
     "react-query": "^3.39.2",
     "react-router-dom": "^6.6.2",
     "react-scripts": "5.0.1",
+    "react-toastify": "^9.1.1",
     "sass": "^1.57.1",
     "typescript": "^4.9.4",
     "web-vitals": "^3.1.1"
@@ -76,6 +77,10 @@
   "jest": {
     "transformIgnorePatterns": [
       "<rootDir>/node_modules/(?!(axios)/)"
-    ]
+    ],
+    "moduleNameMapper": {
+      "\\.(css|less|sass|scss)$": "<rootDir>/__mocks__/styleMock.js",
+      "\\.(gif|ttf|eot|svg)$": "<rootDir>/__mocks__/fileMock.js"
+    }
   }
 }

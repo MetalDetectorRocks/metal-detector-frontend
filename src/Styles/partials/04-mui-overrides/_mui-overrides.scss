@@ -26,6 +26,15 @@
 .MuiFormLabel {
   &-root {
     color: $color-primary-foreground;
+    &.Mui-focused {
+      color: $color-primary-foreground;
+    }
+  }
+}
+
+.MuiFormHelperText {
+  &-root {
+    color: $color-primary-foreground;
   }
 }
 

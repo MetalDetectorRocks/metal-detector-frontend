@@ -7,6 +7,7 @@ export type AuthBoxProps = {
   children: ReactNode
   title: string
   errorMsg?: string
+  successMsg?: string
 }
 
 const AuthBox = (props: AuthBoxProps) => {
@@ -14,8 +15,13 @@ const AuthBox = (props: AuthBoxProps) => {
     <Box className={classes['auth-box']}>
       <h2 className={classes['auth-box__heading']}>{props.title}</h2>
       {props.errorMsg && (
-        <Alert severity="error" variant={'filled'} className={classes['auth-box__error']}>
+        <Alert severity="error" variant={'filled'} className={classes['auth-box__alert']}>
           {props.errorMsg}
+        </Alert>
+      )}
+      {props.successMsg && (
+        <Alert severity="success" variant={'filled'} className={classes['auth-box__alert']}>
+          {props.successMsg}
         </Alert>
       )}
       {props.children}

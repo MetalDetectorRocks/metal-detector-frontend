@@ -1,0 +1,24 @@
+@import '../../../Styles/partials/02-general/general.to-rem';
+
+.form > * {
+  margin-bottom: to-rem(12);
+}
+
+.form {
+  &__footer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+}
+.password {
+  position: relative;
+  &__field {
+    width: 100%;
+  }
+  &__toggle {
+    position: absolute;
+    right: to-rem(15);
+    top: to-rem(10);
+  }
+}

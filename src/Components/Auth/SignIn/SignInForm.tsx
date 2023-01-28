@@ -3,16 +3,21 @@ import AuthBox from '../AuthBox'
 import Box from '@mui/material/Box'
 import classes from './SignInForm.module.scss'
 import { forgotPassword, signUp } from '../../../Router/InternalRoutes'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useSearchParams } from 'react-router-dom'
 import OrDivider from '../OrDivider'
 import GoogleLogin from '../GoogleLogin'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { SignInRequest } from '../../../Api/Model/Auth/SignInRequest'
 import { LoadingButton } from '@mui/lab'
 import useSignIn from '../../../Hooks/Auth/useSignIn'
+import { useEffect, useRef } from 'react'
+import useVerifySignUp from '../../../Hooks/Auth/useVerifySignUp'
 
 const SignInForm = () => {
-  const { signInHandler, errorMsg, isLoading } = useSignIn()
+  const [searchParams] = useSearchParams()
+  const passwordInput = useRef<HTMLInputElement>(null)
+  const { signInHandler, errorMsg: signInErrorMsg, isLoading } = useSignIn()
+  const { verify, successMsg: verificationSuccessMsg, errorMsg: verificationErrorMsg, username } = useVerifySignUp()
   const {
     register,
     handleSubmit,
@@ -25,8 +30,21 @@ const SignInForm = () => {
     reset()
   }
 
+  useEffect(() => {
+    const token = searchParams.get('token')
+    if (token) {
+      verify({ token })
+    }
+  }, [])
+
+  useEffect(() => {
+    if (username) {
+      passwordInput.current?.focus()
+    }
+  }, [username])
+
   return (
-    <AuthBox title={'Sign in'} errorMsg={errorMsg}>
+    <AuthBox title={'Sign in'} errorMsg={signInErrorMsg || verificationErrorMsg} successMsg={verificationSuccessMsg}>
       <Box component={'form'} onSubmit={handleSubmit(onSubmit)}>
         <FormGroup className={classes['form']}>
           <TextField
@@ -40,6 +58,7 @@ const SignInForm = () => {
             error={!!errors.username}
             helperText={errors.username && 'This field is required'}
             disabled={isLoading}
+            value={username}
           />
           <TextField
             type={'password'}
@@ -47,6 +66,7 @@ const SignInForm = () => {
             variant={'outlined'}
             color={'secondary'}
             autoComplete={'off'}
+            inputRef={passwordInput}
             {...register('password', { required: true })}
             error={!!errors.password}
             helperText={errors.username && 'This field is required'}

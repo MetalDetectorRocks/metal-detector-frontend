@@ -1,7 +1,7 @@
 import AuthBox from '../AuthBox'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import Box from '@mui/material/Box'
-import { FormGroup, Stack, TextField } from '@mui/material'
+import { FormGroup, Stack, TextField, Typography } from '@mui/material'
 import classes from './SignUpForm.module.scss'
 import { LoadingButton } from '@mui/lab'
 import { SignUpRequest } from '../../../Api/Model/Auth/SignUpRequest'
@@ -109,12 +109,12 @@ const SignUpForm = () => {
         <OrDivider />
         <GoogleLogin />
         <Box component={'div'} className={classes['form__footer']}>
-          <p>
+          <Typography variant="body1">
             Already signed up? <NavLink to={signIn.path}>Sign in!</NavLink>
-          </p>
-          <p>
+          </Typography>
+          <Typography variant="body1">
             <NavLink to={forgotPassword.path}>{forgotPassword.name}?</NavLink>
-          </p>
+          </Typography>
         </Box>
       </Box>
     </AuthBox>

@@ -1,4 +1,4 @@
-import SignInForm from '../../Components/Auth/Login/SignInForm'
+import SignInForm from '../../Components/Auth/SignIn/SignInForm'
 
 export const Login = () => {
   return (

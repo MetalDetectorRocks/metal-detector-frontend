@@ -43,7 +43,7 @@ const SignUpForm = () => {
   }, [isSuccess])
 
   useEffect(() => {
-    setErrorMsg(error?.response?.data?.messages.join(' ') || '')
+    setErrorMsg(error?.response?.data?.messages.join(' ') || error?.message)
   }, [error])
 
   return (

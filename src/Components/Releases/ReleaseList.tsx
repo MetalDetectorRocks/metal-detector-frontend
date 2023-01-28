@@ -9,7 +9,7 @@ import { Release } from '../../Api/Model/Release/Release'
 
 export type ReleaseListProps = {
   releases: Release[]
-  pagination?: BackendPagination
+  pagination?: BackendPagination | null
   handlePaginationChange: (event: React.ChangeEvent<unknown>, page: number) => void
   showAnnouncementDate: boolean
 }

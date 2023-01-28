@@ -1,7 +1,7 @@
 import ReleaseList from '../Components/Releases/ReleaseList'
 import ReleaseFilter from '../Components/Releases/ReleaseFilter'
 import Box from '@mui/material/Box'
-import { ChangeEvent, useState } from 'react'
+import { ChangeEvent, useEffect, useState } from 'react'
 import LoadingSpinner from '../Components/Common/LoadingSpinner'
 import classes from '../Pages/Release.module.scss'
 import ErrorAlert from '../Components/Common/ErrorAlert'
@@ -17,15 +17,20 @@ export const Releases = () => {
     dateFrom: '',
     dateTo: '',
   })
-  const { releases, pagination, isLoading, error } = useFetchReleases({
-    page,
-    sort,
-    direction,
-    releasesFilter,
-    query,
-    dateFrom: date.dateFrom,
-    dateTo: date.dateTo,
-  })
+  const [dateFilterValue, setDateFilterValue] = useState('all')
+  const { fetchReleases, error, isLoading, releasesResponse } = useFetchReleases()
+
+  useEffect(() => {
+    fetchReleases({
+      page: page,
+      sort: sort,
+      direction: direction,
+      releasesFilter: releasesFilter,
+      query: query,
+      dateFrom: date.dateFrom,
+      dateTo: date.dateTo,
+    })
+  }, [query, sort, direction, releasesFilter, page, date])
 
   const handlePaginationChange = (event: ChangeEvent<unknown>, page: number) => {
     event.preventDefault()
@@ -45,21 +50,25 @@ export const Releases = () => {
       <h1>Releases</h1>
       {isLoading && <LoadingSpinner />}
       {error && <ErrorAlert />}
-      {releases && (
+      {releasesResponse?.data.items && (
         <Box className={classes['releases-box']}>
           <ReleaseList
-            releases={releases}
+            releases={releasesResponse?.data.items}
             handlePaginationChange={handlePaginationChange}
-            pagination={pagination}
+            pagination={releasesResponse.data.pagination}
             showAnnouncementDate={sort == 'announcement_date'}
           />
           <ReleaseFilter
             sort={sort}
+            direction={direction}
+            releasesFilter={releasesFilter}
+            dateFilterValue={dateFilterValue}
             handleQuerySubmit={setQuery}
             handleSortChange={setSort}
             handleDirectionChange={setDirection}
-            handleArtistsFilterChange={setReleasesFilter}
+            handleReleaseFilterChange={setReleasesFilter}
             handleDateChange={handleDateChange}
+            setDateFilterValue={setDateFilterValue}
           />
         </Box>
       )}

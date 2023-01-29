@@ -1,7 +1,7 @@
 import AuthBox from '../AuthBox'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import Box from '@mui/material/Box'
-import { FormGroup, Stack, TextField } from '@mui/material'
+import { FormGroup, Stack, TextField, Typography } from '@mui/material'
 import classes from './SignUpForm.module.scss'
 import { LoadingButton } from '@mui/lab'
 import { SignUpRequest } from '../../../Api/Model/Auth/SignUpRequest'
@@ -18,9 +18,8 @@ import { isValidEmail } from '../../../Utils/Validators'
 const SignUpForm = () => {
   const [showPassword, setShowPassword] = useState(false)
   const [successMsg, setSuccessMsg] = useState('')
-  const [errorMsg, setErrorMsg] = useState('')
   const handleClickShowPassword = () => setShowPassword((show) => !show)
-  const { signUp, error, isLoading, isSuccess } = useSignUp()
+  const { signUp, errorMsg, isLoading, isSuccess } = useSignUp()
   const {
     register,
     handleSubmit,
@@ -41,10 +40,6 @@ const SignUpForm = () => {
       )
     }
   }, [isSuccess])
-
-  useEffect(() => {
-    setErrorMsg(error?.response?.data?.messages.join(' ') || error?.message)
-  }, [error])
 
   return (
     <AuthBox title={'Sign up'} errorMsg={errorMsg} successMsg={successMsg}>
@@ -109,12 +104,12 @@ const SignUpForm = () => {
         <OrDivider />
         <GoogleLogin />
         <Box component={'div'} className={classes['form__footer']}>
-          <p>
+          <Typography variant="body1">
             Already signed up? <NavLink to={signIn.path}>Sign in!</NavLink>
-          </p>
-          <p>
+          </Typography>
+          <Typography variant="body1">
             <NavLink to={forgotPassword.path}>{forgotPassword.name}?</NavLink>
-          </p>
+          </Typography>
         </Box>
       </Box>
     </AuthBox>

@@ -1,19 +1,19 @@
-import { SignUpRequest } from '../../Api/Model/Auth/SignUpRequest'
+import { useMutation } from 'react-query'
 import { API } from '../../Api/Axios'
 import { REST_ROUTES } from '../../Router/RestRoutes'
-import { useMutation } from 'react-query'
 import { AxiosError } from 'axios'
 import { ErrorResponse } from '../../Api/Model/Common/ErrorResponse'
+import { ForgotPasswordRequest } from '../../Api/Model/Auth/ForgotPasswordRequest'
 
-const useSignUp = () => {
+const useForgotPassword = () => {
   const mutation = useMutation({
-    mutationFn: (request: SignUpRequest) => {
-      return API.post(REST_ROUTES.signUp, JSON.stringify(request))
+    mutationFn: (request: ForgotPasswordRequest) => {
+      return API.post(REST_ROUTES.forgotPassword, JSON.stringify(request))
     },
   })
 
   return {
-    signUp: mutation.mutate,
+    forgotPassword: mutation.mutate,
     errorMsg:
       (mutation.error as AxiosError<ErrorResponse>)?.response?.data?.messages[0] ||
       (mutation.error as AxiosError<ErrorResponse>)?.message,
@@ -22,4 +22,4 @@ const useSignUp = () => {
   }
 }
 
-export default useSignUp
+export default useForgotPassword

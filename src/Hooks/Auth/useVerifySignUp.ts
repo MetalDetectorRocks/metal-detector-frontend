@@ -21,10 +21,10 @@ const useVerifySignUp = () => {
     const verificationError = mutation.error as AxiosError<ErrorResponse>
     if (verificationError) {
       const status = verificationError?.response?.status
-      if (status && status >= 500) {
-        setErrorMsg(verificationError?.response?.data?.messages?.join(' ') || verificationError?.message)
-      } else if (status && status === 401) {
+      if (status && status === 401) {
         setErrorMsg('The link to activate your account has expired. Please register again.')
+      } else if (status && status >= 400) {
+        setErrorMsg(verificationError?.response?.data?.messages?.join(' ') || verificationError?.message)
       }
     } else if (mutation.isSuccess) {
       setSuccessMsg('Your account has been successfully activated.')

@@ -31,9 +31,12 @@ const useSignIn = () => {
         navigate(from, { replace: true })
       })
       .catch((error: AxiosError<ErrorResponse>) => {
-        console.error(error)
-        const responseMessage = error.response?.data?.messages[0] || error.message
-        setErrorMsg(responseMessage)
+        if (error.response?.status === 401) {
+          setErrorMsg('The credentials are invalid or the account is temporarily or permanently deactivated.')
+        } else {
+          const responseMessage = error.response?.data?.messages[0] || error.message
+          setErrorMsg(responseMessage)
+        }
       })
       .finally(() => setIsLoading(false))
   }

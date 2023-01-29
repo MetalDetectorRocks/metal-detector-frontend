@@ -18,9 +18,8 @@ import { isValidEmail } from '../../../Utils/Validators'
 const SignUpForm = () => {
   const [showPassword, setShowPassword] = useState(false)
   const [successMsg, setSuccessMsg] = useState('')
-  const [errorMsg, setErrorMsg] = useState('')
   const handleClickShowPassword = () => setShowPassword((show) => !show)
-  const { signUp, error, isLoading, isSuccess } = useSignUp()
+  const { signUp, errorMsg, isLoading, isSuccess } = useSignUp()
   const {
     register,
     handleSubmit,
@@ -41,10 +40,6 @@ const SignUpForm = () => {
       )
     }
   }, [isSuccess])
-
-  useEffect(() => {
-    setErrorMsg(error?.response?.data?.messages.join(' ') || error?.message)
-  }, [error])
 
   return (
     <AuthBox title={'Sign up'} errorMsg={errorMsg} successMsg={successMsg}>

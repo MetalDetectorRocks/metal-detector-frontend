@@ -8,6 +8,7 @@ import { signIn, signUp } from '../../../Router/InternalRoutes'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { ForgotPasswordRequest } from '../../../Api/Model/Auth/ForgotPasswordRequest'
 import useForgotPassword from '../../../Hooks/Auth/useForgotPassword'
+import { useEffect, useState } from 'react'
 
 const ForgotPasswordForm = () => {
   const {
@@ -16,18 +17,25 @@ const ForgotPasswordForm = () => {
     reset,
     formState: { errors },
   } = useForm<ForgotPasswordRequest>({ mode: 'onSubmit' })
-  const { forgotPassword, error, isLoading } = useForgotPassword()
+  const { forgotPassword, errorMsg, isLoading, isSuccess } = useForgotPassword()
+  const [successMsg, setSuccessMsg] = useState('')
 
   const onSubmit: SubmitHandler<ForgotPasswordRequest> = (request) => {
     forgotPassword(request)
     reset()
   }
 
+  useEffect(() => {
+    if (isSuccess) {
+      setSuccessMsg('You have received an email with instructions on how to reset your password.')
+    }
+  }, [isSuccess])
+
   return (
-    <AuthBox title={'Forgot Password'} errorMsg={error?.response?.data?.messages.join(' ') || error?.message}>
+    <AuthBox title={'Forgot Password'} errorMsg={errorMsg} successMsg={successMsg}>
       <Typography variant="body2" gutterBottom paragraph={true}>
-        Please enter the email address or username you used for registration. We will send you an email with a link to
-        reset your password.
+        Please enter the email address or username you used for sign up. We will send you an email with a link to reset
+        your password.
       </Typography>
       <Box component={'form'} onSubmit={handleSubmit(onSubmit)}>
         <FormGroup className={classes['form']}>

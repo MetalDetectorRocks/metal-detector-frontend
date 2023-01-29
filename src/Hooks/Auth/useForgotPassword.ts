@@ -14,7 +14,9 @@ const useForgotPassword = () => {
 
   return {
     forgotPassword: mutation.mutate,
-    error: mutation.error as AxiosError<ErrorResponse>,
+    errorMsg:
+      (mutation.error as AxiosError<ErrorResponse>)?.response?.data?.messages[0] ||
+      (mutation.error as AxiosError<ErrorResponse>)?.message,
     isLoading: mutation.isLoading,
     isSuccess: mutation.isSuccess,
   }

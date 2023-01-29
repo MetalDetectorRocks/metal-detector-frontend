@@ -15,7 +15,7 @@ export type FetchReleasesProps = {
   dateTo: string
 }
 
-const fetchReleases = () => {
+const useFetchReleases = () => {
   const API = useApiWithToken()
   const mutation = useMutation({
     mutationFn: (props: FetchReleasesProps) => {
@@ -35,4 +35,4 @@ const fetchReleases = () => {
   }
 }
 
-export default fetchReleases
+export default useFetchReleases

@@ -1,4 +1,4 @@
-import { FormGroup, TextField, Typography } from '@mui/material'
+import { FormGroup, TextField } from '@mui/material'
 import AuthBox from '../AuthBox'
 import Box from '@mui/material/Box'
 import classes from './SignInForm.module.scss'
@@ -15,7 +15,6 @@ import useVerifySignUp from '../../../Hooks/Auth/useVerifySignUp'
 
 const SignInForm = () => {
   const [searchParams] = useSearchParams()
-  const usernameInput = useRef<HTMLInputElement>(null)
   const passwordInput = useRef<HTMLInputElement>(null)
   const { signInHandler, errorMsg: signInErrorMsg, isLoading } = useSignIn()
   const { verify, successMsg: verificationSuccessMsg, errorMsg: verificationErrorMsg, username } = useVerifySignUp()
@@ -40,8 +39,7 @@ const SignInForm = () => {
 
   useEffect(() => {
     if (username) {
-      usernameInput.current!.value = username
-      passwordInput.current!.focus()
+      passwordInput.current?.focus()
     }
   }, [username])
 
@@ -56,11 +54,11 @@ const SignInForm = () => {
             color={'secondary'}
             autoComplete={'off'}
             autoFocus
-            inputRef={usernameInput}
             {...register('username', { required: true })}
             error={!!errors.username}
             helperText={errors.username && 'This field is required'}
             disabled={isLoading}
+            value={username}
           />
           <TextField
             type={'password'}
@@ -81,12 +79,12 @@ const SignInForm = () => {
         <OrDivider />
         <GoogleLogin />
         <Box component={'div'} className={classes['form__footer']}>
-          <Typography variant="body1">
+          <p>
             New user? <NavLink to={signUp.path}>Join now!</NavLink>
-          </Typography>
-          <Typography variant="body1">
+          </p>
+          <p>
             <NavLink to={forgotPassword.path}>{forgotPassword.name}?</NavLink>
-          </Typography>
+          </p>
         </Box>
       </Box>
     </AuthBox>

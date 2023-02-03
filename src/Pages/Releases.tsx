@@ -18,18 +18,19 @@ export const Releases = () => {
     dateTo: '',
   })
   const [dateFilterValue, setDateFilterValue] = useState('all')
-  const { fetchReleases, error, isLoading, releasesResponse } = useFetchReleases()
+  const { fetchReleases, error, isLoading, releases, pagination } = useFetchReleases({
+    page: page,
+    sort: sort,
+    direction: direction,
+    releasesFilter: releasesFilter,
+    query: query,
+    dateFrom: date.dateFrom,
+    dateTo: date.dateTo,
+  })
 
   useEffect(() => {
-    fetchReleases({
-      page: page,
-      sort: sort,
-      direction: direction,
-      releasesFilter: releasesFilter,
-      query: query,
-      dateFrom: date.dateFrom,
-      dateTo: date.dateTo,
-    })
+    // noinspection JSIgnoredPromiseFromCall, is extracted from useFetchReleases hook
+    fetchReleases()
   }, [query, sort, direction, releasesFilter, page, date])
 
   const handlePaginationChange = (event: ChangeEvent<unknown>, page: number) => {
@@ -50,12 +51,12 @@ export const Releases = () => {
       <h1>Releases</h1>
       {isLoading && <LoadingSpinner />}
       {error && <ErrorAlert />}
-      {releasesResponse?.data.items && (
+      {releases && (
         <Box className={classes['releases-box']}>
           <ReleaseList
-            releases={releasesResponse?.data.items}
+            releases={releases}
             handlePaginationChange={handlePaginationChange}
-            pagination={releasesResponse.data.pagination}
+            pagination={pagination}
             showAnnouncementDate={sort == 'announcement_date'}
           />
           <ReleaseFilter

@@ -15,7 +15,7 @@ export type FetchReleasesProps = {
   dateTo: string
 }
 
-const fetchReleases = (props: FetchReleasesProps) => {
+const useFetchReleases = (props: FetchReleasesProps) => {
   const API = useApiWithToken()
   const query = useQuery(
     'releases',
@@ -38,4 +38,4 @@ const fetchReleases = (props: FetchReleasesProps) => {
   }
 }
 
-export default fetchReleases
+export default useFetchReleases

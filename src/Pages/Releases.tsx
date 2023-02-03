@@ -19,11 +19,11 @@ export const Releases = () => {
   })
   const [dateFilterValue, setDateFilterValue] = useState('all')
   const { fetchReleases, error, isLoading, releases, pagination } = useFetchReleases({
-    page: page,
-    sort: sort,
-    direction: direction,
-    releasesFilter: releasesFilter,
-    query: query,
+    page,
+    sort,
+    direction,
+    releasesFilter,
+    query,
     dateFrom: date.dateFrom,
     dateTo: date.dateTo,
   })

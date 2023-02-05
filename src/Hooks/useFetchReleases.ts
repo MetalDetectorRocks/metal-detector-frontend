@@ -1,7 +1,9 @@
 import useApiWithToken from './Auth/useApiWithToken'
 import { REST_ROUTES } from '../Router/RestRoutes'
-import { useQuery } from 'react-query'
 import { ReleasesResponse } from '../Api/Model/Release/ReleasesResponse'
+import { AxiosError } from 'axios'
+import { ErrorResponse } from '../Api/Model/Common/ErrorResponse'
+import { useQuery } from 'react-query'
 
 export type FetchReleasesProps = {
   page: number
@@ -13,21 +15,27 @@ export type FetchReleasesProps = {
   dateTo: string
 }
 
-const fetchReleases = (props: FetchReleasesProps) => {
+const useFetchReleases = (props: FetchReleasesProps) => {
   const API = useApiWithToken()
-  const {
-    isLoading,
-    data: response,
-    error,
-  } = useQuery('releases', () => {
-    return API.get<ReleasesResponse>(REST_ROUTES.releases, {
-      params: {
-        ...props,
-      },
-    })
-  })
+  const query = useQuery(
+    'releases',
+    () => {
+      return API.get<ReleasesResponse>(REST_ROUTES.releases, {
+        params: {
+          ...props,
+        },
+      })
+    },
+    { enabled: false },
+  )
 
-  return { releases: response?.data.items, pagination: response?.data.pagination, isLoading, error }
+  return {
+    fetchReleases: query.refetch,
+    releases: query.data?.data.items,
+    pagination: query.data?.data.pagination,
+    error: query.error as AxiosError<ErrorResponse>,
+    isLoading: query.isLoading,
+  }
 }
 
-export default fetchReleases
+export default useFetchReleases

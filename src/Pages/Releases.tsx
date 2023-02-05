@@ -1,7 +1,7 @@
 import ReleaseList from '../Components/Releases/ReleaseList'
 import ReleaseFilter from '../Components/Releases/ReleaseFilter'
 import Box from '@mui/material/Box'
-import { ChangeEvent, useState } from 'react'
+import { ChangeEvent, useEffect, useState } from 'react'
 import LoadingSpinner from '../Components/Common/LoadingSpinner'
 import classes from '../Pages/Release.module.scss'
 import ErrorAlert from '../Components/Common/ErrorAlert'
@@ -17,7 +17,8 @@ export const Releases = () => {
     dateFrom: '',
     dateTo: '',
   })
-  const { releases, pagination, isLoading, error } = useFetchReleases({
+  const [dateFilterValue, setDateFilterValue] = useState('all')
+  const { fetchReleases, error, isLoading, releases, pagination } = useFetchReleases({
     page,
     sort,
     direction,
@@ -26,6 +27,11 @@ export const Releases = () => {
     dateFrom: date.dateFrom,
     dateTo: date.dateTo,
   })
+
+  useEffect(() => {
+    // noinspection JSIgnoredPromiseFromCall, is extracted from useFetchReleases hook
+    fetchReleases()
+  }, [query, sort, direction, releasesFilter, page, date])
 
   const handlePaginationChange = (event: ChangeEvent<unknown>, page: number) => {
     event.preventDefault()
@@ -55,11 +61,15 @@ export const Releases = () => {
           />
           <ReleaseFilter
             sort={sort}
+            direction={direction}
+            releasesFilter={releasesFilter}
+            dateFilterValue={dateFilterValue}
             handleQuerySubmit={setQuery}
             handleSortChange={setSort}
             handleDirectionChange={setDirection}
-            handleArtistsFilterChange={setReleasesFilter}
+            handleReleaseFilterChange={setReleasesFilter}
             handleDateChange={handleDateChange}
+            setDateFilterValue={setDateFilterValue}
           />
         </Box>
       )}

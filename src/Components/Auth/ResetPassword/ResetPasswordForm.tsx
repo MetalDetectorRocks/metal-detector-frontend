@@ -1,32 +1,28 @@
 import AuthBox from '../AuthBox'
-import { FormGroup, Stack, TextField, Typography } from '@mui/material'
+import { FormGroup, Typography } from '@mui/material'
 import classes from './ResetPasswordForm.module.scss'
-import IconButton from '@mui/material/IconButton'
-import { Visibility, VisibilityOff } from '@mui/icons-material'
 import { LoadingButton } from '@mui/lab'
 import Box from '@mui/material/Box'
 import { NavLink, useSearchParams } from 'react-router-dom'
 import { signIn, signUp } from '../../../Router/InternalRoutes'
 import { useEffect, useState } from 'react'
-import { SubmitHandler, useForm } from 'react-hook-form'
+import { FormProvider, SubmitHandler, useForm } from 'react-hook-form'
 import { ResetPasswordRequest } from '../../../Api/Model/Auth/ResetPasswordRequest'
 import useResetPassword from '../../../Hooks/Auth/useResetPassword'
+import PasswordField from '../../Common/Form/PasswordField'
 
 const ResetPasswordForm = () => {
   const [searchParams] = useSearchParams()
   const [errorMsg, setErrorMsg] = useState('')
   const [token, setToken] = useState<string | null>('')
-  const [showPassword, setShowPassword] = useState(false)
   const [successMsg, setSuccessMsg] = useState('')
   const { resetPassword, isLoading, errorMsg: resetPasswordErrorMsg, isSuccess } = useResetPassword()
+  const methods = useForm<ResetPasswordRequest>({ mode: 'onSubmit' })
   const {
-    register,
     handleSubmit,
     reset,
     formState: { errors },
-  } = useForm<ResetPasswordRequest>({ mode: 'onSubmit' })
-
-  const handleClickShowPassword = () => setShowPassword((show) => !show)
+  } = methods
 
   useEffect(() => {
     const tokenParam = searchParams.get('token')
@@ -57,31 +53,19 @@ const ResetPasswordForm = () => {
           </Typography>
           <Box component={'form'} onSubmit={handleSubmit(onSubmit)}>
             <FormGroup className={classes['form']}>
-              <Stack direction="row" justifyContent={'start'} className={classes['password']}>
-                <TextField
-                  type={showPassword ? 'text' : 'password'}
+              <FormProvider {...methods}>
+                <PasswordField
                   label={'Password'}
-                  variant={'outlined'}
-                  color={'secondary'}
-                  autoComplete={'off'}
-                  {...register('newPlainPassword', { required: true, minLength: 8 })}
+                  name={'newPlainPassword'}
+                  options={{ required: true, minLength: 8 }}
                   error={!!errors.newPlainPassword}
                   helperText={
                     (errors.newPlainPassword && 'The password needs at least 8 characters') ||
                     'Make sure your password has at least 8 characters.'
                   }
                   disabled={isLoading}
-                  className={classes['password__field']}
                 />
-                <IconButton
-                  onClick={handleClickShowPassword}
-                  aria-label="toggle password visibility"
-                  edge="end"
-                  className={classes['password__toggle']}
-                >
-                  {showPassword ? <VisibilityOff /> : <Visibility />}
-                </IconButton>
-              </Stack>
+              </FormProvider>
               <LoadingButton variant={'outlined'} type={'submit'} size={'large'} loading={isLoading}>
                 Set new password
               </LoadingButton>

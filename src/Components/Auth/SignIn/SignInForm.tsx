@@ -1,4 +1,4 @@
-import { FormGroup, TextField, Typography } from '@mui/material'
+import { FormGroup, Typography } from '@mui/material'
 import AuthBox from '../AuthBox'
 import Box from '@mui/material/Box'
 import classes from './SignInForm.module.scss'
@@ -6,27 +6,35 @@ import { forgotPassword, signUp } from '../../../Router/InternalRoutes'
 import { NavLink, useSearchParams } from 'react-router-dom'
 import OrDivider from '../OrDivider'
 import GoogleLogin from '../GoogleLogin'
-import { SubmitHandler, useForm } from 'react-hook-form'
+import { FormProvider, SubmitHandler, useForm } from 'react-hook-form'
 import { SignInRequest } from '../../../Api/Model/Auth/SignInRequest'
 import { LoadingButton } from '@mui/lab'
 import useSignIn from '../../../Hooks/Auth/useSignIn'
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import useVerifySignUp from '../../../Hooks/Auth/useVerifySignUp'
+import TextField from '../../Common/Form/TextField'
+import PasswordField from '../../Common/Form/PasswordField'
 
 const SignInForm = () => {
   const [searchParams] = useSearchParams()
-  const usernameInput = useRef<HTMLInputElement>(null)
+  const [username, setUsername] = useState('')
   const passwordInput = useRef<HTMLInputElement>(null)
   const { signInHandler, errorMsg: signInErrorMsg, isLoading } = useSignIn()
-  const { verify, successMsg: verificationSuccessMsg, errorMsg: verificationErrorMsg, username } = useVerifySignUp()
   const {
-    register,
+    verify,
+    successMsg: verificationSuccessMsg,
+    errorMsg: verificationErrorMsg,
+    username: verifiedUsername,
+  } = useVerifySignUp()
+  const methods = useForm<SignInRequest>({ mode: 'onSubmit' })
+  const {
     handleSubmit,
     reset,
     formState: { errors },
-  } = useForm<SignInRequest>({ mode: 'onSubmit' })
+  } = methods
 
   const onSubmit: SubmitHandler<SignInRequest> = (request) => {
+    console.log(request)
     signInHandler(request)
     reset()
   }
@@ -39,44 +47,42 @@ const SignInForm = () => {
   }, [])
 
   useEffect(() => {
-    if (username) {
-      usernameInput.current!.value = username
+    if (verifiedUsername) {
+      setUsername(verifiedUsername)
       passwordInput.current!.focus()
     }
-  }, [username])
+  }, [verifiedUsername])
 
   return (
     <AuthBox title={'Sign in'} errorMsg={signInErrorMsg || verificationErrorMsg} successMsg={verificationSuccessMsg}>
       <Box component={'form'} onSubmit={handleSubmit(onSubmit)}>
         <FormGroup className={classes['form']}>
-          <TextField
-            type={'text'}
-            label={'Username or email address'}
-            variant={'outlined'}
-            color={'secondary'}
-            autoComplete={'off'}
-            autoFocus
-            inputRef={usernameInput}
-            {...register('username', { required: true })}
-            error={!!errors.username}
-            helperText={errors.username && 'This field is required'}
-            disabled={isLoading}
-          />
-          <TextField
-            type={'password'}
-            label={'Password'}
-            variant={'outlined'}
-            color={'secondary'}
-            autoComplete={'off'}
-            inputRef={passwordInput}
-            {...register('password', { required: true })}
-            error={!!errors.password}
-            helperText={errors.username && 'This field is required'}
-            disabled={isLoading}
-          />
-          <LoadingButton variant={'outlined'} type={'submit'} size={'large'} loading={isLoading}>
-            Sign in
-          </LoadingButton>
+          <FormProvider {...methods}>
+            <TextField
+              type={'text'}
+              label={'Username or email address'}
+              autoFocus
+              name={'username'}
+              options={{ required: true }}
+              error={!!errors.username}
+              helperText={errors.username && 'This field is required'}
+              disabled={isLoading}
+              value={username}
+              onChange={(event) => setUsername(event.target.value)}
+            />
+            <PasswordField
+              label={'Password'}
+              inputRef={passwordInput}
+              name={'password'}
+              options={{ required: true }}
+              error={!!errors.password}
+              helperText={errors.password && 'This field is required'}
+              disabled={isLoading}
+            />
+            <LoadingButton variant={'outlined'} type={'submit'} size={'large'} loading={isLoading}>
+              Sign in
+            </LoadingButton>
+          </FormProvider>
         </FormGroup>
         <OrDivider />
         <GoogleLogin />

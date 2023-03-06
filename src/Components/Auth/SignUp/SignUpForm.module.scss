@@ -12,14 +12,3 @@
     margin-top: to-rem(12);
   }
 }
-.password {
-  position: relative;
-  &__field {
-    width: 100%;
-  }
-  &__toggle {
-    position: absolute;
-    right: to-rem(15);
-    top: to-rem(10);
-  }
-}

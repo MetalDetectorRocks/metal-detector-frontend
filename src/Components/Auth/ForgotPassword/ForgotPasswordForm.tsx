@@ -1,22 +1,23 @@
 import AuthBox from '../AuthBox'
-import { FormGroup, TextField, Typography } from '@mui/material'
+import { FormGroup, Typography } from '@mui/material'
 import classes from './ForgotPasswordForm.module.scss'
 import { LoadingButton } from '@mui/lab'
 import Box from '@mui/material/Box'
 import { NavLink } from 'react-router-dom'
 import { signIn, signUp } from '../../../Router/InternalRoutes'
-import { SubmitHandler, useForm } from 'react-hook-form'
+import { FormProvider, SubmitHandler, useForm } from 'react-hook-form'
 import { ForgotPasswordRequest } from '../../../Api/Model/Auth/ForgotPasswordRequest'
 import useForgotPassword from '../../../Hooks/Auth/useForgotPassword'
 import { useEffect, useState } from 'react'
+import TextField from '../../Common/Form/TextField'
 
 const ForgotPasswordForm = () => {
+  const methods = useForm<ForgotPasswordRequest>({ mode: 'onSubmit' })
   const {
-    register,
     handleSubmit,
     reset,
     formState: { errors },
-  } = useForm<ForgotPasswordRequest>({ mode: 'onSubmit' })
+  } = methods
   const { forgotPassword, errorMsg, isLoading, isSuccess } = useForgotPassword()
   const [successMsg, setSuccessMsg] = useState('')
 
@@ -39,21 +40,21 @@ const ForgotPasswordForm = () => {
       </Typography>
       <Box component={'form'} onSubmit={handleSubmit(onSubmit)}>
         <FormGroup className={classes['form']}>
-          <TextField
-            type={'text'}
-            label={'Email address or username'}
-            variant={'outlined'}
-            color={'secondary'}
-            autoComplete={'off'}
-            autoFocus
-            {...register('emailOrUsername', { required: true })}
-            error={!!errors.emailOrUsername}
-            helperText={errors.emailOrUsername && 'This field is required'}
-            disabled={isLoading}
-          />
-          <LoadingButton variant={'outlined'} type={'submit'} size={'large'} loading={isLoading}>
-            Submit
-          </LoadingButton>
+          <FormProvider {...methods}>
+            <TextField
+              type={'text'}
+              label={'Email address or username'}
+              autoFocus
+              name={'emailOrUsername'}
+              options={{ required: true }}
+              error={!!errors.emailOrUsername}
+              helperText={errors.emailOrUsername && 'This field is required'}
+              disabled={isLoading}
+            />
+            <LoadingButton variant={'outlined'} type={'submit'} size={'large'} loading={isLoading}>
+              Submit
+            </LoadingButton>
+          </FormProvider>
         </FormGroup>
         <Box component={'div'} className={classes['form__footer']}>
           <Typography variant="body1">

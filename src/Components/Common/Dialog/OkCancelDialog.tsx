@@ -1,4 +1,13 @@
-import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material'
+import {
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+  useMediaQuery,
+  useTheme,
+} from '@mui/material'
 
 export type OkCancelDialogProps = {
   open: boolean
@@ -13,10 +22,14 @@ export type OkCancelDialogProps = {
 }
 
 const OkCancelDialog = (props: OkCancelDialogProps) => {
+  const theme = useTheme()
+  const fullScreen = useMediaQuery(theme.breakpoints.down('sm'))
+
   return (
     <Dialog
       onClose={props.onClose}
       open={props.open}
+      fullScreen={fullScreen}
       aria-labelledby="alert-dialog-title"
       aria-describedby="alert-dialog-description"
     >

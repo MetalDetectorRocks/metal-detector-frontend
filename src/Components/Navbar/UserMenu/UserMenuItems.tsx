@@ -30,7 +30,7 @@ const UserMenuItems = () => {
       <NavLink to={account.path} className={({ isActive }) => (isActive ? classes['user-menu__item-active'] : '')}>
         <MenuItem>
           <ListItemIcon>
-            <Settings fontSize="small" />
+            <Settings fontSize="small" color={'secondary'} />
           </ListItemIcon>
           {account.name}
         </MenuItem>
@@ -41,7 +41,7 @@ const UserMenuItems = () => {
       >
         <MenuItem>
           <ListItemIcon>
-            <Spotify fontSize="small" />
+            <Spotify fontSize="small" color={'secondary'} />
           </ListItemIcon>
           {spotifySynchronization.name}
         </MenuItem>
@@ -52,7 +52,7 @@ const UserMenuItems = () => {
       >
         <MenuItem>
           <ListItemIcon>
-            <Notifications fontSize="small" />
+            <Notifications fontSize="small" color={'secondary'} />
           </ListItemIcon>
           {notificationSettings.name}
         </MenuItem>
@@ -61,7 +61,7 @@ const UserMenuItems = () => {
         <NavLink to={adminArea.path} className={({ isActive }) => (isActive ? classes['user-menu__item-active'] : '')}>
           <MenuItem>
             <ListItemIcon>
-              <AdminPanelSettings fontSize="small" />
+              <AdminPanelSettings fontSize="small" color={'secondary'} />
             </ListItemIcon>
             {adminArea.name}
           </MenuItem>
@@ -70,7 +70,7 @@ const UserMenuItems = () => {
       <Divider />
       <MenuItem onClick={handleSignOut} className={classes['user-menu__item-logout']}>
         <ListItemIcon>
-          <Logout fontSize="small" />
+          <Logout fontSize="small" color={'secondary'} />
         </ListItemIcon>
         {logout.name}
       </MenuItem>

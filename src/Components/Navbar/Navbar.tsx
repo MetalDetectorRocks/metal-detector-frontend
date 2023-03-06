@@ -54,6 +54,7 @@ const Navbar = () => {
             size="medium"
             className={classes['app-bar__search-icon']}
             onClick={handleOpenSearchBar}
+            color={'secondary'}
           >
             {searchBarOpened ? <CloseIcon /> : <SearchIcon />}
           </IconButton>

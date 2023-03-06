@@ -1,0 +1,26 @@
+@import '../../Styles/partials/02-general/general.to-rem';
+@import '../../Styles/partials/01-settings/settings.breakpoints';
+
+.section {
+  margin-bottom: to-rem(48);
+
+  &__form {
+    width: 100%;
+    @include respond-above(sm) {
+      width: to-rem(500);
+    }
+  }
+
+  &__form > * {
+    margin-bottom: to-rem(12);
+  }
+
+  &__submit {
+    width: to-rem(200);
+  }
+
+  &__alert {
+    margin-bottom: to-rem(24);
+    width: to-rem(500);
+  }
+}

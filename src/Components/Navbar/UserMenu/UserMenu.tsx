@@ -18,7 +18,7 @@ const UserMenu = () => {
   return (
     <Box>
       <IconButton size="large" onClick={handleOpenUserMenu}>
-        <AccountCircle fontSize={'large'} />
+        <AccountCircle fontSize={'large'} color={'secondary'} />
       </IconButton>
       <Menu
         id="user-menu"

@@ -25,7 +25,7 @@ const MobileMenu = (props: MobileMenuProps) => {
     <>
       <Box component={'div'} className={classes['mobile-menu']}>
         <IconButton size="medium" className={classes['mobile-menu__open-icon']} onClick={toggleDrawer}>
-          <MenuIcon />
+          <MenuIcon color={'secondary'} />
         </IconButton>
         <Drawer
           anchor={pos}
@@ -38,7 +38,7 @@ const MobileMenu = (props: MobileMenuProps) => {
           <Box component={'div'} className={classes['mobile-menu__drawer']}>
             <Box component={'div'} className={classes['mobile-menu__control']}>
               <IconButton size="large" edge="start" color="inherit" onClick={toggleDrawer}>
-                <CloseIcon />
+                <CloseIcon color={'secondary'} />
               </IconButton>
             </Box>
             <Box component={'nav'} onClick={toggleDrawer} className={classes['mobile-menu__nav']}>

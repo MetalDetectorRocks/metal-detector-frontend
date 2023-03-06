@@ -31,6 +31,7 @@ const PasswordField = (props: TextFieldProps) => {
         aria-label="toggle password visibility"
         edge="end"
         className={classes['password__toggle']}
+        color={'secondary'}
       >
         {showPassword ? <VisibilityOff /> : <Visibility />}
       </IconButton>

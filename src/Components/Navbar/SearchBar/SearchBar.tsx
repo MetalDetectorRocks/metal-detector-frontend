@@ -20,7 +20,13 @@ const SearchBar = (props: SearchBarProps) => {
         placeholder={'Search Artist...'}
         autoFocus={props.autofocus}
       />
-      <IconButton edge="start" size="medium" onClick={handleSearch} className={classes['search__go-icon']}>
+      <IconButton
+        edge="start"
+        size="medium"
+        onClick={handleSearch}
+        className={classes['search__go-icon']}
+        color={'secondary'}
+      >
         <DoubleArrowIcon />
       </IconButton>
     </>

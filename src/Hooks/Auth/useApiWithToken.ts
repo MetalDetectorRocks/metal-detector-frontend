@@ -38,15 +38,20 @@ const useApiWithToken = () => {
       async (error) => {
         const prevRequest = error?.config
         const shouldRefreshToken = error?.response?.status === 401 && prevRequest.url !== REST_ROUTES.refresh
+        const shouldNavigateToLogin = !shouldRefreshToken && error?.response?.status === 401
 
-        if (!shouldRefreshToken) {
+        if (shouldNavigateToLogin) {
           navigate(signIn.path, { replace: true })
           return Promise.reject(error)
         }
 
-        const newAccessToken = await refreshToken()
-        prevRequest.headers['Authorization'] = `Bearer ${newAccessToken}`
-        return API_WITH_TOKEN(prevRequest)
+        if (shouldRefreshToken) {
+          const newAccessToken = await refreshToken()
+          prevRequest.headers['Authorization'] = `Bearer ${newAccessToken}`
+          return API_WITH_TOKEN(prevRequest)
+        }
+
+        return Promise.reject(error)
       },
     )
 

@@ -1,3 +1,13 @@
+import ChangeEmailAddress from '../../Components/AccountDetails/ChangeEmailAddress'
+import ChangePassword from '../../Components/AccountDetails/ChangePassword'
+import DeleteAccount from '../../Components/AccountDetails/DeleteAccount'
+
 export const AccountDetails = () => {
-  return <h1>Account Details</h1>
+  return (
+    <>
+      <ChangeEmailAddress />
+      <ChangePassword />
+      <DeleteAccount />
+    </>
+  )
 }

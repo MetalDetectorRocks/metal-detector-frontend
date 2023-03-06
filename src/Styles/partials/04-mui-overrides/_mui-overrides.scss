@@ -11,15 +11,23 @@
 
 .MuiButton {
   &-root {
-    color: white;
-    background-color: $color-secondary-background;
-    border-color: $color-primary-border;
     text-transform: none;
-    &:hover {
+  }
+  &-outlinedPrimary {
       color: white;
-      border-color: $color-primary-highlight;
-      background-color: $color-secondary-highlight;
-    }
+      background-color: $color-secondary-background;
+      border-color: $color-primary-border;
+      &:hover {
+        color: white;
+        border-color: $color-primary-highlight;
+        background-color: $color-secondary-highlight;
+      }
+  }
+}
+
+.MuiDialog {
+  &-paper {
+    border: 1px solid $color-primary-border;
   }
 }
 
@@ -69,11 +77,5 @@
         border: 1px solid $color-primary-border;
       }
     }
-  }
-}
-
-.MuiSvgIcon {
-  &-root {
-    color: $color-primary-foreground;
   }
 }

@@ -10,14 +10,13 @@ import { FormProvider, SubmitHandler, useForm } from 'react-hook-form'
 import { SignInRequest } from '../../../Api/Model/Auth/SignInRequest'
 import { LoadingButton } from '@mui/lab'
 import useSignIn from '../../../Hooks/Auth/useSignIn'
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef } from 'react'
 import useVerifySignUp from '../../../Hooks/Auth/useVerifySignUp'
 import TextField from '../../Common/Form/TextField'
 import PasswordField from '../../Common/Form/PasswordField'
 
 const SignInForm = () => {
   const [searchParams] = useSearchParams()
-  const [username, setUsername] = useState('')
   const passwordInput = useRef<HTMLInputElement>(null)
   const { signInHandler, errorMsg: signInErrorMsg, isLoading } = useSignIn()
   const {
@@ -31,10 +30,10 @@ const SignInForm = () => {
     handleSubmit,
     reset,
     formState: { errors },
+    setValue,
   } = methods
 
   const onSubmit: SubmitHandler<SignInRequest> = (request) => {
-    console.log(request)
     signInHandler(request)
     reset()
   }
@@ -48,7 +47,7 @@ const SignInForm = () => {
 
   useEffect(() => {
     if (verifiedUsername) {
-      setUsername(verifiedUsername)
+      setValue('username', verifiedUsername)
       passwordInput.current!.focus()
     }
   }, [verifiedUsername])
@@ -67,8 +66,9 @@ const SignInForm = () => {
               error={!!errors.username}
               helperText={errors.username && 'This field is required'}
               disabled={isLoading}
-              value={username}
-              onChange={(event) => setUsername(event.target.value)}
+              InputLabelProps={{
+                shrink: true,
+              }}
             />
             <PasswordField
               label={'Password'}

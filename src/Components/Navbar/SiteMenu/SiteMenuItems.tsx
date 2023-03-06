@@ -16,7 +16,7 @@ const SiteMenuItems = (props: SiteMenuItemsProps) => {
         <NavLink to={home.path} className={({ isActive }) => (isActive ? classes['site-menu__item-active'] : '')}>
           <MenuItem>
             <ListItemIcon>
-              <Home fontSize="small" />
+              <Home fontSize="small" color={'secondary'} />
             </ListItemIcon>
             {home.name}
           </MenuItem>
@@ -26,7 +26,7 @@ const SiteMenuItems = (props: SiteMenuItemsProps) => {
         <NavLink to={dashboard.path} className={({ isActive }) => (isActive ? classes['site-menu__item-active'] : '')}>
           <MenuItem>
             <ListItemIcon>
-              <Dashboard fontSize="small" />
+              <Dashboard fontSize="small" color={'secondary'} />
             </ListItemIcon>
             {dashboard.name}
           </MenuItem>
@@ -35,7 +35,7 @@ const SiteMenuItems = (props: SiteMenuItemsProps) => {
       <NavLink to={blog.path} className={({ isActive }) => (isActive ? classes['site-menu__item-active'] : '')}>
         <MenuItem>
           <ListItemIcon>
-            <Article fontSize="small" />
+            <Article fontSize="small" color={'secondary'} />
           </ListItemIcon>
           {blog.name}
         </MenuItem>
@@ -44,7 +44,7 @@ const SiteMenuItems = (props: SiteMenuItemsProps) => {
         <NavLink to={myArtists.path} className={({ isActive }) => (isActive ? classes['site-menu__item-active'] : '')}>
           <MenuItem>
             <ListItemIcon>
-              <LibraryMusic fontSize="small" />
+              <LibraryMusic fontSize="small" color={'secondary'} />
             </ListItemIcon>
             {myArtists.name}
           </MenuItem>
@@ -53,7 +53,7 @@ const SiteMenuItems = (props: SiteMenuItemsProps) => {
       <NavLink to={releases.path} className={({ isActive }) => (isActive ? classes['site-menu__item-active'] : '')}>
         <MenuItem>
           <ListItemIcon>
-            <Album fontSize="small" />
+            <Album fontSize="small" color={'secondary'} />
           </ListItemIcon>
           {releases.name}
         </MenuItem>

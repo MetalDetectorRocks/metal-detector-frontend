@@ -13,7 +13,7 @@ export type AuthBoxProps = {
 const AuthBox = (props: AuthBoxProps) => {
   return (
     <Box className={classes['auth-box']}>
-      <h2 className={classes['auth-box__heading']}>{props.title}</h2>
+      <h1 className={classes['auth-box__heading']}>{props.title}</h1>
       {props.errorMsg && (
         <Alert severity="error" variant={'filled'} className={classes['auth-box__alert']}>
           {props.errorMsg}

@@ -1,11 +1,9 @@
-html {
+html,
+body {
   height: 100%;
+  width: 100%;
   margin: 0;
   scroll-behavior: smooth;
-}
-body {
-  margin: 0;
-  height: 100%;
   background-color: $color-body-background;
   color: $color-primary-foreground;
   font-family: $font-body;
@@ -13,4 +11,17 @@ body {
   text-align: left;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+::-webkit-scrollbar {
+  width: to-rem(8);
+}
+
+::-webkit-scrollbar-track {
+  background: $color-body-background;
+}
+
+::-webkit-scrollbar-thumb {
+  background: $color-primary-border;
+  border-radius: to-rem(5);
 }

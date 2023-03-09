@@ -1,9 +1,11 @@
 .MuiAlert {
-  &-standardError {
+  &-standardError,
+  &-filledError {
     background-color: $color-primary-error-background;
     color: $color-primary-foreground
   }
-  &-standardSuccess {
+  &-standardSuccess,
+  &-filledSuccess {
     background-color: $color-primary-success-background;
     color: $color-primary-foreground
   }

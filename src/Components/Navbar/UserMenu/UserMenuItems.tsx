@@ -4,7 +4,7 @@ import { Divider, ListItemIcon } from '@mui/material'
 import Spotify from '../../Common/Spotify'
 import { NavLink, useNavigate } from 'react-router-dom'
 import {
-  adminArea,
+  adminDashboard,
   notificationSettings,
   account,
   spotifySynchronization,
@@ -58,12 +58,15 @@ const UserMenuItems = () => {
         </MenuItem>
       </NavLink>
       {user?.isAdmin() && (
-        <NavLink to={adminArea.path} className={({ isActive }) => (isActive ? classes['user-menu__item-active'] : '')}>
+        <NavLink
+          to={adminDashboard.path}
+          className={({ isActive }) => (isActive ? classes['user-menu__item-active'] : '')}
+        >
           <MenuItem>
             <ListItemIcon>
               <AdminPanelSettings fontSize="small" color={'secondary'} />
             </ListItemIcon>
-            {adminArea.name}
+            {adminDashboard.name}
           </MenuItem>
         </NavLink>
       )}

@@ -1,0 +1,10 @@
+@import '../../../../Styles/partials/02-general/general.to-rem';
+
+.side-menu {
+  width: to-rem(210);
+
+  &__section-heading {
+    margin-left: to-rem(10);
+    margin-bottom: to-rem(5);
+  }
+}

@@ -2,12 +2,10 @@
 @import '../../../Styles/partials/02-general/general.to-rem';
 
 .user-menu {
-  &__item {
-    &-active li {
+  &__logout {
+    margin-top: to-rem(8);
+    &:hover {
       background-color: $color-secondary-highlight;
     }
-  }
-  &__item-logout {
-    margin-top: to-rem(8)
   }
 }

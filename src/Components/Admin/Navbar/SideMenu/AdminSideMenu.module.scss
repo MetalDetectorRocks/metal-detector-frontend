@@ -3,6 +3,12 @@
 .side-menu {
   width: to-rem(210);
 
+  & li {
+    font-weight: 600;
+    padding-top: to-rem(10);
+    padding-bottom: to-rem(10);
+  }
+
   &__section-heading {
     margin-left: to-rem(10);
     margin-bottom: to-rem(5);

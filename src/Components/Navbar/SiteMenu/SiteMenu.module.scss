@@ -13,7 +13,7 @@
     white-space: nowrap;
 
     &:hover,
-    &-active {
+    &--active {
       color: $color-primary-highlight;
     }
   }

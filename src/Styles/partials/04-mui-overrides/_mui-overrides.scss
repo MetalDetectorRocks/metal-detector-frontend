@@ -63,9 +63,6 @@
 .MuiMenuItem {
   &-root {
     color: $color-menu-foreground;
-    &-hover {
-      background-color: $color-secondary-highlight;
-    }
   }
 }
 

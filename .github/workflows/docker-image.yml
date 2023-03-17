@@ -30,8 +30,8 @@ jobs:
           context: ./
           file: ./Dockerfile
           tags: |
-            metaldetector/metal-detector-frontend:${{ steps.version.outputs.version }}
-            metaldetector/metal-detector-frontend:latest
+            metaldetectorrocks/metal-detector-frontend:${{ steps.version.outputs.version }}
+            metaldetectorrocks/metal-detector-frontend:latest
           build-args: |
             BUILD_DATE=${{ steps.version.outputs.version }}
             VCS_REF=${{ github.ref }}

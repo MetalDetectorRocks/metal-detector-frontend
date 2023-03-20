@@ -1,4 +1,4 @@
-FROM --platform=linux/amd64 node:18.14.2-alpine3.17 as build-step
+FROM --platform=linux/amd64 node:18.15.0-alpine3.17 as build-step
 
 ENV TZ=Europe/Berlin
 

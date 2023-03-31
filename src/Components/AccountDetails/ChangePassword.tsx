@@ -34,7 +34,7 @@ const ChangePassword = () => {
       <hr />
       {errorMsg && (
         <Alert severity="error" variant={'filled'} className={classes['section__alert']}>
-          Your password could not be updated. Reason: {errorMsg}
+          Your password could not be changed. Reason: {errorMsg}
         </Alert>
       )}
       <Box component={'form'} onSubmit={handleSubmit(onSubmit)}>

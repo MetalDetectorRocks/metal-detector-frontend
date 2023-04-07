@@ -29,16 +29,32 @@ import {
   forgotPassword,
   signUp,
   resetPassword,
-  adminArea,
+  adminDashboard,
   unauthorized,
+  adminUsersDetail,
+  adminNotifications,
+  adminReleasesList,
+  adminReleaseImport,
+  adminUsersList,
+  adminUsersNew,
+  adminReleasesDetail,
+  adminReleaseDenyList,
 } from './InternalRoutes'
 import { AdminLayout } from '../Layouts/AdminLayout/AdminLayout'
-import { AdminDashboard } from '../Pages/Admin/AdminDashboard'
+import { AdminDashboardPage } from '../Pages/Admin/AdminDashboardPage'
 import RequireAuth from '../Components/Auth/RequireAuth'
 import { UserRole } from '../Api/Model/Auth/UserRole'
 import useUser from '../Hooks/Auth/useUser'
 import { LandingPage } from '../Pages/Landing'
 import PersistentLogin from '../Components/Auth/PersistentLogin'
+import AdminReleaseImportPage from '../Pages/Admin/AdminReleaseImportPage'
+import AdminReleasesListPage from '../Pages/Admin/AdminReleasesListPage'
+import AdminNotificationsPage from '../Pages/Admin/AdminNotificationsPage'
+import AdminUsersListPage from '../Pages/Admin/AdminUsersListPage'
+import AdminReleasesDetailsPage from '../Pages/Admin/AdminReleasesDetailsPage'
+import AdminUsersNewPage from '../Pages/Admin/AdminUsersNewPage'
+import AdminUsersDetailsPage from '../Pages/Admin/AdminUsersDetailsPage'
+import AdminReleasesDenyListPage from '../Pages/Admin/AdminReleasesDenyListPage'
 
 export const AppRouter = () => {
   const { isAuthenticated } = useUser()
@@ -82,7 +98,15 @@ export const AppRouter = () => {
         <Route element={<PersistentLogin />}>
           <Route element={<AdminLayout />}>
             <Route element={<RequireAuth allowedRoles={[UserRole.Administrator]} />}>
-              <Route path={adminArea.path} element={<AdminDashboard />} />
+              <Route path={adminDashboard.path} element={<AdminDashboardPage />} />
+              <Route path={adminReleaseImport.path} element={<AdminReleaseImportPage />} />
+              <Route path={adminReleasesList.path} element={<AdminReleasesListPage />} />
+              <Route path={adminReleasesDetail.path} element={<AdminReleasesDetailsPage />} />
+              <Route path={adminReleaseDenyList.path} element={<AdminReleasesDenyListPage />} />
+              <Route path={adminNotifications.path} element={<AdminNotificationsPage />} />
+              <Route path={adminUsersList.path} element={<AdminUsersListPage />} />
+              <Route path={adminUsersNew.path} element={<AdminUsersNewPage />} />
+              <Route path={adminUsersDetail.path} element={<AdminUsersDetailsPage />} />
             </Route>
           </Route>
         </Route>

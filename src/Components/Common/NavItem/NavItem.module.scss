@@ -1,7 +1,13 @@
 @import '../../../Styles/partials/01-settings/settings.colors';
+@import '../../../Styles/partials/02-general/general.to-rem';
 
-.site-menu {
+.nav {
   &__item {
+    &:hover {
+      background-color: $color-secondary-highlight;
+    }
+  }
+  &__link {
     &--active li {
       background-color: $color-secondary-highlight;
     }

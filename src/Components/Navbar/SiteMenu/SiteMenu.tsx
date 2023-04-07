@@ -13,7 +13,7 @@ const SiteMenu = (props: SiteMenuProps) => {
   const menu = props.authenticated ? userMenu : guestMenu
 
   const defaultClass = classes['site-menu__item']
-  const activeClass = `${classes['site-menu__item']} ${classes['site-menu__item-active']}`
+  const activeClass = `${classes['site-menu__item']} ${classes['site-menu__item--active']}`
 
   return (
     <Box component={'nav'} className={classes['site-menu']}>

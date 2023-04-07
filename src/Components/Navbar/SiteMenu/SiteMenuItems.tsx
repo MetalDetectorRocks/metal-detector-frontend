@@ -1,9 +1,10 @@
-import { NavLink } from 'react-router-dom'
 import { blog, dashboard, home, myArtists, releases } from '../../../Router/InternalRoutes'
-import MenuItem from '@mui/material/MenuItem'
-import { ListItemIcon } from '@mui/material'
-import { Home, Dashboard, Article, Album, LibraryMusic } from '@mui/icons-material'
-import classes from './SiteMenuItems.module.scss'
+import Home from '@mui/icons-material/Home'
+import Dashboard from '@mui/icons-material/Dashboard'
+import Article from '@mui/icons-material/Article'
+import Album from '@mui/icons-material/Album'
+import LibraryMusic from '@mui/icons-material/LibraryMusic'
+import NavItem from '../../Common/NavItem/NavItem'
 
 export type SiteMenuItemsProps = {
   authenticated: boolean
@@ -13,51 +14,24 @@ const SiteMenuItems = (props: SiteMenuItemsProps) => {
   return (
     <>
       {!props.authenticated && (
-        <NavLink to={home.path} className={({ isActive }) => (isActive ? classes['site-menu__item-active'] : '')}>
-          <MenuItem>
-            <ListItemIcon>
-              <Home fontSize="small" color={'secondary'} />
-            </ListItemIcon>
-            {home.name}
-          </MenuItem>
-        </NavLink>
+        <NavItem name={home.name} path={home.path} icon={<Home fontSize="small" color={'secondary'} />} />
       )}
       {props.authenticated && (
-        <NavLink to={dashboard.path} className={({ isActive }) => (isActive ? classes['site-menu__item-active'] : '')}>
-          <MenuItem>
-            <ListItemIcon>
-              <Dashboard fontSize="small" color={'secondary'} />
-            </ListItemIcon>
-            {dashboard.name}
-          </MenuItem>
-        </NavLink>
+        <NavItem
+          name={dashboard.name}
+          path={dashboard.path}
+          icon={<Dashboard fontSize="small" color={'secondary'} />}
+        />
       )}
-      <NavLink to={blog.path} className={({ isActive }) => (isActive ? classes['site-menu__item-active'] : '')}>
-        <MenuItem>
-          <ListItemIcon>
-            <Article fontSize="small" color={'secondary'} />
-          </ListItemIcon>
-          {blog.name}
-        </MenuItem>
-      </NavLink>
+      <NavItem name={blog.name} path={blog.path} icon={<Article fontSize="small" color={'secondary'} />} />
       {props.authenticated && (
-        <NavLink to={myArtists.path} className={({ isActive }) => (isActive ? classes['site-menu__item-active'] : '')}>
-          <MenuItem>
-            <ListItemIcon>
-              <LibraryMusic fontSize="small" color={'secondary'} />
-            </ListItemIcon>
-            {myArtists.name}
-          </MenuItem>
-        </NavLink>
+        <NavItem
+          name={myArtists.name}
+          path={myArtists.path}
+          icon={<LibraryMusic fontSize="small" color={'secondary'} />}
+        />
       )}
-      <NavLink to={releases.path} className={({ isActive }) => (isActive ? classes['site-menu__item-active'] : '')}>
-        <MenuItem>
-          <ListItemIcon>
-            <Album fontSize="small" color={'secondary'} />
-          </ListItemIcon>
-          {releases.name}
-        </MenuItem>
-      </NavLink>
+      <NavItem name={releases.name} path={releases.path} icon={<Album fontSize="small" color={'secondary'} />} />
     </>
   )
 }

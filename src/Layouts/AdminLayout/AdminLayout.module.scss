@@ -1,0 +1,9 @@
+@import '../../Styles/partials/02-general/general.to-rem';
+
+.main-wrapper {
+  display: flex;
+
+  &__content {
+    margin-left: to-rem(240);
+  }
+}

@@ -1,10 +1,14 @@
-import { AdminPanelSettings, Logout, Notifications, Settings } from '@mui/icons-material'
+import AdminPanelSettings from '@mui/icons-material/AdminPanelSettings'
+import Logout from '@mui/icons-material/Logout'
+import Notifications from '@mui/icons-material/Notifications'
+import Settings from '@mui/icons-material/Settings'
 import MenuItem from '@mui/material/MenuItem'
-import { Divider, ListItemIcon } from '@mui/material'
+import Divider from '@mui/material/Divider'
+import ListItemIcon from '@mui/material/ListItemIcon'
 import Spotify from '../../Common/Spotify'
-import { NavLink, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import {
-  adminArea,
+  adminDashboard,
   notificationSettings,
   account,
   spotifySynchronization,
@@ -14,6 +18,7 @@ import {
 import classes from './UserMenuItems.module.scss'
 import useUser from '../../../Hooks/Auth/useUser'
 import useSignOut from '../../../Hooks/Auth/useSignOut'
+import NavItem from '../../Common/NavItem/NavItem'
 
 const UserMenuItems = () => {
   const navigate = useNavigate()
@@ -27,48 +32,26 @@ const UserMenuItems = () => {
 
   return (
     <>
-      <NavLink to={account.path} className={({ isActive }) => (isActive ? classes['user-menu__item-active'] : '')}>
-        <MenuItem>
-          <ListItemIcon>
-            <Settings fontSize="small" color={'secondary'} />
-          </ListItemIcon>
-          {account.name}
-        </MenuItem>
-      </NavLink>
-      <NavLink
-        to={spotifySynchronization.path}
-        className={({ isActive }) => (isActive ? classes['user-menu__item-active'] : '')}
-      >
-        <MenuItem>
-          <ListItemIcon>
-            <Spotify fontSize="small" color={'secondary'} />
-          </ListItemIcon>
-          {spotifySynchronization.name}
-        </MenuItem>
-      </NavLink>
-      <NavLink
-        to={notificationSettings.path}
-        className={({ isActive }) => (isActive ? classes['user-menu__item-active'] : '')}
-      >
-        <MenuItem>
-          <ListItemIcon>
-            <Notifications fontSize="small" color={'secondary'} />
-          </ListItemIcon>
-          {notificationSettings.name}
-        </MenuItem>
-      </NavLink>
+      <NavItem name={account.name} path={account.path} icon={<Settings fontSize="small" color={'secondary'} />} />
+      <NavItem
+        name={spotifySynchronization.name}
+        path={spotifySynchronization.path}
+        icon={<Spotify fontSize="small" color={'secondary'} />}
+      />
+      <NavItem
+        name={notificationSettings.name}
+        path={notificationSettings.path}
+        icon={<Notifications fontSize="small" color={'secondary'} />}
+      />
       {user?.isAdmin() && (
-        <NavLink to={adminArea.path} className={({ isActive }) => (isActive ? classes['user-menu__item-active'] : '')}>
-          <MenuItem>
-            <ListItemIcon>
-              <AdminPanelSettings fontSize="small" color={'secondary'} />
-            </ListItemIcon>
-            {adminArea.name}
-          </MenuItem>
-        </NavLink>
+        <NavItem
+          name={'Admin area'}
+          path={adminDashboard.path}
+          icon={<AdminPanelSettings fontSize="small" color={'secondary'} />}
+        />
       )}
       <Divider />
-      <MenuItem onClick={handleSignOut} className={classes['user-menu__item-logout']}>
+      <MenuItem onClick={handleSignOut} className={classes['user-menu__logout']}>
         <ListItemIcon>
           <Logout fontSize="small" color={'secondary'} />
         </ListItemIcon>

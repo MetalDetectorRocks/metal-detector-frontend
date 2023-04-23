@@ -5,7 +5,7 @@ export type InternalRoute = {
 
 export const home = { name: 'Home', path: '/' }
 export const dashboard = { name: 'Dashboard', path: '/' }
-export const blog = { name: 'Blog', path: '/blog' }
+export const blog = { name: 'Blog', path: 'https://blog.metal-detector.rocks' }
 export const myArtists = { name: 'My Artists', path: '/my-artists' }
 export const releases = { name: 'Releases', path: '/releases' }
 export const search = { name: 'Search Results', path: '/search' }

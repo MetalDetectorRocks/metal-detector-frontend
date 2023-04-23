@@ -29,6 +29,10 @@ export const Releases = () => {
   })
 
   useEffect(() => {
+    document.title = 'Releases | Metal Detector'
+  }, [])
+
+  useEffect(() => {
     // noinspection JSIgnoredPromiseFromCall, is extracted from useFetchReleases hook
     fetchReleases()
   }, [query, sort, direction, releasesFilter, page, date])

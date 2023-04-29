@@ -1,7 +1,7 @@
 import AppBar from '@mui/material/AppBar'
 import Box from '@mui/material/Box'
 import Toolbar from '@mui/material/Toolbar'
-import UserMenu from './UserMenu/UserMenu'
+import UserMenu from '../Common/Menu/UserMenu/UserMenu'
 import SiteMenu from './SiteMenu/SiteMenu'
 import SearchIcon from '@mui/icons-material/Search'
 import CloseIcon from '@mui/icons-material/Close'
@@ -17,6 +17,7 @@ import AuthenticationMenu from './AuthenticationMenu/AuthenticationMenu'
 import { useTheme } from '@mui/material/styles'
 import useMediaQuery from '@mui/material/useMediaQuery'
 import useUser from '../../Hooks/Auth/useUser'
+import UserMenuItems from './UserMenuItems/UserMenuItems'
 
 const Navbar = () => {
   const { isAuthenticated } = useUser()
@@ -47,7 +48,7 @@ const Navbar = () => {
           <Box className={classes['app-bar__menu']}>
             <SiteMenu authenticated={isAuthenticated} />
             {!isAuthenticated && <AuthenticationMenu />}
-            {isAuthenticated && <UserMenu />}
+            {isAuthenticated && <UserMenu iconSize={'medium'} menuItems={<UserMenuItems />} />}
           </Box>
           <IconButton
             edge="start"

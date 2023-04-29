@@ -6,7 +6,7 @@ import IconButton from '@mui/material/IconButton'
 import MenuIcon from '@mui/icons-material/Menu'
 import Box from '@mui/material/Box'
 import CloseIcon from '@mui/icons-material/Close'
-import UserMenuItems from '../UserMenu/UserMenuItems'
+import UserMenuItems from '../UserMenuItems/UserMenuItems'
 import SiteMenuItems from '../SiteMenu/SiteMenuItems'
 import AuthenticationMenu from '../AuthenticationMenu/AuthenticationMenu'
 

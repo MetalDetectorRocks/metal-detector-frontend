@@ -1,0 +1,11 @@
+@import '../../../../Styles/partials/01-settings/settings.colors';
+@import '../../../../Styles/partials/02-general/general.to-rem';
+
+.user-menu {
+  &__logout {
+    margin-top: to-rem(8);
+    &:hover {
+      background-color: $color-secondary-highlight;
+    }
+  }
+}

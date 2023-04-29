@@ -3,10 +3,14 @@ import { AccountCircle } from '@mui/icons-material'
 import Menu from '@mui/material/Menu'
 import Box from '@mui/material/Box'
 import classes from './UserMenu.module.scss'
-import { useState, MouseEvent } from 'react'
-import UserMenuItems from './UserMenuItems'
+import { useState, MouseEvent, ReactNode } from 'react'
 
-const UserMenu = () => {
+export type UserMenuProps = {
+  iconSize?: 'small' | 'medium' | 'large'
+  menuItems: ReactNode
+}
+
+const UserMenu = (props: UserMenuProps) => {
   const [userMenu, setUserMenu] = useState<null | HTMLElement>(null)
   const handleOpenUserMenu = (event: MouseEvent<HTMLElement>) => {
     setUserMenu(event.currentTarget)
@@ -16,9 +20,9 @@ const UserMenu = () => {
   }
 
   return (
-    <Box>
-      <IconButton size="large" onClick={handleOpenUserMenu}>
-        <AccountCircle fontSize={'large'} color={'secondary'} />
+    <>
+      <IconButton size={props.iconSize || 'medium'} onClick={handleOpenUserMenu}>
+        <AccountCircle fontSize={props.iconSize || 'medium'} color={'secondary'} />
       </IconButton>
       <Menu
         id="user-menu"
@@ -33,11 +37,9 @@ const UserMenu = () => {
         transformOrigin={{ horizontal: 'right', vertical: 'top' }}
         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
       >
-        <Box component={'nav'}>
-          <UserMenuItems />
-        </Box>
+        <Box component={'nav'}>{props.menuItems}</Box>
       </Menu>
-    </Box>
+    </>
   )
 }
 

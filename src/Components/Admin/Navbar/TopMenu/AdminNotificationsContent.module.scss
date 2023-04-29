@@ -1,0 +1,7 @@
+@import '../../../../Styles/partials/01-settings/settings.colors';
+@import '../../../../Styles/partials/02-general/general.to-rem';
+
+.notifications-content {
+  margin-left: to-rem(8);
+  margin-right: to-rem(8);
+}

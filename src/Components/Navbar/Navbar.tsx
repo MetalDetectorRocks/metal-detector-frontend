@@ -1,7 +1,7 @@
 import AppBar from '@mui/material/AppBar'
 import Box from '@mui/material/Box'
 import Toolbar from '@mui/material/Toolbar'
-import UserMenu from '../Common/Menu/UserMenu/UserMenu'
+import MenuPopover from '../Common/Menu/UserMenu/MenuPopover'
 import SiteMenu from './SiteMenu/SiteMenu'
 import SearchIcon from '@mui/icons-material/Search'
 import CloseIcon from '@mui/icons-material/Close'
@@ -18,6 +18,7 @@ import { useTheme } from '@mui/material/styles'
 import useMediaQuery from '@mui/material/useMediaQuery'
 import useUser from '../../Hooks/Auth/useUser'
 import UserMenuItems from './UserMenuItems/UserMenuItems'
+import { AccountCircle } from '@mui/icons-material'
 
 const Navbar = () => {
   const { isAuthenticated } = useUser()
@@ -48,7 +49,9 @@ const Navbar = () => {
           <Box className={classes['app-bar__menu']}>
             <SiteMenu authenticated={isAuthenticated} />
             {!isAuthenticated && <AuthenticationMenu />}
-            {isAuthenticated && <UserMenu iconSize={'medium'} menuItems={<UserMenuItems />} />}
+            {isAuthenticated && (
+              <MenuPopover icon={<AccountCircle color={'secondary'} />} content={<UserMenuItems />} />
+            )}
           </Box>
           <IconButton
             edge="start"

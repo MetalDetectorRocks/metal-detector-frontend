@@ -1,0 +1,12 @@
+@import '../../../Styles/partials/02-general/general.to-rem';
+
+.widget {
+  height: to-rem(250);
+  padding: to-rem(12);
+
+  &__title {
+    margin: 0;
+    font-size: to-rem(18);
+    text-align: center;
+  }
+}

@@ -24,7 +24,7 @@ const AdminTopMenu = () => {
         <Box>
           <MenuPopover
             icon={
-              <Badge badgeContent={4} color="error">
+              <Badge badgeContent={4} color="error" max={9}>
                 <NotificationsIcon color={'secondary'} />
               </Badge>
             }

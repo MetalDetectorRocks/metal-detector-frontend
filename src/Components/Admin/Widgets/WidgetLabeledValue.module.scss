@@ -1,0 +1,23 @@
+@import '../../../Styles/partials/02-general/general.to-rem';
+@import '../../../Styles/partials/01-settings/settings.colors';
+
+.labeled-value-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.labeled-value {
+  text-align: center;
+  margin-bottom: to-rem(16);
+  &__value {
+    font-size: to-rem(28);
+    margin: 0;
+    padding: 0;
+  }
+  &__label {
+    font-size: to-rem(12);
+    text-transform: uppercase;
+    margin: 0;
+    padding: 0;
+  }
+}

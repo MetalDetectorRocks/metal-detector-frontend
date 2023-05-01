@@ -1,6 +1,6 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { MainLayout } from '../Layouts/MainLayout/MainLayout'
-import { Home } from '../Pages/Home'
+import { Dashboard } from '../Pages/Dashboard'
 import { NotFound } from '../Pages/NotFound'
 import { Login } from '../Pages/Auth/Login'
 import { AuthLayout } from '../Layouts/AuthLayout/AuthLayout'
@@ -45,7 +45,7 @@ import { AdminDashboardPage } from '../Pages/Admin/AdminDashboardPage'
 import RequireAuth from '../Components/Auth/RequireAuth'
 import { UserRole } from '../Api/Model/Auth/UserRole'
 import useUser from '../Hooks/Auth/useUser'
-import { LandingPage } from '../Pages/Landing'
+import { LandingPage } from '../Pages/Home'
 import PersistentLogin from '../Components/Auth/PersistentLogin'
 import AdminReleaseImportPage from '../Pages/Admin/AdminReleaseImportPage'
 import AdminReleasesListPage from '../Pages/Admin/AdminReleasesListPage'
@@ -64,7 +64,7 @@ export const AppRouter = () => {
         <Route element={<PersistentLogin />}>
           {/* Public site routes */}
           <Route path="/" element={<MainLayout />}>
-            <Route index element={isAuthenticated ? <Home /> : <LandingPage />} />
+            <Route index element={isAuthenticated ? <Dashboard /> : <LandingPage />} />
             <Route path={releases.path} element={<Releases />} />
             <Route path={search.path} element={<SearchResults />} />
             <Route path={imprint.path} element={<Imprint />} />

@@ -56,6 +56,11 @@
     "eslint-plugin-react-hooks": "^4.6.0",
     "prettier": "^2.8.8"
   },
+  "overrides": {
+    "react-scripts": {
+      "typescript": "^5"
+    }
+  },
   "eslintConfig": {
     "extends": [
       "react-app",

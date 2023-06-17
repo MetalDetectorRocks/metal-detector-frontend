@@ -3,7 +3,7 @@ import { List, ListItem } from '@mui/material'
 import ReleaseCard from '../Card/ReleaseCard'
 import Box from '@mui/material/Box'
 import React from 'react'
-import classes from '../Releases/ReleaseList.module.scss'
+import classes from './ReleaseList.module.scss'
 import { BackendPagination } from '../../Api/Model/Common/BackendPagination'
 import { Release } from '../../Api/Model/Release/Release'
 

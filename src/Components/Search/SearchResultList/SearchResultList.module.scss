@@ -16,14 +16,16 @@
   &__heading {
     margin-bottom: to-rem(20);
   }
+}
 
-  &__skeleton-title {
+.search-result-skeletons {
+  &__title {
     margin-top: to-rem(16);
     height: to-rem(35);
     width: 100%;
   }
 
-  &__skeleton-item {
+  &__item {
     height: to-rem(82);
     width: 100%;
 

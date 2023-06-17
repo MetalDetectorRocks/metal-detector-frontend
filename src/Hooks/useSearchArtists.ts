@@ -16,6 +16,7 @@ const searchArtists = (props: SearchArtistsProps) => {
     () => {
       return API.get<ArtistSearchResponse>(REST_ROUTES.searchArtists, {
         params: {
+          size: 10,
           ...props,
         },
       })

@@ -7,7 +7,7 @@ export type FollowIconProps = {
 }
 
 const FollowIcon = (props: FollowIconProps) => {
-  // TODO: Handle follow and unfollow in later PR
+  // TODO DanielW: Handle follow and unfollow in later PR
   return (
     <>
       {props.followed ? (

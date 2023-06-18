@@ -1,12 +1,16 @@
 import IconButton from '@mui/material/IconButton'
-import { AccountCircle } from '@mui/icons-material'
 import Menu from '@mui/material/Menu'
 import Box from '@mui/material/Box'
-import classes from './UserMenu.module.scss'
-import { useState, MouseEvent } from 'react'
-import UserMenuItems from './UserMenuItems'
+import classes from './MenuPopover.module.scss'
+import { useState, MouseEvent, ReactNode } from 'react'
 
-const UserMenu = () => {
+export type UserMenuProps = {
+  icon: ReactNode
+  iconSize?: 'small' | 'medium' | 'large'
+  content: ReactNode
+}
+
+const MenuPopover = (props: UserMenuProps) => {
   const [userMenu, setUserMenu] = useState<null | HTMLElement>(null)
   const handleOpenUserMenu = (event: MouseEvent<HTMLElement>) => {
     setUserMenu(event.currentTarget)
@@ -16,12 +20,11 @@ const UserMenu = () => {
   }
 
   return (
-    <Box>
-      <IconButton size="large" onClick={handleOpenUserMenu}>
-        <AccountCircle fontSize={'large'} color={'secondary'} />
+    <>
+      <IconButton size={props.iconSize || 'medium'} onClick={handleOpenUserMenu} aria-haspopup="true" color="inherit">
+        {props.icon}
       </IconButton>
       <Menu
-        id="user-menu"
         anchorEl={userMenu}
         open={Boolean(userMenu)}
         onClose={handleCloseUserMenu}
@@ -33,12 +36,10 @@ const UserMenu = () => {
         transformOrigin={{ horizontal: 'right', vertical: 'top' }}
         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
       >
-        <Box component={'nav'}>
-          <UserMenuItems />
-        </Box>
+        <Box component={'nav'}>{props.content}</Box>
       </Menu>
-    </Box>
+    </>
   )
 }
 
-export default UserMenu
+export default MenuPopover

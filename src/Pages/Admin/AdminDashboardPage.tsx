@@ -1,3 +1,4 @@
+import WidgetGrid from '../../Components/Admin/Widgets/WidgetGrid'
 import { useEffect } from 'react'
 
 export const AdminDashboardPage = () => {
@@ -7,6 +8,7 @@ export const AdminDashboardPage = () => {
   return (
     <>
       <h1>Dashboard</h1>
+      <WidgetGrid />
     </>
   )
 }

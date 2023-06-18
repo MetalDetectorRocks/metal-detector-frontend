@@ -4,7 +4,7 @@ import Dashboard from '@mui/icons-material/Dashboard'
 import Article from '@mui/icons-material/Article'
 import Album from '@mui/icons-material/Album'
 import LibraryMusic from '@mui/icons-material/LibraryMusic'
-import NavItem from '../../Common/NavItem/NavItem'
+import NavItem from '../../Common/Menu/NavItem/NavItem'
 
 export type SiteMenuItemsProps = {
   authenticated: boolean

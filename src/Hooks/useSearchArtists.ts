@@ -26,6 +26,7 @@ const searchArtists = (props: SearchArtistsProps) => {
 
   return {
     searchArtists: query.refetch,
+    title: query.data?.data.searchResultsTitle,
     artists: query.data?.data.searchResults,
     pagination: query.data?.data.pagination,
     error: query.error as AxiosError<ErrorResponse>,

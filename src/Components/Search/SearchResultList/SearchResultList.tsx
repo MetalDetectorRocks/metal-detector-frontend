@@ -12,53 +12,28 @@ const SearchResultList = () => {
   const [searchParams] = useSearchParams()
   const [query, setQuery] = useState('')
   const [page, setPage] = useState(1)
-  const [title, setTitle] = useState('')
   const [items, setItems] = useState<ArtistSearchResultEntry[]>([])
   const [hasMore, setHasMore] = useState(false)
-  const { isLoading, searchArtists, artists, pagination } = useSearchArtists({
+  const { isLoading, searchArtists, title, artists, pagination } = useSearchArtists({
     page,
     query,
   })
 
   useEffect(() => {
-    console.log('init')
+    setItems([])
+    setPage(1)
     setQuery(searchParams.get('query') || '')
   }, [searchParams.get('query')])
 
   useEffect(() => {
-    if (page > 1) {
-      console.log('Fetch more')
+    if (query || (query && page > 1)) {
       // noinspection JSIgnoredPromiseFromCall, is extracted from useSearchArtists hook
       searchArtists()
     }
-  }, [page])
-
-  useEffect(() => {
-    if (query) {
-      console.log('Searching')
-      setItems([])
-      // noinspection JSIgnoredPromiseFromCall, is extracted from useSearchArtists hook
-      searchArtists()
-    }
-  }, [query])
+  }, [query, page])
 
   useEffect(() => {
     if (pagination && artists) {
-      console.log('Handle results')
-      // TODO DanielW: Remove to backend
-      const totalPages = pagination.totalPages
-      const itemsPerPage = pagination.itemsPerPage
-
-      if (totalPages === 1) {
-        const amount = artists.length
-        const resultWord = amount === 1 ? 'result' : 'results'
-        setTitle(`${amount} ${resultWord} for "${query}"`)
-      } else {
-        const estimatedAmountOfResults = (totalPages - 1) * itemsPerPage
-        setTitle(`More than ${estimatedAmountOfResults} results for "${query}"`)
-      }
-      // TODO DanielW: End
-
       setPage(pagination.currentPage)
       setHasMore(pagination.currentPage < pagination.totalPages)
       setItems(items.concat(artists))

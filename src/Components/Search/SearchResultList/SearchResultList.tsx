@@ -8,60 +8,70 @@ import SearchResultItem from '../SearchResultItem/SearchResultItem'
 import SearchResultListSkeleton from './SearchResultListSkeleton'
 import InfiniteScroll from 'react-infinite-scroll-component'
 
+type SearchResultListState = {
+  query: string
+  page: number
+  items: ArtistSearchResultEntry[]
+  hasMore: boolean
+}
+
 const SearchResultList = () => {
   const [searchParams] = useSearchParams()
-  const [query, setQuery] = useState('')
-  const [page, setPage] = useState(1)
-  const [items, setItems] = useState<ArtistSearchResultEntry[]>([])
-  const [hasMore, setHasMore] = useState(false)
+  const [state, setState] = useState<SearchResultListState>({
+    query: '',
+    page: 0,
+    items: [],
+    hasMore: false,
+  })
   const { isLoading, searchArtists, title, artists, pagination } = useSearchArtists({
-    page,
-    query,
+    query: state.query,
+    page: state.page,
   })
 
   useEffect(() => {
-    setItems([])
-    setPage(1)
-    setQuery(searchParams.get('query') || '')
+    setState((state) => ({ ...state, items: [], page: 1, query: searchParams.get('query') || '' }))
   }, [searchParams.get('query')])
 
   useEffect(() => {
-    if (query || (query && page > 1)) {
+    if (state.query || (state.query && state.page > 1)) {
       // noinspection JSIgnoredPromiseFromCall, is extracted from useSearchArtists hook
       searchArtists()
     }
-  }, [query, page])
+  }, [state.query, state.page])
 
   useEffect(() => {
     if (pagination && artists) {
-      setPage(pagination.currentPage)
-      setHasMore(pagination.currentPage < pagination.totalPages)
-      setItems(items.concat(artists))
+      setState((state) => ({
+        ...state,
+        page: pagination.currentPage,
+        hasMore: pagination.currentPage < pagination.totalPages,
+        items: state.items.concat(artists),
+      }))
     }
   }, [artists])
 
   const fetchMore = () => {
-    if (hasMore) {
-      setPage(page + 1)
+    if (state.hasMore) {
+      setState((state) => ({ ...state, page: state.page + 1 }))
     }
   }
 
   return (
     <>
       <Box className={classes['search-results']}>
-        {items && (
+        {state.items && (
           <>
             {!isLoading && <h1 className={classes['search-results__heading']}>{title}</h1>}
             <Box className={classes['search-results__list']}>
-              <InfiniteScroll dataLength={items.length} next={fetchMore} hasMore={hasMore} loader={<></>}>
-                {items.map((artist: ArtistSearchResultEntry, index) => (
+              <InfiniteScroll dataLength={state.items.length} next={fetchMore} hasMore={state.hasMore} loader={<></>}>
+                {state.items.map((artist: ArtistSearchResultEntry, index) => (
                   <SearchResultItem key={index} artist={artist} />
                 ))}
               </InfiniteScroll>
             </Box>
           </>
         )}
-        {isLoading && <SearchResultListSkeleton firstPage={page === 1} />}
+        {isLoading && <SearchResultListSkeleton firstPage={state.page === 1} />}
       </Box>
     </>
   )

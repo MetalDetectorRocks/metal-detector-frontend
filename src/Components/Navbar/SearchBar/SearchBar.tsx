@@ -4,7 +4,7 @@ import DoubleArrowIcon from '@mui/icons-material/DoubleArrow'
 import IconButton from '@mui/material/IconButton'
 import { useNavigate } from 'react-router-dom'
 import { search } from '../../../Router/InternalRoutes'
-import { KeyboardEvent, useState } from 'react'
+import { KeyboardEvent, useEffect, useState } from 'react'
 
 export type SearchBarProps = {
   autofocus: boolean
@@ -13,6 +13,7 @@ export type SearchBarProps = {
 const SearchBar = (props: SearchBarProps) => {
   const [query, setQuery] = useState('')
   const navigate = useNavigate()
+  const location = window.location
 
   const handleSearch = () => {
     navigate(`${search.path}?query=${query}`)
@@ -24,6 +25,14 @@ const SearchBar = (props: SearchBarProps) => {
     }
   }
 
+  //Geschmackssache, aber wenn ich nach einer Suche auf eine andere Seite wechsel
+  //ist es eher "gängig" das die Suche zurückgesetzt wird - entscheid ob du es magst :)
+  useEffect(() => {
+    if (location.pathname != search.path) {
+      setQuery('')
+    }
+  }, [location.pathname])
+
   return (
     <>
       <TextField
@@ -31,8 +40,9 @@ const SearchBar = (props: SearchBarProps) => {
         fullWidth
         className={classes['search']}
         placeholder={'Search Artist...'}
+        value={query}
         autoFocus={props.autofocus}
-        onChange={(event) => setQuery(event.target.value)}
+        onChange={(event) => setQuery(event.target.value || '')}
         onKeyDown={handleKeyDown}
       />
       <IconButton

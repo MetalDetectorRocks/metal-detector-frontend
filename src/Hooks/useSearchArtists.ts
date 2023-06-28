@@ -1,37 +1,36 @@
-import { useQuery } from 'react-query'
+import { useMutation } from 'react-query'
 import { REST_ROUTES } from '../Router/RestRoutes'
 import { ArtistSearchResponse } from '../Api/Model/Artist/ArtistSearchResponse'
 import { API } from '../Api/Axios'
-import { AxiosError } from 'axios'
-import { ErrorResponse } from '../Api/Model/Common/ErrorResponse'
 
 export type SearchArtistsProps = {
   query: string
   page: number
 }
 
-const searchArtists = (props: SearchArtistsProps) => {
-  const query = useQuery(
-    'search-artists',
-    () => {
-      return API.get<ArtistSearchResponse>(REST_ROUTES.searchArtists, {
-        params: {
-          size: 10,
-          ...props,
-        },
-      })
-    },
-    { enabled: false },
-  )
+//useMutation finde ich hier eleganter, ist zwar kein klassisches CRUD, aber so koppelst du Ausführung des
+// Request von dem Aufruf des Hooks, anstatt es über ein "Refetch" wie in der alten Variante zu versuchen
+// die dann aber davon abhängig ist, dass die Komponente auch wirklich neu gerendert wird
+
+const useSearchArtists = () => {
+  const {
+    mutate: searchArtists,
+    isLoading,
+    error,
+  } = useMutation((props: SearchArtistsProps) => {
+    return API.get<ArtistSearchResponse>(REST_ROUTES.searchArtists, {
+      params: {
+        size: 10,
+        ...props,
+      },
+    })
+  })
 
   return {
-    searchArtists: query.refetch,
-    title: query.data?.data.searchResultsTitle,
-    artists: query.data?.data.searchResults,
-    pagination: query.data?.data.pagination,
-    error: query.error as AxiosError<ErrorResponse>,
-    isLoading: query.isLoading || query.isRefetching,
+    searchArtists,
+    error,
+    isLoading,
   }
 }
 
-export default searchArtists
+export default useSearchArtists

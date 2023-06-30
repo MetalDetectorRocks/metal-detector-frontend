@@ -25,8 +25,6 @@ const SearchBar = (props: SearchBarProps) => {
     }
   }
 
-  //Geschmackssache, aber wenn ich nach einer Suche auf eine andere Seite wechsel
-  //ist es eher "gängig" das die Suche zurückgesetzt wird - entscheid ob du es magst :)
   useEffect(() => {
     if (location.pathname != search.path) {
       setQuery('')

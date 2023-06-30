@@ -11,54 +11,43 @@ import InfiniteScroll from 'react-infinite-scroll-component'
 const SearchResultList = () => {
   const [searchParams] = useSearchParams()
   const { searchArtists, isLoading } = useSearchArtists()
-
-  // useReducer wäre hier auch nett, aber der sehr verschachtelte State kann hier schnell zum Problem werden,
-  // besser atomare States oder useReducer, immer leichter zu debuggen und auch zu erweitern und verstehen
   const [query, setQuery] = useState<string>(searchParams.get('query') || '')
   const [page, setPage] = useState<number>(1)
   const [hasMore, setHasMore] = useState<boolean>(true)
+  const [title, setTitle] = useState<string>('')
   const [results, setResults] = useState<ArtistSearchResultEntry[]>([])
 
   useEffect(() => {
-    // wenn sich der "echte" searchQuery ändert soll die Liste zurückgesetzt werden
     setQuery(searchParams.get('query') || '')
     setResults([])
     setPage(1)
   }, [searchParams.get('query')])
 
   useEffect(() => {
-    // bei dem setResults musst du nochmal schauen, da war vorher ein "concat", ich hab nicht verstanden wieso und es funktioniert noch wunderbar :D
     searchArtists(
       { query, page },
       {
-        onSuccess: (resp) => {
-          setResults((state) => [...state, ...resp.data.searchResults])
-          setHasMore(resp.data.pagination.currentPage < resp.data.pagination.totalPages)
+        onSuccess: (response) => {
+          setResults((state) => [...state, ...response.data.searchResults])
+          setHasMore(response.data.pagination.currentPage < response.data.pagination.totalPages)
+          setTitle(response.data.searchResultsTitle)
         },
       },
     )
   }, [query, page])
 
   const fetchMore = () => {
-    // fetchMore wird eh nur getriggert, wenn hasMore true ist
     setPage((page) => page + 1)
   }
-
-  const spinner = (
-    <div className={classes['spinner-wrapper']}>
-      <div>🎸</div>
-      Loading some awesome riffs ..
-    </div>
-  )
 
   return (
     <>
       <Box className={classes['search-results']}>
         {results && (
           <>
-            {!isLoading && <h1 className={classes['search-results__heading']}>{query}</h1>}
+            {!isLoading && <h1 className={classes['search-results__heading']}>{title}</h1>}
             <Box className={classes['search-results__list']}>
-              <InfiniteScroll dataLength={results.length} next={fetchMore} hasMore={hasMore} loader={spinner}>
+              <InfiniteScroll dataLength={results.length} next={fetchMore} hasMore={hasMore} loader={<></>}>
                 {results.map((artist: ArtistSearchResultEntry, index) => (
                   <SearchResultItem key={index} artist={artist} />
                 ))}

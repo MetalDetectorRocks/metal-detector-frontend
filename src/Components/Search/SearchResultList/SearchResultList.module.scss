@@ -34,20 +34,3 @@
     }
   }
 }
-
-.spinner-wrapper {
-  display: flex;
-  justify-content: center;
-  gap: 1rem;
-  padding: 2rem;
-  & > div {
-    animation: spin 2s linear infinite;
-    display: flex;
-    width: max-content;
-  }
-}
-@keyframes spin {
-  100% {
-    transform: rotate(360deg);
-  }
-}

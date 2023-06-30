@@ -8,10 +8,6 @@ export type SearchArtistsProps = {
   page: number
 }
 
-//useMutation finde ich hier eleganter, ist zwar kein klassisches CRUD, aber so koppelst du Ausführung des
-// Request von dem Aufruf des Hooks, anstatt es über ein "Refetch" wie in der alten Variante zu versuchen
-// die dann aber davon abhängig ist, dass die Komponente auch wirklich neu gerendert wird
-
 const useSearchArtists = () => {
   const {
     mutate: searchArtists,

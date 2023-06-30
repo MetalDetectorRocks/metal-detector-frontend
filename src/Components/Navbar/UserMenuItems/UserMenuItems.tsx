@@ -18,7 +18,7 @@ import {
 import classes from './UserMenuItems.module.scss'
 import useUser from '../../../Hooks/Auth/useUser'
 import useSignOut from '../../../Hooks/Auth/useSignOut'
-import NavItem from '../../Common/NavItem/NavItem'
+import NavItem from '../../Common/Menu/NavItem/NavItem'
 
 const UserMenuItems = () => {
   const navigate = useNavigate()

@@ -1,4 +1,4 @@
-FROM --platform=linux/amd64 node:18.16.0-alpine3.17 as build-step
+FROM --platform=linux/amd64 node:18.16.1-alpine3.17 as build-step
 
 ENV TZ=Europe/Berlin
 
@@ -29,7 +29,7 @@ COPY . /app
 
 RUN npm run-script build
 
-FROM nginxinc/nginx-unprivileged:1.23.4-alpine
+FROM nginxinc/nginx-unprivileged:1.25.1-alpine
 COPY --from=build-step /app/build /usr/share/nginx/html
 COPY nginx/default.conf /etc/nginx/conf.d/default.conf
 

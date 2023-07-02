@@ -9,6 +9,8 @@ body {
   font-family: $font-body;
   font-size: $base-font-size;
   text-align: left;
+  font-weight: 500;
+  line-height: 1.5;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }

@@ -1,0 +1,61 @@
+@import '../../Styles/partials/01-settings/settings.breakpoints';
+@import '../../Styles/partials/01-settings/settings.colors';
+@import '../../Styles/partials/02-general/general.to-rem';
+
+.footer-bar {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column-reverse;
+  padding-top: to-rem(12);
+  padding-bottom: to-rem(12);
+
+  @include respond-above(md) {
+    flex-direction: row;
+  }
+}
+
+.footer-icons {
+  text-align: center;
+
+  @include respond-above(md) {
+    text-align: match-parent;
+  }
+
+  &__icon {
+    &:not(:last-child) {
+      margin-right: to-rem(12);
+    }
+
+    img {
+      height: to-rem(24);
+      filter: grayscale(90%);
+
+      &:hover {
+        filter: grayscale(0);
+      }
+    }
+  }
+}
+
+.footer-menu {
+  text-align: center;
+  margin-bottom: to-rem(12);
+
+  @include respond-above(md) {
+    text-align: match-parent;
+    margin-bottom: to-rem(0);
+  }
+
+  &__item {
+    color: $color-muted-foreground;
+    font-size: to-rem(15);
+    font-weight: 500;
+
+    &:not(:last-child) {
+      margin-right: to-rem(12);
+    }
+    &:hover {
+      color: $color-muted-highlight-font;
+    }
+  }
+}

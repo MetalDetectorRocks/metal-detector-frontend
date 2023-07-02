@@ -1,0 +1,9 @@
+@import '../../Styles/partials/02-general/general.to-rem';
+
+.footer {
+  margin-top: to-rem(16);
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  right: 0;
+}

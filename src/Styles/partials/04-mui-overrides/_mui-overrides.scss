@@ -27,6 +27,19 @@
   }
 }
 
+.MuiChip {
+  &-root {
+    border-radius: to-rem(4);
+    height: to-rem(18);
+  }
+  &-labelSmall {
+    padding-left: to-rem(4);
+    padding-right: to-rem(4);
+    font-weight: bold;
+    font-size: to-rem(11);
+  }
+}
+
 .MuiDialog {
   &-paper {
     border: 1px solid $color-primary-border;

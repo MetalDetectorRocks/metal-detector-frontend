@@ -1,0 +1,76 @@
+@import '../../../Styles/partials/01-settings/settings.breakpoints';
+@import '../../../Styles/partials/02-general/general.to-rem';
+
+.search-result-item {
+  display: flex;
+  width: 100%;
+  margin-top: to-rem(15);
+  margin-bottom: to-rem(15);
+  background-color: transparent;
+
+  &__image {
+    flex-basis: 20%;
+
+    & img {
+      height: to-rem(90);
+      width: to-rem(90);
+      object-fit: cover;
+      border-radius: to-rem(8);
+
+      @include respond-above(sm) {
+        height: to-rem(125);
+        width: to-rem(125);
+      }
+    }
+  }
+
+  &__content {
+    flex-basis: 75%;
+    padding-top: to-rem(2);
+    padding-right: 0;
+    padding-left: to-rem(6);
+
+    @include respond-above(sm) {
+      padding-top: to-rem(5);
+      padding-left: to-rem(12);
+    }
+  }
+
+  &__artist-name {
+    margin: 0 0 to-rem(4);
+    font-size: to-rem(16);
+
+    @include respond-above(sm) {
+      font-size: to-rem(21);
+      margin: 0 0 to-rem(8);
+    }
+  }
+
+  &__genre-badge {
+    margin-right: to-rem(5);
+    margin-bottom: to-rem(4);
+
+    &--desktop {
+      @include respond-to(sm) {
+        display: none;
+      }
+    }
+  }
+
+  &__following-info {
+    margin: 0;
+    font-size: to-rem(13);
+    font-weight: bold;
+  }
+
+  &__follow-icon {
+    flex-basis: 5%;
+    padding-top: to-rem(2);
+    padding-left: to-rem(3);
+    padding-right: to-rem(3);
+
+    @include respond-above(sm) {
+      padding-top: to-rem(5);
+    }
+  }
+}

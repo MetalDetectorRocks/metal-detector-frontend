@@ -13,4 +13,5 @@ export const REST_ROUTES = {
   csrf: '/rest/v1/csrf',
   myArtists: '/rest/v1/my-artists',
   releases: '/rest/v1/releases',
+  searchArtists: '/rest/v1/artists/search',
 }

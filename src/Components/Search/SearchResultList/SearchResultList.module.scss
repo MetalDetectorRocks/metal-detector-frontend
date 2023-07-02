@@ -1,0 +1,36 @@
+@import '../../../Styles/partials/01-settings/settings.breakpoints';
+@import '../../../Styles/partials/02-general/general.to-rem';
+
+.search-results {
+  margin: auto;
+  width: 100%;
+
+  @include respond-above(sm) {
+    width: 90%;
+  }
+
+  @include respond-above(md) {
+    width: 55%;
+  }
+
+  &__heading {
+    margin-bottom: to-rem(20);
+  }
+}
+
+.search-result-skeletons {
+  &__title {
+    margin-top: to-rem(16);
+    height: to-rem(35);
+    width: 100%;
+  }
+
+  &__item {
+    height: to-rem(82);
+    width: 100%;
+
+    @include respond-above(sm) {
+      height: to-rem(115);
+    }
+  }
+}

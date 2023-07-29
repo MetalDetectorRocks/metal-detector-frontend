@@ -1,5 +1,7 @@
 import { ArrowDownward } from '@mui/icons-material'
 import DataTable, { TableProps, createTheme } from 'react-data-table-component'
+import { StyleSheetManager } from 'styled-components'
+import isPropValid from '@emotion/is-prop-valid'
 
 const sortIcon = <ArrowDownward />
 createTheme('dark', {
@@ -37,21 +39,29 @@ const customStyles = {
 
 function DataTableBase<T>(props: TableProps<T>): JSX.Element {
   return (
-    <DataTable
-      highlightOnHover
-      noHeader
-      pagination
-      pointerOnHover
-      responsive
-      // subHeader
-      // subHeaderAlign={Alignment.RIGHT}
-      sortIcon={sortIcon}
-      theme={'dark'}
-      paginationRowsPerPageOptions={[10, 20, 30]}
-      paginationPerPage={10}
-      customStyles={customStyles}
+    <StyleSheetManager
+      enableVendorPrefixes
+      shouldForwardProp={(propName, elementToBeRendered) => {
+        return typeof elementToBeRendered === 'string' ? isPropValid(propName) : true
+      }}
       {...props}
-    />
+    >
+      <DataTable
+        highlightOnHover
+        noHeader
+        pagination
+        pointerOnHover
+        responsive
+        // subHeader
+        // subHeaderAlign={Alignment.RIGHT}
+        sortIcon={sortIcon}
+        theme={'dark'}
+        paginationRowsPerPageOptions={[10, 20, 30]}
+        paginationPerPage={10}
+        customStyles={customStyles}
+        {...props}
+      />
+    </StyleSheetManager>
   )
 }
 

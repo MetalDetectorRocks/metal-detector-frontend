@@ -9,11 +9,18 @@ createTheme('dark', {
     default: 'transparent',
   },
   highlightOnHover: {
-    default: '#26252E',
+    default: '#2c3138',
   },
 })
 
 const customStyles = {
+  headRow: {
+    style: {
+      backgroundColor: '#2c3138',
+      borderTopLeftRadius: '10px',
+      borderTopRightRadius: '10px',
+    },
+  },
   rows: {
     style: {
       minHeight: '72px',

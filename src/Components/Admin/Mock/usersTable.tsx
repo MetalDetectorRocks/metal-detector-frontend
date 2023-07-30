@@ -1,5 +1,6 @@
 import MoreVertIcon from '@mui/icons-material/MoreVert'
 import { Chip } from '@mui/material'
+import UserNameCellRenderer from '../User/UserNameCellRenderer'
 
 enum UserType {
   NATIVE = 'Native',
@@ -29,50 +30,45 @@ type User = {
 
 export const columns = [
   {
-    name: 'Username',
+    name: 'User',
+    cell: (user: User) => <UserNameCellRenderer username={user.username} email={user.email} />,
     selector: (user: User) => user.username,
-    sortable: true,
-    width: '12%',
-  },
-  {
-    name: 'Email',
-    selector: (user: User) => user.email,
     sortable: true,
   },
   {
     name: 'Type',
-    cell: (user: User) => <Chip label={user.type} size="small" color={evalTypeColor(user.type)} variant={'outlined'} />,
+    cell: (user: User) => <Chip label={user.type} size="small" color={evalTypeColor(user.type)} variant={'filled'} />,
     selector: (row: User) => row.type,
     sortable: true,
-    width: '12%',
+    width: '13%',
   },
   {
     name: 'Role',
-    cell: (user: User) => <Chip label={user.role} size="small" color={evalRoleColor(user.role)} variant={'outlined'} />,
+    cell: (user: User) => <Chip label={user.role} size="small" color={evalRoleColor(user.role)} variant={'filled'} />,
     selector: (user: User) => user.role,
     sortable: true,
-    width: '12%',
+    width: '13%',
   },
   {
     name: 'Status',
     cell: (user: User) => (
-      <Chip label={user.status} size="small" color={evalStatusColor(user.status)} variant={'outlined'} />
+      <Chip label={user.status} size="small" color={evalStatusColor(user.status)} variant={'filled'} />
     ),
     selector: (user: User) => user.status,
     sortable: true,
-    width: '12%',
+    width: '13%',
   },
   {
     name: 'Last Login',
     selector: (user: User) => user.lastLogin,
     sortable: true,
-    width: '12%',
+    width: '13%',
   },
   {
     name: 'Creation date',
     selector: (user: User) => user.creationDate,
     sortable: true,
-    width: '12%',
+    width: '13%',
   },
   {
     cell: () => <MoreVertIcon fontSize={'small'} />,

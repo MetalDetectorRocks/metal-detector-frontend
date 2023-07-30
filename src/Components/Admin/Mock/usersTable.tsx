@@ -17,7 +17,7 @@ enum UserStatus {
   DISABLED = 'Disabled',
 }
 
-type User = {
+export type User = {
   id: number
   username: string
   email: string
@@ -119,7 +119,7 @@ export const data: User[] = [
   {
     id: 2,
     username: 'NilsD',
-    email: 'nilsd@example.com',
+    email: 'nilsd@web.com',
     type: UserType.NATIVE,
     role: UserRole.ADMIN,
     status: UserStatus.ENABLED,
@@ -129,7 +129,7 @@ export const data: User[] = [
   {
     id: 3,
     username: 'DanielW',
-    email: 'danielw@example.com',
+    email: 'danielw@web.com',
     type: UserType.NATIVE,
     role: UserRole.ADMIN,
     status: UserStatus.ENABLED,
@@ -139,7 +139,7 @@ export const data: User[] = [
   {
     id: 4,
     username: 'NilsD',
-    email: 'nilsd@example.com',
+    email: 'nilsd@web.com',
     type: UserType.NATIVE,
     role: UserRole.USER,
     status: UserStatus.ENABLED,

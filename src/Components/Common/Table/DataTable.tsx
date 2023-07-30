@@ -2,6 +2,7 @@ import { ArrowDownward } from '@mui/icons-material'
 import DataTable, { TableProps, createTheme } from 'react-data-table-component'
 import { StyleSheetManager } from 'styled-components'
 import isPropValid from '@emotion/is-prop-valid'
+import { darkThemeColorScheme } from '../../../Theme'
 
 const sortIcon = <ArrowDownward />
 createTheme('dark', {
@@ -9,14 +10,14 @@ createTheme('dark', {
     default: 'transparent',
   },
   highlightOnHover: {
-    default: '#2c3138',
+    default: darkThemeColorScheme.primaryBorder,
   },
 })
 
 const customStyles = {
   headRow: {
     style: {
-      backgroundColor: '#2c3138',
+      backgroundColor: darkThemeColorScheme.primaryBorder,
       borderTopLeftRadius: '10px',
       borderTopRightRadius: '10px',
     },
@@ -31,9 +32,15 @@ const customStyles = {
       fontSize: '15px',
     },
   },
+  subHeader: {
+    style: {
+      padding: 0,
+      paddingBottom: '10px',
+    },
+  },
   table: {
     style: {
-      border: '1px solid rgba(81, 81, 81, 1)',
+      border: `1px solid ${darkThemeColorScheme.primaryBorder}`,
       borderRadius: '10px',
     },
   },
@@ -59,8 +66,6 @@ function DataTableBase<T>(props: TableProps<T>): JSX.Element {
         pagination
         pointerOnHover
         responsive
-        // subHeader
-        // subHeaderAlign={Alignment.RIGHT}
         sortIcon={sortIcon}
         theme={'dark'}
         paginationRowsPerPageOptions={[10, 20, 30]}

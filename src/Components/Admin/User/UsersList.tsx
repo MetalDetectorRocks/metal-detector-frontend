@@ -1,24 +1,32 @@
-import { ChangeEvent, useState } from 'react'
+import { ChangeEvent, useEffect, useState } from 'react'
 import DataTable from '../../Common/Table/DataTable'
-import { columns, data, User } from '../Mock/usersTable'
+import { columns } from './UserTableColumns'
 import { Alignment } from 'react-data-table-component'
 import DataTableSearch from '../../Common/Table/DataTableSearch'
 import Button from '@mui/material/Button'
 import classes from './UsersList.module.scss'
+import useFetchUsers from '../../../Hooks/useFetchUsers'
+import { UserDetails } from '../../../Api/Model/User/UserDetails'
+import { useNavigate } from 'react-router-dom'
+import { adminUsersList } from '../../../Router/InternalRoutes'
 
 const UsersList = () => {
-  // const [selectedRows, setSelectedRows] = useState([])
-  // const handleRowSelected = useCallback((state: any) => {
-  //   setSelectedRows(state.selectedRows)
-  //   console.log(state.selectedRows)
-  //   console.log(selectedRows)
-  // }, [])
+  const { users } = useFetchUsers()
   const [searchText, setSearchText] = useState('')
-  const filteredUsers = data.filter(
-    (user: User) =>
-      (user.username && user.username.toLowerCase().includes(searchText.toLowerCase())) ||
-      (user.email && user.email.toLowerCase().includes(searchText.toLowerCase())),
-  )
+  const [filteredUsers, setFilteredUsers] = useState<UserDetails[]>([])
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    if (users) {
+      setFilteredUsers(
+        users.filter(
+          (user: UserDetails) =>
+            (user.username && user.username.toLowerCase().includes(searchText.toLowerCase())) ||
+            (user.email && user.email.toLowerCase().includes(searchText.toLowerCase())),
+        ),
+      )
+    }
+  }, [users, searchText])
 
   const subHeaderComponent = (
     <div className={classes['sub-header']}>
@@ -41,6 +49,7 @@ const UsersList = () => {
         subHeader
         subHeaderAlign={Alignment.LEFT}
         subHeaderComponent={subHeaderComponent}
+        onRowClicked={(user: UserDetails) => navigate(`${adminUsersList.path}/${user.publicId}`)}
       />
     </>
   )

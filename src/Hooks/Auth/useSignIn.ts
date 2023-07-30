@@ -6,7 +6,7 @@ import { useAuthContext } from '../../Context/AuthContext'
 import { SignInResponse } from '../../Api/Model/Auth/SignInResponse'
 import { home } from '../../Router/InternalRoutes'
 import { useLocation, useNavigate } from 'react-router-dom'
-import { User } from '../../Api/Model/Auth/User'
+import { User } from '../../Api/Model/User/User'
 import { API } from '../../Api/Axios'
 import { ErrorResponse } from '../../Api/Model/Common/ErrorResponse'
 

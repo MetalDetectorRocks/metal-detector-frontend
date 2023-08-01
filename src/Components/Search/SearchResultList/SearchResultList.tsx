@@ -1,6 +1,6 @@
 import { useSearchParams } from 'react-router-dom'
 import { useEffect, useState } from 'react'
-import useSearchArtists from '../../../Hooks/useSearchArtists'
+import useSearchArtists from '../../../Hooks/Artists/useSearchArtists'
 import Box from '@mui/material/Box'
 import classes from './SearchResultList.module.scss'
 import { ArtistSearchResultEntry } from '../../../Api/Model/Artist/ArtistSearchResultEntry'

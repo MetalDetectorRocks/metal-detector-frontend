@@ -15,4 +15,6 @@ export const REST_ROUTES = {
   releases: '/rest/v1/releases',
   searchArtists: '/rest/v1/artists/search',
   users: '/rest/v1/users',
+  followArtist: '/rest/v1/artists/follow',
+  unfollowArtist: '/rest/v1/artists/unfollow',
 }

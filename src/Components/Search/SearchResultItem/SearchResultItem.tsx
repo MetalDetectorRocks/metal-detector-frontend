@@ -31,7 +31,7 @@ const SearchResultItem = (props: SearchResultItemProps) => {
         <FollowingInfo follower={props.artist.metalDetectorFollower} />
       </CardContent>
       <CardContent className={classes['search-result-item__follow-icon']}>
-        <FollowIcon followed={props.artist.followed} />
+        <FollowIcon followed={props.artist.followed} source={props.artist.source} externalId={props.artist.id} />
       </CardContent>
     </Card>
   )

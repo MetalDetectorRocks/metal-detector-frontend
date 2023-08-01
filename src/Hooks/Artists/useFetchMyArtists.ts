@@ -1,6 +1,6 @@
-import useApiWithToken from './Auth/useApiWithToken'
-import { MyArtistsResponse } from '../Api/Model/Artist/MyArtistsResponse'
-import { REST_ROUTES } from '../Router/RestRoutes'
+import useApiWithToken from '../Auth/useApiWithToken'
+import { MyArtistsResponse } from '../../Api/Model/Artist/MyArtistsResponse'
+import { REST_ROUTES } from '../../Router/RestRoutes'
 import { useQuery } from 'react-query'
 
 export type FetchMyArtistsProps = {

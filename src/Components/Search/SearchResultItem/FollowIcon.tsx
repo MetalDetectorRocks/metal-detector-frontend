@@ -1,10 +1,10 @@
 import IconButton from '@mui/material/IconButton'
-import NotificationsActiveIcon from '@mui/icons-material/NotificationsActive'
-import NotificationAddIcon from '@mui/icons-material/NotificationAdd'
 import useFollowArtist from '../../../Hooks/Artists/useFollowArtist'
 import { useEffect, useState } from 'react'
 import useUser from '../../../Hooks/Auth/useUser'
 import { toast } from 'react-toastify'
+import RockOnOutlined from '../../Common/Icon/RockOnOutlined'
+import RockOnFilled from '../../Common/Icon/RockOnFilled'
 
 export type FollowIconProps = {
   followed: boolean
@@ -39,11 +39,11 @@ const FollowIcon = (props: FollowIconProps) => {
     <>
       {followed ? (
         <IconButton aria-label="unfollow" color={'secondary'} onClick={() => followOrUnfollow('UNFOLLOW')}>
-          <NotificationsActiveIcon />
+          <RockOnFilled />
         </IconButton>
       ) : (
         <IconButton aria-label="follow" color={'secondary'} onClick={() => followOrUnfollow('FOLLOW')}>
-          <NotificationAddIcon />
+          <RockOnOutlined />
         </IconButton>
       )}
     </>

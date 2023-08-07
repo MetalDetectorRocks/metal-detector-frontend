@@ -1,4 +1,5 @@
 import { useEffect } from 'react'
+import UsersList from '../../Components/Admin/User/UsersList'
 
 export const AdminUsersListPage = () => {
   useEffect(() => {
@@ -7,6 +8,7 @@ export const AdminUsersListPage = () => {
   return (
     <>
       <h1>Users</h1>
+      <UsersList />
     </>
   )
 }

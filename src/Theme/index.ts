@@ -1,6 +1,6 @@
 import { createTheme } from '@mui/material'
 
-const darkThemeColorScheme = {
+export const darkThemeColorScheme = {
   primaryBackground: '#0b0e13',
   primaryForeground: '#d3d3d3',
   mutedForeground: '#818181',

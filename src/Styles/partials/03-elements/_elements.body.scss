@@ -1,6 +1,5 @@
 html,
 body {
-  height: 100%;
   width: 100%;
   margin: 0;
   scroll-behavior: smooth;
@@ -13,6 +12,19 @@ body {
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+html, body, #root {
+  height: 100%;
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+}
+
+footer {
+  margin-top: auto
 }
 
 ::-webkit-scrollbar {

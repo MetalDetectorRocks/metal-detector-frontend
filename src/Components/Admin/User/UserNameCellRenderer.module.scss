@@ -1,0 +1,20 @@
+@import '../../../Styles/partials/02-general/general.to-rem';
+@import '../../../Styles/partials/01-settings/settings.colors';
+
+.username-cell {
+  display: flex;
+
+  &__avatar {
+    height: to-rem(34);
+    width: to-rem(34);
+    margin-right: to-rem(8);
+    background-color: $color-primary-border;
+  }
+  &__name {
+    margin: to-rem(0);
+  }
+  &__email {
+    margin: to-rem(0);
+    color: $color-muted-foreground;
+  }
+}

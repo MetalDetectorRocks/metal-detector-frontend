@@ -43,7 +43,7 @@ import {
 import { AdminLayout } from '../Layouts/AdminLayout/AdminLayout'
 import { AdminDashboardPage } from '../Pages/Admin/AdminDashboardPage'
 import RequireAuth from '../Components/Auth/RequireAuth'
-import { UserRole } from '../Api/Model/Auth/UserRole'
+import { UserRole } from '../Api/Model/User/UserRole'
 import useUser from '../Hooks/Auth/useUser'
 import { LandingPage } from '../Pages/Home'
 import PersistentLogin from '../Components/Auth/PersistentLogin'

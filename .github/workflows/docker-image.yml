@@ -11,7 +11,7 @@ jobs:
     timeout-minutes: 20
     steps:
       - name: checkout git repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Create version string
         id: version

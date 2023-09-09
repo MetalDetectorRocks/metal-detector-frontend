@@ -4,6 +4,8 @@ h1 {
   text-shadow: 2px 2px $color-primary-border;
   margin-top: to-rem(16);
   margin-bottom: to-rem(8);
+  font-weight: 500;
+  line-height: 1.2;
 }
 h2 {
   font-size: to-rem(22);

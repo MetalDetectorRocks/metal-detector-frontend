@@ -3,6 +3,7 @@ import DataTable, { TableProps, createTheme } from 'react-data-table-component'
 import { StyleSheetManager } from 'styled-components'
 import isPropValid from '@emotion/is-prop-valid'
 import { darkThemeColorScheme } from '../../../Theme'
+import React from 'react'
 
 const sortIcon = <ArrowDownward />
 createTheme('dark', {
@@ -51,7 +52,7 @@ const customStyles = {
   },
 }
 
-function DataTableBase<T>(props: TableProps<T>): JSX.Element {
+function DataTableBase<T>(props: TableProps<T>): React.JSX.Element {
   return (
     <StyleSheetManager
       enableVendorPrefixes

@@ -11,7 +11,7 @@ export type DataTableSearchProps = {
 const DataTableSearch = (props: DataTableSearchProps) => {
   return (
     <TextField
-      id="search-user-text-field"
+      id="search-text-field"
       InputProps={{
         startAdornment: (
           <InputAdornment position="start">

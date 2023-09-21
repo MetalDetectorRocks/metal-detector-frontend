@@ -1,0 +1,11 @@
+@import '../../../Styles/partials/02-general/general.to-rem';
+
+.sub-header {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+
+  &__actions button {
+    margin-left: to-rem(10);
+  }
+}

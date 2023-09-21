@@ -32,6 +32,7 @@ const UsersList = () => {
     <div className={classes['sub-header']}>
       <DataTableSearch
         searchText={searchText}
+        searchPlaceholder={'user'}
         onSearch={(event: ChangeEvent<HTMLInputElement>) => setSearchText(event.target.value)}
       />
       <div className={classes['sub-header__actions']}>

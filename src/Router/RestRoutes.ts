@@ -13,6 +13,7 @@ export const REST_ROUTES = {
   csrf: '/rest/v1/csrf',
   myArtists: '/rest/v1/my-artists',
   releases: '/rest/v1/releases',
+  allReleases: '/rest/v1/releases/all',
   searchArtists: '/rest/v1/artists/search',
   users: '/rest/v1/users',
   followArtist: '/rest/v1/artists/follow',

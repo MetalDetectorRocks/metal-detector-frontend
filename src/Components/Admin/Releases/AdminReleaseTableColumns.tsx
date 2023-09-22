@@ -1,10 +1,14 @@
 import dayjs from 'dayjs'
 import { Release } from '../../../Api/Model/Release/Release'
+import { Chip } from '@mui/material'
+import { ReleaseState } from '../../../Api/Model/Release/ReleaseState'
 
 export const columns = [
   {
     name: 'State',
-    selector: (release: Release) => release.state,
+    cell: (release: Release) => (
+      <Chip label={release.state} size="small" color={evalStateColor(release.state)} variant={'filled'} />
+    ),
     sortable: true,
   },
   {
@@ -39,13 +43,15 @@ export const columns = [
   },
 ]
 
-// function evalStateColor(state: ImportDetailsState): 'error' | 'info' | 'success' {
-//   switch (state) {
-//     case ImportDetailsState.Successful:
-//       return 'success'
-//     case ImportDetailsState.Running:
-//       return 'info'
-//     case ImportDetailsState.Error:
-//       return 'error'
-//   }
-// }
+function evalStateColor(state: ReleaseState): 'error' | 'warning' | 'success' | 'secondary' {
+  switch (state) {
+    case ReleaseState.Ok:
+      return 'success'
+    case ReleaseState.Duplicate:
+      return 'warning'
+    case ReleaseState.Faulty:
+      return 'error'
+    case ReleaseState.Demo:
+      return 'secondary'
+  }
+}

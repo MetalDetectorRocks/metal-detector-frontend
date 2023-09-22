@@ -4,15 +4,19 @@ import { AxiosError } from 'axios'
 import { ErrorResponse } from '../Api/Model/Common/ErrorResponse'
 import { useQuery } from 'react-query'
 import { Release } from '../Api/Model/Release/Release'
+import dayjs from 'dayjs'
 
 const useFetchAllReleases = () => {
   const API = useApiWithToken()
+  const dateFrom = dayjs().subtract(3, 'month').format('YYYY-MM-DD')
   const {
     isLoading,
     data: response,
     error,
   } = useQuery('releases', () => {
-    return API.get<Release[]>(REST_ROUTES.allReleases)
+    return API.get<Release[]>(REST_ROUTES.allReleases, {
+      params: { dateFrom: dateFrom },
+    })
   })
 
   return {

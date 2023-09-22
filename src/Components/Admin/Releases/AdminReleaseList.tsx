@@ -1,5 +1,4 @@
 import { ChangeEvent, useEffect, useState } from 'react'
-// import { useNavigate } from 'react-router-dom'
 import DataTableSearch from '../../Common/Table/DataTableSearch'
 import DataTable from '../../Common/Table/DataTable'
 import { columns } from './AdminReleaseTableColumns'
@@ -12,7 +11,6 @@ const AdminReleaseList = () => {
   const { releases } = useFetchAllReleases()
   const [searchText, setSearchText] = useState('')
   const [filteredReleases, setFilteredReleases] = useState<Release[]>([])
-  // const navigate = useNavigate()
 
   useEffect(() => {
     if (releases) {
@@ -35,10 +33,6 @@ const AdminReleaseList = () => {
         searchPlaceholder={'release'}
         onSearch={(event: ChangeEvent<HTMLInputElement>) => setSearchText(event.target.value)}
       />
-      {/*<div className={classes['sub-header__actions']}>*/}
-      {/*  <Button variant="outlined">Create Administrator</Button>*/}
-      {/*  <Button variant="outlined">Run cleanup</Button>*/}
-      {/*</div>*/}
     </div>
   )
 
@@ -52,7 +46,6 @@ const AdminReleaseList = () => {
         subHeader
         subHeaderAlign={Alignment.LEFT}
         subHeaderComponent={subHeaderComponent}
-        // onRowClicked={(user: UserDetails) => navigate(`${adminUsersList.path}/${user.publicId}`)}
       />
     </>
   )

@@ -1,4 +1,5 @@
 import { useEffect } from 'react'
+import AdminReleaseList from '../../Components/Admin/Releases/AdminReleaseList'
 
 export const AdminReleasesListPage = () => {
   useEffect(() => {
@@ -7,6 +8,7 @@ export const AdminReleasesListPage = () => {
   return (
     <>
       <h1>Releases</h1>
+      <AdminReleaseList />
     </>
   )
 }

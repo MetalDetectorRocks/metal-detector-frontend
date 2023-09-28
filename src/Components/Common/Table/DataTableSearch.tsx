@@ -4,13 +4,14 @@ import { ChangeEvent } from 'react'
 
 export type DataTableSearchProps = {
   searchText: string
+  searchPlaceholder: string
   onSearch: (event: ChangeEvent<HTMLInputElement>) => void
 }
 
 const DataTableSearch = (props: DataTableSearchProps) => {
   return (
     <TextField
-      id="search-user-text-field"
+      id="search-text-field"
       InputProps={{
         startAdornment: (
           <InputAdornment position="start">
@@ -20,7 +21,7 @@ const DataTableSearch = (props: DataTableSearchProps) => {
       }}
       variant="outlined"
       size={'small'}
-      placeholder={'Search user'}
+      placeholder={`Search ${props.searchPlaceholder}`}
       value={props.searchText}
       onChange={props.onSearch}
     />

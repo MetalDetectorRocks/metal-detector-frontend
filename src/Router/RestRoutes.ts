@@ -1,4 +1,5 @@
 export const REST_ROUTES = {
+  allReleases: '/rest/v1/releases/all',
   authenticated: '/rest/v1/auth',
   csrf: '/rest/v1/csrf',
   currentUser: '/rest/v1/me',

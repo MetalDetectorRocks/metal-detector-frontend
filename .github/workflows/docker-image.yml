@@ -11,20 +11,20 @@ jobs:
     timeout-minutes: 20
     steps:
       - name: checkout git repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Create version string
         id: version
         run: echo "::set-output name=version::$(date -u +'%Y%m%dT%H%M%S')"
 
       - name: Login to DockerHub
-        uses: docker/login-action@v2
+        uses: docker/login-action@v3
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_PASSWORD }}
 
       - name: Build & push to DockerHub
-        uses: docker/build-push-action@v4
+        uses: docker/build-push-action@v5
         with:
           push: true
           context: ./

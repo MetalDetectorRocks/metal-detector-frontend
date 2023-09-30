@@ -1,3 +1,5 @@
+import { ReleaseState } from './ReleaseState'
+
 export type Release = {
   readonly artist: string
   readonly additionalArtists: string[]
@@ -10,7 +12,7 @@ export type Release = {
   readonly metalArchivesArtistUrl: string
   readonly metalArchivesAlbumUrl: string
   readonly source: string
-  readonly state: string
+  readonly state: ReleaseState
   readonly coverUrl: string
   readonly reissue: boolean
 }

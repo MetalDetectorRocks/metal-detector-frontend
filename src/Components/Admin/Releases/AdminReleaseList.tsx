@@ -4,7 +4,7 @@ import DataTable from '../../Common/Table/DataTable'
 import { columns } from './AdminReleaseTableColumns'
 import { Alignment } from 'react-data-table-component'
 import classes from './AdminReleaseList.module.scss'
-import useFetchAllReleases from '../../../Hooks/useFetchAllReleases'
+import useFetchAllReleases from '../../../Hooks/Admin/useFetchAllReleases'
 import { Release } from '../../../Api/Model/Release/Release'
 
 const AdminReleaseList = () => {

@@ -2,13 +2,13 @@ import { ChangeEvent, useEffect, useState } from 'react'
 import DataTable from '../../Common/Table/DataTable'
 import { Alignment } from 'react-data-table-component'
 import DataTableSearch from '../../Common/Table/DataTableSearch'
-import Button from '@mui/material/Button'
 import classes from './ImportList.module.scss'
-import useFetchImports from '../../../Hooks/useFetchImports'
+import useFetchImports from '../../../Hooks/Admin/useFetchImports'
 import { ImportDetails } from '../../../Api/Model/Jobs/ImportDetails'
 import { columns } from './ImportTableColumns'
 import LoadingSpinner from '../../Common/LoadingSpinner'
 import ErrorAlert from '../../Common/ErrorAlert'
+import ImportButtons from './ImportButtons'
 
 const ImportList = () => {
   const { imports, isLoading, error } = useFetchImports()
@@ -37,8 +37,7 @@ const ImportList = () => {
         onSearch={(event: ChangeEvent<HTMLInputElement>) => setSearchText(event.target.value)}
       />
       <div className={classes['sub-header__actions']}>
-        <Button variant="outlined">Create import job</Button>
-        <Button variant="outlined">Create retry cover download job</Button>
+        <ImportButtons />
       </div>
     </div>
   )

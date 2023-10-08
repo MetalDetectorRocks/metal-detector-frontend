@@ -44,11 +44,12 @@
     "recharts": "^2.8.0",
     "sass": "^1.68.0",
     "styled-components": "^6.0.8",
+    "swiper": "^10.3.1",
     "typescript": "^5.2.2",
     "web-vitals": "^3.5.0"
   },
   "devDependencies": {
-    "@babel/plugin-proposal-private-property-in-object":  "^7.21.11",
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
     "@typescript-eslint/eslint-plugin": "^6.7.3",
     "@typescript-eslint/parser": "^6.7.3",
     "eslint": "^8.50.0",

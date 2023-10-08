@@ -1,0 +1,63 @@
+@import '../../../Styles/partials/01-settings/settings.breakpoints';
+@import '../../../Styles/partials/01-settings/settings.colors';
+@import '../../../Styles/partials/02-general/general.to-rem';
+
+.swiper {
+  width: 100%;
+  height: 100%;
+  margin-top: to-rem(25);
+  margin-bottom: to-rem(90);
+}
+
+.swiper-item {
+  text-align: center;
+
+  &__image {
+    width: to-rem(205);
+    height: to-rem(205);
+    object-fit: cover;
+    border: to-rem(1) solid $color-primary-border;
+    border-radius: 50%;
+    padding: to-rem(3);
+
+    @include respond-above(md) {
+      width: to-rem(230);
+      height: to-rem(230);
+    }
+  }
+  &__title {
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+  &__subtitle {
+    font-size: 90%;
+  }
+  &__description {
+    font-size: 90%;
+    color: $color-muted-foreground;
+  }
+}
+
+.swiper-prev {
+  position: absolute;
+  cursor: pointer;
+  left: 0;
+  top: 90px;
+  z-index: 1;
+
+  @include respond-above(md) {
+    top: 100px;
+  }
+}
+
+.swiper-next {
+  position: absolute;
+  cursor: pointer;
+  right: 0;
+  top: 90px;
+  z-index: 1;
+
+  @include respond-above(md) {
+    top: 100px;
+  }
+}

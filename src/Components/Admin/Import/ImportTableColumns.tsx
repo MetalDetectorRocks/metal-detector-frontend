@@ -54,8 +54,10 @@ export const columns = [
   },
 ]
 
-function evalStateColor(state: ImportDetailsState): 'error' | 'info' | 'success' {
+function evalStateColor(state: ImportDetailsState): 'error' | 'info' | 'success' | 'secondary' {
   switch (state) {
+    case ImportDetailsState.Initialized:
+      return 'secondary'
     case ImportDetailsState.Successful:
       return 'success'
     case ImportDetailsState.Running:

@@ -18,6 +18,7 @@ export const REST_ROUTES = {
   signOut: '/rest/v1/auth/logout',
   signUp: '/rest/v1/auth/register',
   signUpVerification: '/rest/v1/auth/register/verification',
+  statistics: '/rest/v1/statistics',
   unfollowArtist: '/rest/v1/artists/unfollow',
   updateEmailAddress: '/rest/v1/me/email',
   updatePassword: '/rest/v1/me/password',

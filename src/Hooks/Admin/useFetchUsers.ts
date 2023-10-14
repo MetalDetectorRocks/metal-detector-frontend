@@ -1,9 +1,9 @@
-import useApiWithToken from './Auth/useApiWithToken'
-import { REST_ROUTES } from '../Router/RestRoutes'
+import useApiWithToken from '../Auth/useApiWithToken'
+import { REST_ROUTES } from '../../Router/RestRoutes'
 import { AxiosError } from 'axios'
-import { ErrorResponse } from '../Api/Model/Common/ErrorResponse'
+import { ErrorResponse } from '../../Api/Model/Common/ErrorResponse'
 import { useQuery } from 'react-query'
-import { UserDetails } from '../Api/Model/User/UserDetails'
+import { UserDetails } from '../../Api/Model/User/UserDetails'
 
 const useFetchUsers = () => {
   const API = useApiWithToken()

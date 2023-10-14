@@ -1,6 +1,7 @@
 export const REST_ROUTES = {
   allReleases: '/rest/v1/releases/all',
   authenticated: '/rest/v1/auth',
+  cover: '/rest/v1/releases/cover-reload',
   csrf: '/rest/v1/csrf',
   currentUser: '/rest/v1/me',
   followArtist: '/rest/v1/artists/follow',

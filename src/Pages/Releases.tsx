@@ -3,9 +3,9 @@ import ReleaseFilter from '../Components/Releases/ReleaseFilter'
 import Box from '@mui/material/Box'
 import { ChangeEvent, useEffect, useState } from 'react'
 import LoadingSpinner from '../Components/Common/LoadingSpinner'
-import classes from '../Pages/Release.module.scss'
+import classes from './Release.module.scss'
 import ErrorAlert from '../Components/Common/ErrorAlert'
-import useFetchReleases from '../Hooks/useFetchReleases'
+import useFetchReleases from '../Hooks/Releases/useFetchReleases'
 
 export const Releases = () => {
   const [query, setQuery] = useState('')

@@ -1,0 +1,18 @@
+@import '../../../Styles/partials/02-general/general.to-rem';
+
+.heading {
+
+  &__title {
+    text-align: center;
+    margin-top: to-rem(40);
+    margin-bottom: 0;
+    font-size: 180%;
+  }
+  &__separator {
+    background-image: url("./../../../assets/img/headline-separator.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    height: to-rem(30);
+    margin-bottom: 10px;
+  }
+}

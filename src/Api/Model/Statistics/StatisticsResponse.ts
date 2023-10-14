@@ -11,6 +11,5 @@ export type StatisticsResponse = {
 }
 
 export type ItemsPerMonth = {
-  readonly yearMonth: string
-  readonly count: number
+  readonly [key: string]: number
 }

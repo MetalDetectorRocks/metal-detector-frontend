@@ -19,8 +19,9 @@
 }
 
 .search-result-skeletons {
+  margin-top: to-rem(16);
+
   &__title {
-    margin-top: to-rem(16);
     height: to-rem(35);
     width: 100%;
   }

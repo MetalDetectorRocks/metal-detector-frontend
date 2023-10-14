@@ -7,6 +7,8 @@ export const REST_ROUTES = {
   followArtist: '/rest/v1/artists/follow',
   forgotPassword: '/rest/v1/auth/forgot-password',
   imports: '/rest/v1/releases/import',
+  mostExpectedReleases: '/rest/v1/releases/top',
+  mostFollowedArtists: '/rest/v1/artists/top',
   myArtists: '/rest/v1/my-artists',
   refresh: '/rest/v1/auth/refresh',
   releases: '/rest/v1/releases',

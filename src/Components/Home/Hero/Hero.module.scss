@@ -1,0 +1,43 @@
+@import '../../../Styles/partials/01-settings/settings.colors';
+@import '../../../Styles/partials/02-general/general.to-rem';
+@import '../../../Styles/partials/01-settings/settings.breakpoints';
+
+.hero {
+  border-bottom: 1px solid $color-primary-border;
+  background-image: url("./../../../assets/img/hero-mobile.jpeg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+  padding-top: to-rem(24);
+  padding-bottom: to-rem(24);
+
+  @include respond-between(md, xxl) {
+    background-image: url("./../../../assets/img/hero-desktop.jpeg");
+  }
+  @include respond-above(xxl) {
+    background-image: url("./../../../assets/img/hero-4k.jpeg");
+  }
+
+  & h1 {
+    margin: 0;
+    padding: 0;
+    font-size: 280%;
+    line-height: 1;
+
+    @include respond-above(md) {
+      font-size: 400%;
+      line-height: 1.1;
+    }
+  }
+  & p {
+    text-shadow: 2px 2px $color-primary-border;
+    margin-top: to-rem(16);
+    margin-bottom: to-rem(24);
+
+    @include respond-above(sm) {
+      font-size: 140%;
+      width: to-rem(550);
+    }
+  }
+}

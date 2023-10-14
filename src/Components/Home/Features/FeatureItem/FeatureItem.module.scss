@@ -1,0 +1,29 @@
+@import '../../../../Styles/partials/02-general/general.to-rem';
+@import '../../../../Styles/partials/01-settings/settings.colors';
+@import '../../../../Styles/partials/01-settings/settings.breakpoints';
+
+.feature-item {
+  max-width: to-rem(270);
+  margin-bottom: to-rem(32);
+
+  @include respond-above(md) {
+    max-width: to-rem(300);
+  }
+  &__icon-background {
+    background-color: $color-secondary-highlight;
+    border: 1px solid $color-primary-border;
+    width: to-rem(60);
+    height: to-rem(60);
+    border-radius: to-rem(15);
+    position: relative;
+    margin: auto auto to-rem(15);
+  }
+  &__icon {
+    position: absolute;
+    top: 20%;
+    left: 20%;
+  }
+  &__text {
+    text-align: center;
+  }
+}

@@ -1,4 +1,8 @@
 import { useEffect } from 'react'
+import FeatureGrid from '../Components/Home/Features/FeatureGrid'
+import MostFollowedArtistsSwiper from '../Components/Home/Swipers/MostFollowedArtistsSwiper'
+import MostExpectedReleasesSwiper from '../Components/Home/Swipers/MostExpectedReleasesSwiper'
+import BlogPreview from '../Components/Home/Blog/BlogPreview'
 
 export const LandingPage = () => {
   useEffect(() => {
@@ -7,7 +11,10 @@ export const LandingPage = () => {
 
   return (
     <>
-      <h1>Home</h1>
+      <FeatureGrid />
+      <MostFollowedArtistsSwiper />
+      <MostExpectedReleasesSwiper />
+      <BlogPreview />
     </>
   )
 }

@@ -11,18 +11,18 @@ const MostExpectedReleasesSwiper = () => {
 
   useEffect(() => {
     if (isSuccess) {
-      const items: SwiperItemProps[] = []
-      releases?.forEach((release) => {
-        items.push({
-          id: release.id,
-          title: release.artist,
-          subtitle: release.albumTitle,
-          imageUrl: release.coverUrl,
-          description: formatRelativeInDays(release.releaseDate),
-          descriptionTooltip: release.releaseDateAsDisplayString,
-        })
-      })
-      setSwiperItems(items)
+      setSwiperItems(
+        releases!.map((release) => {
+          return {
+            id: release.id,
+            title: release.artist,
+            subtitle: release.albumTitle,
+            imageUrl: release.coverUrl,
+            description: formatRelativeInDays(release.releaseDate),
+            descriptionTooltip: release.releaseDateAsDisplayString,
+          }
+        }),
+      )
     }
   }, [releases])
   return (

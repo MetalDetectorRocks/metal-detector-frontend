@@ -10,16 +10,16 @@ const MostFollowedArtistsSwiper = () => {
 
   useEffect(() => {
     if (isSuccess) {
-      const items: SwiperItemProps[] = []
-      artists?.forEach((artist) => {
-        items.push({
-          id: `${artist.source}-${artist.externalId}`,
-          title: artist.artistName,
-          imageUrl: artist.smallImage,
-          description: `${artist.follower} Follower`,
-        })
-      })
-      setSwiperItems(items)
+      setSwiperItems(
+        artists!.map((artist) => {
+          return {
+            id: `${artist.source}-${artist.externalId}`,
+            title: artist.artistName,
+            imageUrl: artist.smallImage,
+            description: `${artist.follower} Follower`,
+          }
+        }),
+      )
     }
   }, [artists])
 

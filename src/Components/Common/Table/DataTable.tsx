@@ -56,7 +56,7 @@ function DataTableBase<T>(props: TableProps<T>): React.JSX.Element {
   return (
     <StyleSheetManager
       enableVendorPrefixes
-      shouldForwardProp={(propName, elementToBeRendered) => {
+      shouldForwardProp={(propName: string, elementToBeRendered: any) => {
         return typeof elementToBeRendered === 'string' ? isPropValid(propName) : true
       }}
       {...props}

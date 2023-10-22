@@ -3,12 +3,12 @@ import DataTable from '../../Common/Table/DataTable'
 import { columns } from './UserTableColumns'
 import { Alignment } from 'react-data-table-component'
 import DataTableSearch from '../../Common/Table/DataTableSearch'
-import Button from '@mui/material/Button'
 import classes from './UsersList.module.scss'
 import useFetchUsers from '../../../Hooks/Admin/useFetchUsers'
 import { UserDetails } from '../../../Api/Model/User/UserDetails'
 import { useNavigate } from 'react-router-dom'
 import { adminUsersList } from '../../../Router/InternalRoutes'
+import UserJobButtons from './UserJobButtons'
 
 const UsersList = () => {
   const { users } = useFetchUsers()
@@ -36,8 +36,7 @@ const UsersList = () => {
         onSearch={(event: ChangeEvent<HTMLInputElement>) => setSearchText(event.target.value)}
       />
       <div className={classes['sub-header__actions']}>
-        <Button variant="outlined">Create Administrator</Button>
-        <Button variant="outlined">Run cleanup</Button>
+        <UserJobButtons />
       </div>
     </div>
   )

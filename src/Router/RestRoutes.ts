@@ -11,6 +11,7 @@ export const REST_ROUTES = {
   mostFollowedArtists: '/rest/v1/artists/top',
   myArtists: '/rest/v1/my-artists',
   refresh: '/rest/v1/auth/refresh',
+  registrationCleanup: '/rest/v1/registration-cleanup',
   releases: '/rest/v1/releases',
   resetPassword: '/rest/v1/auth/reset-password',
   searchArtists: '/rest/v1/artists/search',

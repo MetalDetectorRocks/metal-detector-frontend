@@ -8,7 +8,7 @@ import { ImportDetails } from '../../../Api/Model/Jobs/ImportDetails'
 import { columns } from './ImportTableColumns'
 import LoadingSpinner from '../../Common/LoadingSpinner'
 import ErrorAlert from '../../Common/ErrorAlert'
-import ImportButtons from './ImportButtons'
+import ImportJobButtons from './ImportJobButtons'
 
 const ImportList = () => {
   const { imports, isLoading, error } = useFetchImports()
@@ -37,7 +37,7 @@ const ImportList = () => {
         onSearch={(event: ChangeEvent<HTMLInputElement>) => setSearchText(event.target.value)}
       />
       <div className={classes['sub-header__actions']}>
-        <ImportButtons />
+        <ImportJobButtons />
       </div>
     </div>
   )

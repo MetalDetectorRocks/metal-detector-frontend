@@ -3,7 +3,6 @@ import {
   Dialog,
   DialogActions,
   DialogContent,
-  DialogContentText,
   DialogTitle,
   FormGroup,
   useMediaQuery,
@@ -17,6 +16,8 @@ import { isValidEmail } from '../../../Utils/Validators'
 import useCreateAdministrator from '../../../Hooks/Auth/useCreateAdministrator'
 import { CreateAdministratorRequest } from '../../../Api/Model/Jobs/CreateAdministratorRequest'
 import { toast } from 'react-toastify'
+import PasswordField from '../../Common/Form/PasswordField'
+import { LoadingButton } from '@mui/lab'
 
 export type CreateAdministratorDialogProps = {
   isOpen: boolean
@@ -33,7 +34,6 @@ const CreateAdministratorDialog = (props: CreateAdministratorDialogProps) => {
   const {
     handleSubmit,
     formState: { errors },
-    watch,
   } = methods
 
   useEffect(() => {
@@ -62,85 +62,54 @@ const CreateAdministratorDialog = (props: CreateAdministratorDialogProps) => {
         <DialogTitle id="alert-dialog-title">{'Create new Administrator'}</DialogTitle>
         <hr />
         <DialogContent>
-          <DialogContentText id="alert-dialog-description" color={'secondary'}>
-            <FormGroup className={classes['section__form']}>
-              <FormProvider {...methods}>
-                <TextField
-                  type={'text'}
-                  label={'Username'}
-                  name={'username'}
-                  options={{ required: true }}
-                  error={!!errors.username}
-                  helperText={
-                    errors.username && errors.username.type === 'required'
-                      ? 'This field is required'
-                      : errors.username && errors.username.type === 'validate' && 'Please enter a username'
-                  }
-                  disabled={isLoading}
-                  InputLabelProps={{
-                    shrink: true,
-                  }}
-                />
-                <TextField
-                  type={'text'}
-                  label={'Email address'}
-                  name={'email'}
-                  options={{ required: true, validate: isValidEmail }}
-                  error={!!errors.email}
-                  helperText={
-                    errors.email && errors.email.type === 'required'
-                      ? 'This field is required'
-                      : errors.email && errors.email.type === 'validate' && 'Please enter a valid email address'
-                  }
-                  disabled={isLoading}
-                  InputLabelProps={{
-                    shrink: true,
-                  }}
-                />
-                <TextField
-                  type={'password'}
-                  label={'Password'}
-                  name={'plainPassword'}
-                  options={{ required: true, minLength: 8 }}
-                  error={!!errors.plainPassword}
-                  helperText={
-                    (errors.plainPassword && 'The password needs at least 8 characters') ||
-                    'Make sure the password has at least 8 characters.'
-                  }
-                  disabled={isLoading}
-                  InputLabelProps={{
-                    shrink: true,
-                  }}
-                />
-                <TextField
-                  type={'password'}
-                  label={'Verify password'}
-                  name={'verifyPlainPassword'}
-                  options={{
-                    required: true,
-                    validate: (verifyPlainPassword: string) => {
-                      if (watch('plainPassword') != verifyPlainPassword) {
-                        return 'The passwords do no match.'
-                      }
-                    },
-                  }}
-                  helperText={errors.verifyPlainPassword && 'The passwords do no match.'}
-                  error={!!errors.verifyPlainPassword}
-                  disabled={isLoading}
-                  InputLabelProps={{
-                    shrink: true,
-                  }}
-                />
-              </FormProvider>
-            </FormGroup>
-          </DialogContentText>
+          <FormGroup className={classes['section__form']}>
+            <FormProvider {...methods}>
+              <TextField
+                type={'text'}
+                label={'Username'}
+                name={'username'}
+                options={{ required: true }}
+                error={!!errors.username}
+                helperText={
+                  errors.username && errors.username.type === 'required'
+                    ? 'This field is required'
+                    : errors.username && errors.username.type === 'validate' && 'Please enter a username'
+                }
+                disabled={isLoading}
+              />
+              <TextField
+                type={'text'}
+                label={'Email address'}
+                name={'email'}
+                options={{ required: true, validate: isValidEmail }}
+                error={!!errors.email}
+                helperText={
+                  errors.email && errors.email.type === 'required'
+                    ? 'This field is required'
+                    : errors.email && errors.email.type === 'validate' && 'Please enter a valid email address'
+                }
+                disabled={isLoading}
+              />
+              <PasswordField
+                label={'Password'}
+                name={'plainPassword'}
+                options={{ required: true, minLength: 8 }}
+                error={!!errors.plainPassword}
+                helperText={
+                  (errors.plainPassword && 'The password needs at least 8 characters') ||
+                  'Make sure the password has at least 8 characters.'
+                }
+                disabled={isLoading}
+              />
+            </FormProvider>
+          </FormGroup>
         </DialogContent>
         <hr />
         <DialogActions>
           <Button onClick={props.close} variant="outlined" type="submit" size="large">
             {'Cancel'}
           </Button>
-          <Button
+          <LoadingButton
             onClick={handleSubmit(onSubmit)}
             variant="outlined"
             type="submit"
@@ -149,7 +118,7 @@ const CreateAdministratorDialog = (props: CreateAdministratorDialogProps) => {
             autoFocus
           >
             {'Create'}
-          </Button>
+          </LoadingButton>
         </DialogActions>
       </Dialog>
     </>

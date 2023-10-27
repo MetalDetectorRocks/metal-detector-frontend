@@ -7,10 +7,15 @@ import classes from './NotificationSettingsAccordion.module.scss'
 const NotificationSettingsAccordion = () => {
   return (
     <>
-      <Accordion>
-        <AccordionSummary expandIcon={<KeyboardArrowDown />} className={classes['accordionSummery']}>
-          <EmailIcon />
-          <Typography>Email</Typography>
+      <Accordion disableGutters className={classes['accordion']}>
+        <AccordionSummary
+          expandIcon={<KeyboardArrowDown className={classes['accordion-expand-icon']} />}
+          className={classes['accordion-summary']}
+        >
+          <div className={classes['accordion-summary-items']}>
+            <EmailIcon />
+            <Typography>Email</Typography>
+          </div>
         </AccordionSummary>
         <AccordionDetails>
           <Typography>
@@ -19,10 +24,15 @@ const NotificationSettingsAccordion = () => {
           </Typography>
         </AccordionDetails>
       </Accordion>
-      <Accordion>
-        <AccordionSummary expandIcon={<KeyboardArrowDown />} className={classes['accordionSummery']}>
-          <PhoneAndroidIcon />
-          <Typography>Telegram</Typography>
+      <Accordion disableGutters className={classes['accordion']}>
+        <AccordionSummary
+          expandIcon={<KeyboardArrowDown className={classes['accordion-expand-icon']} />}
+          className={classes['accordion-summary']}
+        >
+          <div className={classes['accordion-summary-items']}>
+            <PhoneAndroidIcon />
+            <Typography>Telegram</Typography>
+          </div>
         </AccordionSummary>
         <AccordionDetails>
           <Typography>

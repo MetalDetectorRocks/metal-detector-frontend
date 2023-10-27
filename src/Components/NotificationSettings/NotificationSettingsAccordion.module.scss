@@ -1,3 +1,15 @@
-.accordionSummery {
+@import '../../Styles/partials/02-general/general.to-rem';
 
+.accordion {
+  border: 1px solid white;
+}
+
+.accordion-summary-items {
+  display: flex;
+  flex-direction: row;
+  gap: to-rem(15);
+}
+
+.accordion-expand-icon {
+  color: white;
 }

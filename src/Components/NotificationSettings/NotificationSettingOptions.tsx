@@ -14,9 +14,21 @@ const NotificationSettingOptions = () => {
       <div className={classes['notification-section']}>
         <h4 className={classes['notification-section__heading']}>Periodic notifications</h4>
         <RadioGroup defaultValue={'none'}>
-          <FormControlLabel control={<Radio color={'info'} className={classes['radio-item']} />} label={'None'} />
-          <FormControlLabel control={<Radio color={'info'} className={classes['radio-item']} />} label={'2-weekly'} />
-          <FormControlLabel control={<Radio color={'info'} className={classes['radio-item']} />} label={'4-weekly'} />
+          <FormControlLabel
+            control={<Radio color={'info'} className={classes['radio-item']} />}
+            label={'None'}
+            value={'none'}
+          />
+          <FormControlLabel
+            control={<Radio color={'info'} className={classes['radio-item']} />}
+            label={'2-weekly'}
+            value={'two'}
+          />
+          <FormControlLabel
+            control={<Radio color={'info'} className={classes['radio-item']} />}
+            label={'4-weekly'}
+            value={'four'}
+          />
         </RadioGroup>
       </div>
       <div className={classes['notification-section']}>

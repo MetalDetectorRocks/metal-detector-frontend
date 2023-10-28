@@ -3,7 +3,8 @@ import KeyboardArrowDown from '@mui/icons-material/KeyboardArrowDown'
 import EmailIcon from '@mui/icons-material/Email'
 import PhoneAndroidIcon from '@mui/icons-material/PhoneAndroid'
 import classes from './NotificationSettingsAccordion.module.scss'
-import EmailNotificationSettings from './EmailNotificationSettings'
+import TelegramNotificationSettings from './TelegramNotificationSettings'
+import NotificationSettingOptions from './NotificationSettingOptions'
 
 const NotificationSettingsAccordion = () => {
   return (
@@ -19,7 +20,7 @@ const NotificationSettingsAccordion = () => {
           </div>
         </AccordionSummary>
         <AccordionDetails>
-          <EmailNotificationSettings />
+          <NotificationSettingOptions />
         </AccordionDetails>
       </Accordion>
       <Accordion disableGutters className={classes['accordion']}>
@@ -33,10 +34,7 @@ const NotificationSettingsAccordion = () => {
           </div>
         </AccordionSummary>
         <AccordionDetails>
-          <Typography>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex, sit amet blandit
-            leo lobortis eget.
-          </Typography>
+          <TelegramNotificationSettings />
         </AccordionDetails>
       </Accordion>
     </>

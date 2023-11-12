@@ -5,18 +5,36 @@ import { NotificationChannel } from '../../Api/Model/NotificationConfig/Notifica
 import useFetchNotificationConfig from '../../Hooks/NotificationConfig/useFetchNotificationConfig'
 import LoadingSpinner from '../Common/LoadingSpinner'
 import ErrorAlert from '../Common/ErrorAlert'
+import React, { useEffect, useState } from 'react'
 
 export type NotificationSettingOptionsProps = {
   channel: NotificationChannel
 }
 
 const DefaultNotificationConfigOptions = (props: NotificationSettingOptionsProps) => {
+  const [frequencyInWeeks, setFrequencyInWeeks] = useState(0)
+  const [notificationAtReleaseDate, setNotificationAtReleaseDate] = useState(false)
+  const [notificationAtAnnouncementDate, setNotificationAtAnnouncementDate] = useState(false)
+  const [notifyReissues, setNotifyReissues] = useState(false)
   const { notificationConfig, isLoading, error } = useFetchNotificationConfig({ channel: props.channel })
   const StyledSwitch = styled(Switch)(() => ({
     '& .MuiSwitch-track': {
       backgroundColor: 'white',
     },
   }))
+
+  useEffect(() => {
+    if (notificationConfig) {
+      setFrequencyInWeeks(notificationConfig.frequencyInWeeks)
+      setNotificationAtReleaseDate(notificationConfig.notificationAtReleaseDate)
+      setNotificationAtAnnouncementDate(notificationConfig.notificationAtAnnouncementDate)
+      setNotifyReissues(notificationConfig.notifyReissues)
+    }
+  }, [notificationConfig])
+
+  const handleFrequencyChange = (event: React.SyntheticEvent) => {
+    setFrequencyInWeeks(parseInt((event.target as HTMLInputElement).value))
+  }
 
   return (
     <>
@@ -25,7 +43,7 @@ const DefaultNotificationConfigOptions = (props: NotificationSettingOptionsProps
       <>
         <div className={classes['notification-section']}>
           <h4 className={classes['notification-section__heading']}>Periodic notifications</h4>
-          <RadioGroup defaultValue={0} value={notificationConfig?.frequencyInWeeks || 0}>
+          <RadioGroup value={frequencyInWeeks} onChange={handleFrequencyChange}>
             <FormControlLabel
               control={<Radio color={'info'} className={classes['radio-item']} />}
               label={'None'}
@@ -47,18 +65,11 @@ const DefaultNotificationConfigOptions = (props: NotificationSettingOptionsProps
           <h4 className={classes['notification-section__heading']}>Extra notifications</h4>
           <FormControl>
             <FormControlLabel
-              control={
-                <StyledSwitch color={'info'} value={notificationConfig?.notificationAtReleaseDate ? 'on' : 'off'} />
-              }
+              control={<StyledSwitch color={'info'} value={notificationAtReleaseDate ? 'on' : 'off'} />}
               label={'Notification on release date'}
             />
             <FormControlLabel
-              control={
-                <StyledSwitch
-                  color={'info'}
-                  value={notificationConfig?.notificationAtAnnouncementDate ? 'on' : 'off'}
-                />
-              }
+              control={<StyledSwitch color={'info'} value={notificationAtAnnouncementDate ? 'on' : 'off'} />}
               label={'Notification on announcement date'}
             />
           </FormControl>
@@ -67,7 +78,7 @@ const DefaultNotificationConfigOptions = (props: NotificationSettingOptionsProps
           <h4 className={classes['notification-section__heading']}>Reissue notifications</h4>
           <FormControl>
             <FormControlLabel
-              control={<StyledSwitch color={'info'} value={notificationConfig?.notifyReissues ? 'on' : 'off'} />}
+              control={<StyledSwitch color={'info'} value={notifyReissues ? 'on' : 'off'} />}
               label={'Notifications for reissues or re-releases'}
             />
           </FormControl>

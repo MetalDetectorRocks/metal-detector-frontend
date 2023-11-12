@@ -1,11 +1,16 @@
 import { List, ListItem, ListItemText, Typography } from '@mui/material'
 import { LoadingButton } from '@mui/lab'
 import { useState } from 'react'
-import NotificationSettingOptions from './NotificationSettingOptions'
+import DefaultNotificationConfigOptions from './DefaultNotificationConfigOptions'
 import DeleteIcon from '@mui/icons-material/Delete'
-import classes from './TelegramNotificationSettings.module.scss'
+import classes from './TelegramNotificationConfig.module.scss'
+import { NotificationChannel } from '../../Api/Model/NotificationConfig/NotificationConfig'
 
-const TelegramNotificationSettings = () => {
+export type TelegramNotificationSettingsProps = {
+  channel: NotificationChannel
+}
+
+const TelegramNotificationConfigOptions = (props: TelegramNotificationSettingsProps) => {
   const [registrationId] = useState(null)
 
   return (
@@ -38,7 +43,7 @@ const TelegramNotificationSettings = () => {
       )}
       {registrationId && (
         <>
-          <NotificationSettingOptions />
+          <DefaultNotificationConfigOptions channel={props.channel} />
           <LoadingButton color="error" variant="outlined" type="submit" size="large">
             <DeleteIcon className={classes['delete-icon']} />
             Delete configuration
@@ -49,4 +54,4 @@ const TelegramNotificationSettings = () => {
   )
 }
 
-export default TelegramNotificationSettings
+export default TelegramNotificationConfigOptions

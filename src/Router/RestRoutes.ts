@@ -10,6 +10,7 @@ export const REST_ROUTES = {
   mostExpectedReleases: '/rest/v1/releases/top',
   mostFollowedArtists: '/rest/v1/artists/top',
   myArtists: '/rest/v1/my-artists',
+  notificationConfig: '/rest/v1/notification-config',
   refresh: '/rest/v1/auth/refresh',
   registrationCleanup: '/rest/v1/registration-cleanup',
   releases: '/rest/v1/releases',

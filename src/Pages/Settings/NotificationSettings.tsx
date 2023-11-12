@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import classes from '../../Components/AccountDetails/AccountDetails.module.scss'
 import Box from '@mui/material/Box'
-import NotificationSettingsAccordion from '../../Components/NotificationSettings/NotificationSettingsAccordion'
+import NotificationConfigAccordion from '../../Components/NotificationConfig/NotificationConfigAccordion'
 
 export const NotificationSettings = () => {
   useEffect(() => {
@@ -17,7 +17,7 @@ export const NotificationSettings = () => {
           new release is announced.
         </p>
         <p>All you need to do is configuring your preferred channels.</p>
-        <NotificationSettingsAccordion />
+        <NotificationConfigAccordion />
       </Box>
     </>
   )

@@ -1,0 +1,13 @@
+@import '../../Styles/partials/02-general/general.to-rem';
+
+.notification-section {
+  margin-bottom: to-rem(10);
+
+  &__heading {
+    margin: 0;
+  }
+}
+
+.radio-item {
+  color: white;
+}

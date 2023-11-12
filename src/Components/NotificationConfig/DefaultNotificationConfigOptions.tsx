@@ -1,6 +1,5 @@
 import classes from './DfaultNotificationConfigOptions.module.scss'
 import { FormControl, FormControlLabel, Radio, RadioGroup, Switch } from '@mui/material'
-import { styled } from '@mui/system'
 import { NotificationChannel } from '../../Api/Model/NotificationConfig/NotificationConfig'
 import useFetchNotificationConfig from '../../Hooks/NotificationConfig/useFetchNotificationConfig'
 import LoadingSpinner from '../Common/LoadingSpinner'
@@ -17,11 +16,6 @@ const DefaultNotificationConfigOptions = (props: NotificationSettingOptionsProps
   const [notificationAtAnnouncementDate, setNotificationAtAnnouncementDate] = useState(false)
   const [notifyReissues, setNotifyReissues] = useState(false)
   const { notificationConfig, isLoading, error } = useFetchNotificationConfig({ channel: props.channel })
-  const StyledSwitch = styled(Switch)(() => ({
-    '& .MuiSwitch-track': {
-      backgroundColor: 'white',
-    },
-  }))
 
   useEffect(() => {
     if (notificationConfig) {
@@ -65,11 +59,11 @@ const DefaultNotificationConfigOptions = (props: NotificationSettingOptionsProps
           <h4 className={classes['notification-section__heading']}>Extra notifications</h4>
           <FormControl>
             <FormControlLabel
-              control={<StyledSwitch color={'info'} value={notificationAtReleaseDate ? 'on' : 'off'} />}
+              control={<Switch color={'info'} value={notificationAtReleaseDate ? 'on' : 'off'} />}
               label={'Notification on release date'}
             />
             <FormControlLabel
-              control={<StyledSwitch color={'info'} value={notificationAtAnnouncementDate ? 'on' : 'off'} />}
+              control={<Switch color={'info'} value={notificationAtAnnouncementDate ? 'on' : 'off'} />}
               label={'Notification on announcement date'}
             />
           </FormControl>
@@ -78,7 +72,7 @@ const DefaultNotificationConfigOptions = (props: NotificationSettingOptionsProps
           <h4 className={classes['notification-section__heading']}>Reissue notifications</h4>
           <FormControl>
             <FormControlLabel
-              control={<StyledSwitch color={'info'} value={notifyReissues ? 'on' : 'off'} />}
+              control={<Switch color={'info'} value={notifyReissues ? 'on' : 'off'} />}
               label={'Notifications for reissues or re-releases'}
             />
           </FormControl>

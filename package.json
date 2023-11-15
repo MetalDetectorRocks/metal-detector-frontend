@@ -29,7 +29,7 @@
     "@types/react-dom": "^18.2.15",
     "@types/react-router": "^5.1.20",
     "@types/react-router-dom": "^5.3.3",
-    "axios": "1.6.1",
+    "axios": "1.6.2",
     "dayjs": "^1.11.10",
     "react": "^18.1.0",
     "react-cookie": "6.1.1",

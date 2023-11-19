@@ -1,11 +1,13 @@
 import classes from './DfaultNotificationConfigOptions.module.scss'
 import { FormControl, FormControlLabel, Radio, RadioGroup, Switch } from '@mui/material'
-import { NotificationChannel } from '../../Api/Model/NotificationConfig/NotificationConfig'
+import { DefaultNotificationConfig, NotificationChannel } from '../../Api/Model/NotificationConfig/NotificationConfig'
 import useFetchNotificationConfig from '../../Hooks/NotificationConfig/useFetchNotificationConfig'
 import LoadingSpinner from '../Common/LoadingSpinner'
 import ErrorAlert from '../Common/ErrorAlert'
 import React, { useEffect, useState } from 'react'
 import useUpdateNotificationConfig from '../../Hooks/NotificationConfig/useUpdateNotificationConfig'
+import { toast } from 'react-toastify'
+import { AxiosError } from 'axios'
 
 export type NotificationSettingOptionsProps = {
   channel: NotificationChannel
@@ -16,10 +18,10 @@ const DefaultNotificationConfigOptions = (props: NotificationSettingOptionsProps
   const [notificationAtReleaseDate, setNotificationAtReleaseDate] = useState(false)
   const [notificationAtAnnouncementDate, setNotificationAtAnnouncementDate] = useState(false)
   const [notifyReissues, setNotifyReissues] = useState(false)
-  const { notificationConfig, fetchIsLoading, fetchError } = useFetchNotificationConfig({
+  const { notificationConfig, isLoading, error } = useFetchNotificationConfig({
     channel: props.channel,
   })
-  const { updateNotificationConfig, updateError } = useUpdateNotificationConfig()
+  const { mutate: updateNotificationConfig } = useUpdateNotificationConfig()
 
   useEffect(() => {
     if (notificationConfig) {
@@ -30,41 +32,74 @@ const DefaultNotificationConfigOptions = (props: NotificationSettingOptionsProps
     }
   }, [notificationConfig])
 
-  useEffect(() => {
-    updateNotificationConfig({
-      channel: props.channel,
-      frequencyInWeeks: frequencyInWeeks,
+  const handleUpdate = (newNotificationConfig: DefaultNotificationConfig) => {
+    updateNotificationConfig(
+      {
+        channel: props.channel,
+        ...newNotificationConfig!,
+      },
+      {
+        onSuccess: () => {
+          setFrequencyInWeeks(newNotificationConfig!.frequencyInWeeks)
+          setNotificationAtReleaseDate(newNotificationConfig!.notificationAtReleaseDate)
+          setNotificationAtAnnouncementDate(newNotificationConfig!.notificationAtAnnouncementDate)
+          setNotifyReissues(newNotificationConfig!.notifyReissues)
+        },
+        onError: (error) => {
+          toast.error(`Error saving notification config, please try again: ${(error as AxiosError).message}`)
+        },
+      },
+    )
+  }
+
+  const handleFrequencyChange = (event: React.SyntheticEvent) => {
+    const newFrequency = parseInt((event.target as HTMLInputElement).value)
+    handleUpdate({
+      frequencyInWeeks: newFrequency,
       notificationAtReleaseDate: notificationAtReleaseDate,
       notificationAtAnnouncementDate: notificationAtAnnouncementDate,
       notifyReissues: notifyReissues,
     })
-  }, [frequencyInWeeks, notificationAtReleaseDate, notificationAtAnnouncementDate, notifyReissues])
-
-  const handleFrequencyChange = (event: React.SyntheticEvent) => {
-    const newFrequency = parseInt((event.target as HTMLInputElement).value)
-    setFrequencyInWeeks(newFrequency)
   }
 
-  const handleNotificationAtReleaseDateChange = (_event: React.SyntheticEvent, checked: boolean) => {
-    setNotificationAtReleaseDate(checked)
+  const handleNotificationAtReleaseDateChange = (event: React.SyntheticEvent, checked: boolean) => {
+    event.preventDefault()
+    handleUpdate({
+      frequencyInWeeks: frequencyInWeeks,
+      notificationAtReleaseDate: checked,
+      notificationAtAnnouncementDate: notificationAtAnnouncementDate,
+      notifyReissues: notifyReissues,
+    })
   }
 
-  const handleNotificationAtAnnouncementDateChange = (_event: React.SyntheticEvent, checked: boolean) => {
-    setNotificationAtAnnouncementDate(checked)
+  const handleNotificationAtAnnouncementDateChange = (event: React.SyntheticEvent, checked: boolean) => {
+    event.preventDefault()
+    handleUpdate({
+      frequencyInWeeks: frequencyInWeeks,
+      notificationAtReleaseDate: notificationAtReleaseDate,
+      notificationAtAnnouncementDate: checked,
+      notifyReissues: notifyReissues,
+    })
   }
 
-  const handleNotifyReissues = (_event: React.SyntheticEvent, checked: boolean) => {
-    setNotifyReissues(checked)
+  const handleNotifyReissues = (event: React.SyntheticEvent, checked: boolean) => {
+    event.preventDefault()
+    handleUpdate({
+      frequencyInWeeks: frequencyInWeeks,
+      notificationAtReleaseDate: notificationAtReleaseDate,
+      notificationAtAnnouncementDate: notificationAtReleaseDate,
+      notifyReissues: checked,
+    })
   }
 
   return (
     <>
-      {fetchIsLoading && <LoadingSpinner />}
-      {(fetchError || updateError) && <ErrorAlert />}
+      {isLoading && <LoadingSpinner />}
+      {error && <ErrorAlert />}
       <>
         <div className={classes['notification-section']}>
           <h4 className={classes['notification-section__heading']}>Periodic notifications</h4>
-          <RadioGroup value={frequencyInWeeks} onChange={handleFrequencyChange}>
+          <RadioGroup value={frequencyInWeeks} onChange={(event) => handleFrequencyChange(event)}>
             <FormControlLabel
               control={<Radio color={'info'} className={classes['radio-item']} />}
               label={'None'}

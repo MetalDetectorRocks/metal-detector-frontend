@@ -19,8 +19,8 @@ const useFetchNotificationConfig = (props: FetchNotificationConfigProps) => {
 
   return {
     notificationConfig: query.data?.data,
-    isLoading: query.isLoading,
-    error: query.error as AxiosError<ErrorResponse>,
+    fetchIsLoading: query.isLoading,
+    fetchError: query.error as AxiosError<ErrorResponse>,
   }
 }
 

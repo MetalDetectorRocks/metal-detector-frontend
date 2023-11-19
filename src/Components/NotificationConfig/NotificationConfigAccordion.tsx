@@ -8,18 +8,6 @@ import { NotificationChannel } from '../../Api/Model/NotificationConfig/Notifica
 import TelegramNotificationConfigOptions from './TelegramNotificationConfigOptions'
 
 const NotificationConfigAccordion = () => {
-  // const { updateNotificationConfig } = useUpdateNotificationConfig()
-
-  // const doUpdateNotificationConfig = (channel: NotificationChannel, config: DefaultNotificationConfig) => {
-  //   updateNotificationConfig({
-  //     channel: channel,
-  //     frequencyInWeeks: config.frequencyInWeeks,
-  //     notificationAtReleaseDate: config.notificationAtReleaseDate,
-  //     notificationAtAnnouncementDate: config.notificationAtAnnouncementDate,
-  //     notifyReissues: config.notifyReissues,
-  //   })
-  // }
-
   return (
     <>
       <Accordion disableGutters className={classes['accordion']}>

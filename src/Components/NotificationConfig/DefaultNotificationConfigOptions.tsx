@@ -5,6 +5,7 @@ import useFetchNotificationConfig from '../../Hooks/NotificationConfig/useFetchN
 import LoadingSpinner from '../Common/LoadingSpinner'
 import ErrorAlert from '../Common/ErrorAlert'
 import React, { useEffect, useState } from 'react'
+import useUpdateNotificationConfig from '../../Hooks/NotificationConfig/useUpdateNotificationConfig'
 
 export type NotificationSettingOptionsProps = {
   channel: NotificationChannel
@@ -15,7 +16,10 @@ const DefaultNotificationConfigOptions = (props: NotificationSettingOptionsProps
   const [notificationAtReleaseDate, setNotificationAtReleaseDate] = useState(false)
   const [notificationAtAnnouncementDate, setNotificationAtAnnouncementDate] = useState(false)
   const [notifyReissues, setNotifyReissues] = useState(false)
-  const { notificationConfig, isLoading, error } = useFetchNotificationConfig({ channel: props.channel })
+  const { notificationConfig, fetchIsLoading, fetchError } = useFetchNotificationConfig({
+    channel: props.channel,
+  })
+  const { updateNotificationConfig, updateError } = useUpdateNotificationConfig()
 
   useEffect(() => {
     if (notificationConfig) {
@@ -26,14 +30,37 @@ const DefaultNotificationConfigOptions = (props: NotificationSettingOptionsProps
     }
   }, [notificationConfig])
 
+  useEffect(() => {
+    updateNotificationConfig({
+      channel: props.channel,
+      frequencyInWeeks: frequencyInWeeks,
+      notificationAtReleaseDate: notificationAtReleaseDate,
+      notificationAtAnnouncementDate: notificationAtAnnouncementDate,
+      notifyReissues: notifyReissues,
+    })
+  }, [frequencyInWeeks, notificationAtReleaseDate, notificationAtAnnouncementDate, notifyReissues])
+
   const handleFrequencyChange = (event: React.SyntheticEvent) => {
-    setFrequencyInWeeks(parseInt((event.target as HTMLInputElement).value))
+    const newFrequency = parseInt((event.target as HTMLInputElement).value)
+    setFrequencyInWeeks(newFrequency)
+  }
+
+  const handleNotificationAtReleaseDateChange = (_event: React.SyntheticEvent, checked: boolean) => {
+    setNotificationAtReleaseDate(checked)
+  }
+
+  const handleNotificationAtAnnouncementDateChange = (_event: React.SyntheticEvent, checked: boolean) => {
+    setNotificationAtAnnouncementDate(checked)
+  }
+
+  const handleNotifyReissues = (_event: React.SyntheticEvent, checked: boolean) => {
+    setNotifyReissues(checked)
   }
 
   return (
     <>
-      {isLoading && <LoadingSpinner />}
-      {error && <ErrorAlert />}
+      {fetchIsLoading && <LoadingSpinner />}
+      {(fetchError || updateError) && <ErrorAlert />}
       <>
         <div className={classes['notification-section']}>
           <h4 className={classes['notification-section__heading']}>Periodic notifications</h4>
@@ -59,12 +86,14 @@ const DefaultNotificationConfigOptions = (props: NotificationSettingOptionsProps
           <h4 className={classes['notification-section__heading']}>Extra notifications</h4>
           <FormControl>
             <FormControlLabel
-              control={<Switch color={'info'} value={notificationAtReleaseDate ? 'on' : 'off'} />}
+              control={<Switch color={'info'} checked={notificationAtReleaseDate} />}
               label={'Notification on release date'}
+              onChange={handleNotificationAtReleaseDateChange}
             />
             <FormControlLabel
-              control={<Switch color={'info'} value={notificationAtAnnouncementDate ? 'on' : 'off'} />}
+              control={<Switch color={'info'} checked={notificationAtAnnouncementDate} />}
               label={'Notification on announcement date'}
+              onChange={handleNotificationAtAnnouncementDateChange}
             />
           </FormControl>
         </div>
@@ -72,8 +101,9 @@ const DefaultNotificationConfigOptions = (props: NotificationSettingOptionsProps
           <h4 className={classes['notification-section__heading']}>Reissue notifications</h4>
           <FormControl>
             <FormControlLabel
-              control={<Switch color={'info'} value={notifyReissues ? 'on' : 'off'} />}
+              control={<Switch color={'info'} checked={notifyReissues} />}
               label={'Notifications for reissues or re-releases'}
+              onChange={handleNotifyReissues}
             />
           </FormControl>
         </div>

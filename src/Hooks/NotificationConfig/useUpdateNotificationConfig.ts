@@ -10,20 +10,18 @@ const useUpdateNotificationConfig = () => {
   const API = useApiWithToken()
   const mutation = useMutation({
     mutationFn: async (request: UpdateNotificationConfigRequest) => {
-      await API.put(REST_ROUTES.notificationConfig, JSON.stringify(request))
-        // .then(() => {
-        //   toast.success('Import jobs created!')
-        // })
-        .catch((error: AxiosError<ErrorResponse>) => {
-          toast.error(`Error on saving notification config: ${error.message}`)
-        })
+      await API.put(REST_ROUTES.notificationConfig, JSON.stringify(request)).catch(
+        (error: AxiosError<ErrorResponse>) => {
+          toast.error(`Error saving notification config, please reload the page and try again: ${error.message}`)
+        },
+      )
     },
   })
 
   return {
     updateNotificationConfig: mutation.mutate,
-    error: mutation.error as AxiosError<ErrorResponse>,
-    isLoading: mutation.isLoading,
+    updateIsLoading: mutation.isLoading,
+    updateError: mutation.error as AxiosError<ErrorResponse>,
   }
 }
 

@@ -35,7 +35,7 @@
     "react-cookie": "6.1.1",
     "react-data-table-component": "^7.5.4",
     "react-dom": "^18.2.0",
-    "react-hook-form": "^7.48.2",
+    "react-hook-form": "^7.49.1",
     "react-infinite-scroll-component": "^6.1.0",
     "react-query": "^3.39.3",
     "react-router-dom": "^6.20.1",

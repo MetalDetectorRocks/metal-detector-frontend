@@ -4,10 +4,18 @@ import EmailIcon from '@mui/icons-material/Email'
 import PhoneAndroidIcon from '@mui/icons-material/PhoneAndroid'
 import classes from './NotificationConfigAccordion.module.scss'
 import DefaultNotificationConfigOptions from './DefaultNotificationConfigOptions'
-import { NotificationChannel } from '../../Api/Model/NotificationConfig/NotificationConfig'
+import { DefaultNotificationConfig, NotificationChannel } from '../../Api/Model/NotificationConfig/NotificationConfig'
 import TelegramNotificationConfigOptions from './TelegramNotificationConfigOptions'
+import useFetchNotificationConfig from '../../Hooks/NotificationConfig/useFetchNotificationConfig'
+import { AxiosError } from 'axios'
 
 const NotificationConfigAccordion = () => {
+  const emailQuery = useFetchNotificationConfig({
+    channel: NotificationChannel.EMAIL,
+  })
+  const telegramQuery = useFetchNotificationConfig({
+    channel: NotificationChannel.TELEGRAM,
+  })
   return (
     <>
       <Accordion disableGutters className={classes['accordion']}>
@@ -21,7 +29,12 @@ const NotificationConfigAccordion = () => {
           </div>
         </AccordionSummary>
         <AccordionDetails>
-          <DefaultNotificationConfigOptions channel={NotificationChannel.EMAIL} />
+          <DefaultNotificationConfigOptions
+            channel={NotificationChannel.EMAIL}
+            notificationConfig={emailQuery.data?.data as DefaultNotificationConfig}
+            error={emailQuery.error as AxiosError}
+            isLoading={emailQuery.isLoading}
+          />
         </AccordionDetails>
       </Accordion>
       <Accordion disableGutters className={classes['accordion']}>
@@ -35,7 +48,12 @@ const NotificationConfigAccordion = () => {
           </div>
         </AccordionSummary>
         <AccordionDetails>
-          <TelegramNotificationConfigOptions channel={NotificationChannel.TELEGRAM} />
+          <TelegramNotificationConfigOptions
+            channel={NotificationChannel.TELEGRAM}
+            notificationConfig={telegramQuery.data?.data as DefaultNotificationConfig}
+            error={telegramQuery.error as AxiosError}
+            isLoading={telegramQuery.isLoading}
+          />
         </AccordionDetails>
       </Accordion>
     </>

@@ -1,7 +1,6 @@
 import classes from './DfaultNotificationConfigOptions.module.scss'
 import { FormControl, FormControlLabel, Radio, RadioGroup, Switch } from '@mui/material'
 import { DefaultNotificationConfig, NotificationChannel } from '../../Api/Model/NotificationConfig/NotificationConfig'
-import useFetchNotificationConfig from '../../Hooks/NotificationConfig/useFetchNotificationConfig'
 import LoadingSpinner from '../Common/LoadingSpinner'
 import ErrorAlert from '../Common/ErrorAlert'
 import React, { useEffect, useState } from 'react'
@@ -11,6 +10,9 @@ import { AxiosError } from 'axios'
 
 export type NotificationSettingOptionsProps = {
   channel: NotificationChannel
+  notificationConfig: DefaultNotificationConfig
+  isLoading: boolean
+  error: AxiosError
 }
 
 const DefaultNotificationConfigOptions = (props: NotificationSettingOptionsProps) => {
@@ -18,19 +20,16 @@ const DefaultNotificationConfigOptions = (props: NotificationSettingOptionsProps
   const [notificationAtReleaseDate, setNotificationAtReleaseDate] = useState(false)
   const [notificationAtAnnouncementDate, setNotificationAtAnnouncementDate] = useState(false)
   const [notifyReissues, setNotifyReissues] = useState(false)
-  const { notificationConfig, isLoading, error } = useFetchNotificationConfig({
-    channel: props.channel,
-  })
   const { mutate: updateNotificationConfig } = useUpdateNotificationConfig()
 
   useEffect(() => {
-    if (notificationConfig) {
-      setFrequencyInWeeks(notificationConfig.frequencyInWeeks)
-      setNotificationAtReleaseDate(notificationConfig.notificationAtReleaseDate)
-      setNotificationAtAnnouncementDate(notificationConfig.notificationAtAnnouncementDate)
-      setNotifyReissues(notificationConfig.notifyReissues)
+    if (props.notificationConfig) {
+      setFrequencyInWeeks(props.notificationConfig.frequencyInWeeks)
+      setNotificationAtReleaseDate(props.notificationConfig.notificationAtReleaseDate)
+      setNotificationAtAnnouncementDate(props.notificationConfig.notificationAtAnnouncementDate)
+      setNotifyReissues(props.notificationConfig.notifyReissues)
     }
-  }, [notificationConfig])
+  }, [props.notificationConfig])
 
   const handleUpdate = (newNotificationConfig: DefaultNotificationConfig) => {
     updateNotificationConfig(
@@ -92,11 +91,11 @@ const DefaultNotificationConfigOptions = (props: NotificationSettingOptionsProps
     })
   }
 
-  return isLoading ? (
+  return props.isLoading ? (
     <LoadingSpinner />
   ) : (
     <>
-      {error && <ErrorAlert />}
+      {props.error && <ErrorAlert />}
       <>
         <div className={classes['notification-section']}>
           <h4 className={classes['notification-section__heading']}>Periodic notifications</h4>

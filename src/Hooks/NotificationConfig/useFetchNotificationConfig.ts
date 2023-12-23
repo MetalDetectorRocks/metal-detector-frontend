@@ -2,8 +2,6 @@ import { useQuery } from 'react-query'
 import { REST_ROUTES } from '../../Router/RestRoutes'
 import useApiWithToken from '../Auth/useApiWithToken'
 import { DefaultNotificationConfig, NotificationChannel } from '../../Api/Model/NotificationConfig/NotificationConfig'
-import { AxiosError } from 'axios'
-import { ErrorResponse } from '../../Api/Model/Common/ErrorResponse'
 
 export type FetchNotificationConfigProps = {
   channel: NotificationChannel
@@ -11,17 +9,11 @@ export type FetchNotificationConfigProps = {
 
 const useFetchNotificationConfig = (props: FetchNotificationConfigProps) => {
   const API = useApiWithToken()
-  const query = useQuery('notification-config', async () => {
+  return useQuery(['notification-config', props.channel], async () => {
     return await API.get<DefaultNotificationConfig>(
       `${REST_ROUTES.notificationConfig}/${props.channel.valueOf().toLowerCase()}`,
     )
   })
-
-  return {
-    notificationConfig: query.data?.data,
-    isLoading: query.isLoading,
-    error: query.error as AxiosError<ErrorResponse>,
-  }
 }
 
 export default useFetchNotificationConfig

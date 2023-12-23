@@ -1,7 +1,7 @@
 import { List, ListItem, ListItemText, Typography } from '@mui/material'
 import { LoadingButton } from '@mui/lab'
 import React, { useState } from 'react'
-import DefaultNotificationConfigOptions from './DefaultNotificationConfigOptions'
+import NotificationConfigOptions from './NotificationConfigOptions'
 import DeleteIcon from '@mui/icons-material/Delete'
 import classes from './TelegramNotificationConfig.module.scss'
 import { NotificationConfig, NotificationChannel } from '../../Api/Model/NotificationConfig/NotificationConfig'
@@ -89,7 +89,7 @@ const TelegramNotificationConfigOptions = (props: TelegramNotificationSettingsPr
       )}
       {props.notificationConfig && !shouldRender && (
         <>
-          <DefaultNotificationConfigOptions
+          <NotificationConfigOptions
             channel={props.channel}
             notificationConfig={props.notificationConfig}
             isLoading={props.isLoading}

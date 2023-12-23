@@ -3,7 +3,7 @@ import KeyboardArrowDown from '@mui/icons-material/KeyboardArrowDown'
 import EmailIcon from '@mui/icons-material/Email'
 import PhoneAndroidIcon from '@mui/icons-material/PhoneAndroid'
 import classes from './NotificationConfigAccordion.module.scss'
-import DefaultNotificationConfigOptions from './DefaultNotificationConfigOptions'
+import NotificationConfigOptions from './NotificationConfigOptions'
 import { NotificationConfig, NotificationChannel } from '../../Api/Model/NotificationConfig/NotificationConfig'
 import TelegramNotificationConfigOptions from './TelegramNotificationConfigOptions'
 import useFetchNotificationConfig from '../../Hooks/NotificationConfig/useFetchNotificationConfig'
@@ -30,7 +30,7 @@ const NotificationConfigAccordion = () => {
           </div>
         </AccordionSummary>
         <AccordionDetails>
-          <DefaultNotificationConfigOptions
+          <NotificationConfigOptions
             channel={NotificationChannel.EMAIL}
             notificationConfig={emailQuery.data?.data as NotificationConfig}
             error={emailQuery.error as AxiosError}

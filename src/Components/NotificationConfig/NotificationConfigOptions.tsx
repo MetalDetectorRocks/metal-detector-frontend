@@ -1,4 +1,4 @@
-import classes from './DfaultNotificationConfigOptions.module.scss'
+import classes from './NotificationConfigOptions.module.scss'
 import { FormControl, FormControlLabel, Radio, RadioGroup, Switch } from '@mui/material'
 import { NotificationConfig, NotificationChannel } from '../../Api/Model/NotificationConfig/NotificationConfig'
 import LoadingSpinner from '../Common/LoadingSpinner'
@@ -8,14 +8,14 @@ import useUpdateNotificationConfig from '../../Hooks/NotificationConfig/useUpdat
 import { toast } from 'react-toastify'
 import { AxiosError } from 'axios'
 
-export type NotificationSettingOptionsProps = {
+export type NotificationConfigOptionsProps = {
   channel: NotificationChannel
   notificationConfig: NotificationConfig
   isLoading: boolean
   error: AxiosError
 }
 
-const DefaultNotificationConfigOptions = (props: NotificationSettingOptionsProps) => {
+const NotificationConfigOptions = (props: NotificationConfigOptionsProps) => {
   const [frequencyInWeeks, setFrequencyInWeeks] = useState(0)
   const [notificationAtReleaseDate, setNotificationAtReleaseDate] = useState(false)
   const [notificationAtAnnouncementDate, setNotificationAtAnnouncementDate] = useState(false)
@@ -147,4 +147,4 @@ const DefaultNotificationConfigOptions = (props: NotificationSettingOptionsProps
   )
 }
 
-export default DefaultNotificationConfigOptions
+export default NotificationConfigOptions

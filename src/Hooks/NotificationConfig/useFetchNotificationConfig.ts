@@ -1,18 +1,12 @@
 import { useQuery } from 'react-query'
 import { REST_ROUTES } from '../../Router/RestRoutes'
 import useApiWithToken from '../Auth/useApiWithToken'
-import { NotificationConfig, NotificationChannel } from '../../Api/Model/NotificationConfig/NotificationConfig'
+import { NotificationConfig } from '../../Api/Model/NotificationConfig/NotificationConfig'
 
-export type FetchNotificationConfigProps = {
-  channel: NotificationChannel
-}
-
-const useFetchNotificationConfig = (props: FetchNotificationConfigProps) => {
+const useFetchNotificationConfig = () => {
   const API = useApiWithToken()
-  return useQuery(['notification-config', props.channel], async () => {
-    return await API.get<NotificationConfig>(
-      `${REST_ROUTES.notificationConfig}/${props.channel.valueOf().toLowerCase()}`,
-    )
+  return useQuery('notification-config', async () => {
+    return await API.get<NotificationConfig>(REST_ROUTES.notificationConfig)
   })
 }
 

@@ -1,10 +1,10 @@
 import { List, ListItem, ListItemText, Typography } from '@mui/material'
 import { LoadingButton } from '@mui/lab'
 import React, { useState } from 'react'
-import NotificationConfigOptions from './NotificationConfigOptions'
+import DefaultNotificationConfigOptions from './DefaultNotificationConfigOptions'
 import DeleteIcon from '@mui/icons-material/Delete'
 import classes from './TelegramNotificationConfig.module.scss'
-import { NotificationConfig, NotificationChannel } from '../../Api/Model/NotificationConfig/NotificationConfig'
+import { NotificationChannel, TelegramNotificationConfig } from '../../Api/Model/NotificationConfig/NotificationConfig'
 import useGenerateRegistrationId from '../../Hooks/NotificationConfig/useGenerateRegistrationId'
 import { toast } from 'react-toastify'
 import { AxiosError } from 'axios'
@@ -14,7 +14,7 @@ import useDeleteTelegramConfig from '../../Hooks/NotificationConfig/useDeleteTel
 
 export type TelegramNotificationSettingsProps = {
   channel: NotificationChannel
-  notificationConfig: NotificationConfig
+  telegramNotificationConfig: TelegramNotificationConfig
   isLoading: boolean
   error: AxiosError
 }
@@ -55,7 +55,9 @@ const TelegramNotificationConfigOptions = (props: TelegramNotificationSettingsPr
   ) : (
     <>
       {props.error && <ErrorAlert />}
-      {(!props.notificationConfig || shouldRender) && (
+      {(!props.telegramNotificationConfig ||
+        shouldRender ||
+        !props.telegramNotificationConfig.notificationsActivated) && (
         <>
           <Typography>To activate telegram notifications do the following:</Typography>
           <List dense={true}>
@@ -83,15 +85,15 @@ const TelegramNotificationConfigOptions = (props: TelegramNotificationSettingsPr
             size="large"
             onClick={(event) => handleGenerateRegistrationIdClick(event)}
           >
-            {buttonText}
+            {props.telegramNotificationConfig.registrationId || buttonText}
           </LoadingButton>
         </>
       )}
-      {props.notificationConfig && !shouldRender && (
+      {props.telegramNotificationConfig && !shouldRender && props.telegramNotificationConfig.notificationsActivated && (
         <>
-          <NotificationConfigOptions
+          <DefaultNotificationConfigOptions
             channel={props.channel}
-            notificationConfig={props.notificationConfig}
+            notificationConfig={props.telegramNotificationConfig}
             isLoading={props.isLoading}
             error={props.error}
           />

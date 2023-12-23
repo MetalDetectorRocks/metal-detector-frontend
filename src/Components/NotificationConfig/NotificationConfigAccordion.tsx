@@ -3,19 +3,14 @@ import KeyboardArrowDown from '@mui/icons-material/KeyboardArrowDown'
 import EmailIcon from '@mui/icons-material/Email'
 import PhoneAndroidIcon from '@mui/icons-material/PhoneAndroid'
 import classes from './NotificationConfigAccordion.module.scss'
-import NotificationConfigOptions from './NotificationConfigOptions'
-import { NotificationConfig, NotificationChannel } from '../../Api/Model/NotificationConfig/NotificationConfig'
+import DefaultNotificationConfigOptions from './DefaultNotificationConfigOptions'
+import { NotificationChannel, NotificationConfig } from '../../Api/Model/NotificationConfig/NotificationConfig'
 import TelegramNotificationConfigOptions from './TelegramNotificationConfigOptions'
 import useFetchNotificationConfig from '../../Hooks/NotificationConfig/useFetchNotificationConfig'
 import { AxiosError } from 'axios'
 
 const NotificationConfigAccordion = () => {
-  const emailQuery = useFetchNotificationConfig({
-    channel: NotificationChannel.EMAIL,
-  })
-  const telegramQuery = useFetchNotificationConfig({
-    channel: NotificationChannel.TELEGRAM,
-  })
+  const notificationConfigQuery = useFetchNotificationConfig()
 
   return (
     <>
@@ -30,11 +25,11 @@ const NotificationConfigAccordion = () => {
           </div>
         </AccordionSummary>
         <AccordionDetails>
-          <NotificationConfigOptions
+          <DefaultNotificationConfigOptions
             channel={NotificationChannel.EMAIL}
-            notificationConfig={emailQuery.data?.data as NotificationConfig}
-            error={emailQuery.error as AxiosError}
-            isLoading={emailQuery.isLoading}
+            notificationConfig={(notificationConfigQuery.data?.data as NotificationConfig)?.emailConfig}
+            error={notificationConfigQuery.error as AxiosError}
+            isLoading={notificationConfigQuery.isLoading}
           />
         </AccordionDetails>
       </Accordion>
@@ -51,9 +46,9 @@ const NotificationConfigAccordion = () => {
         <AccordionDetails>
           <TelegramNotificationConfigOptions
             channel={NotificationChannel.TELEGRAM}
-            notificationConfig={telegramQuery.data?.data as NotificationConfig}
-            error={telegramQuery.error as AxiosError}
-            isLoading={telegramQuery.isLoading}
+            telegramNotificationConfig={(notificationConfigQuery.data?.data as NotificationConfig)?.telegramConfig}
+            error={notificationConfigQuery.error as AxiosError}
+            isLoading={notificationConfigQuery.isLoading}
           />
         </AccordionDetails>
       </Accordion>

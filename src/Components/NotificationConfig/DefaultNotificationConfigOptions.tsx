@@ -1,6 +1,6 @@
-import classes from './NotificationConfigOptions.module.scss'
+import classes from './DefaultNotificationConfigOptions.module.scss'
 import { FormControl, FormControlLabel, Radio, RadioGroup, Switch } from '@mui/material'
-import { NotificationConfig, NotificationChannel } from '../../Api/Model/NotificationConfig/NotificationConfig'
+import { DefaultNotificationConfig, NotificationChannel } from '../../Api/Model/NotificationConfig/NotificationConfig'
 import LoadingSpinner from '../Common/LoadingSpinner'
 import ErrorAlert from '../Common/ErrorAlert'
 import React, { useEffect, useState } from 'react'
@@ -8,14 +8,14 @@ import useUpdateNotificationConfig from '../../Hooks/NotificationConfig/useUpdat
 import { toast } from 'react-toastify'
 import { AxiosError } from 'axios'
 
-export type NotificationConfigOptionsProps = {
+export type DefaultNotificationConfigOptionsProps = {
   channel: NotificationChannel
-  notificationConfig: NotificationConfig
+  notificationConfig: DefaultNotificationConfig
   isLoading: boolean
   error: AxiosError
 }
 
-const NotificationConfigOptions = (props: NotificationConfigOptionsProps) => {
+const DefaultNotificationConfigOptions = (props: DefaultNotificationConfigOptionsProps) => {
   const [frequencyInWeeks, setFrequencyInWeeks] = useState(0)
   const [notificationAtReleaseDate, setNotificationAtReleaseDate] = useState(false)
   const [notificationAtAnnouncementDate, setNotificationAtAnnouncementDate] = useState(false)
@@ -31,7 +31,7 @@ const NotificationConfigOptions = (props: NotificationConfigOptionsProps) => {
     }
   }, [props.notificationConfig])
 
-  const handleUpdate = (newNotificationConfig: NotificationConfig) => {
+  const handleUpdate = (newNotificationConfig: DefaultNotificationConfig) => {
     updateNotificationConfig(
       {
         channel: props.channel,
@@ -147,4 +147,4 @@ const NotificationConfigOptions = (props: NotificationConfigOptionsProps) => {
   )
 }
 
-export default NotificationConfigOptions
+export default DefaultNotificationConfigOptions

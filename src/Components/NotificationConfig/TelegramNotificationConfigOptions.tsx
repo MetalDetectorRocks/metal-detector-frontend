@@ -10,6 +10,7 @@ import { toast } from 'react-toastify'
 import { AxiosError } from 'axios'
 import LoadingSpinner from '../Common/LoadingSpinner'
 import ErrorAlert from '../Common/ErrorAlert'
+import useDeleteTelegramConfig from '../../Hooks/NotificationConfig/useDeleteTelegramConfig'
 
 export type TelegramNotificationSettingsProps = {
   channel: NotificationChannel
@@ -20,7 +21,9 @@ export type TelegramNotificationSettingsProps = {
 
 const TelegramNotificationConfigOptions = (props: TelegramNotificationSettingsProps) => {
   const { mutate: generateRegistrationId } = useGenerateRegistrationId()
+  const { mutate: deleteTelegramConfig } = useDeleteTelegramConfig()
   const [buttonText, setButtonText] = useState('Generate registration ID')
+  const [shouldRender, setShouldRender] = useState(false)
 
   const handleGenerateRegistrationIdClick = (event: React.SyntheticEvent) => {
     event.preventDefault()
@@ -34,12 +37,25 @@ const TelegramNotificationConfigOptions = (props: TelegramNotificationSettingsPr
     })
   }
 
+  const handleDeleteTelegramConfig = (event: React.SyntheticEvent) => {
+    event.preventDefault()
+    deleteTelegramConfig({} as any, {
+      onSuccess: () => {
+        toast.info('Telegram configuration deleted successfully.')
+        setShouldRender(!shouldRender)
+      },
+      onError: (error) => {
+        toast.error(`Error deleting telegram config, please try again: ${(error as AxiosError).message}`)
+      },
+    })
+  }
+
   return props.isLoading ? (
     <LoadingSpinner />
   ) : (
     <>
       {props.error && <ErrorAlert />}
-      {!props.notificationConfig && (
+      {(!props.notificationConfig || shouldRender) && (
         <>
           <Typography>To activate telegram notifications do the following:</Typography>
           <List dense={true}>
@@ -71,7 +87,7 @@ const TelegramNotificationConfigOptions = (props: TelegramNotificationSettingsPr
           </LoadingButton>
         </>
       )}
-      {props.notificationConfig && (
+      {props.notificationConfig && !shouldRender && (
         <>
           <DefaultNotificationConfigOptions
             channel={props.channel}
@@ -79,7 +95,13 @@ const TelegramNotificationConfigOptions = (props: TelegramNotificationSettingsPr
             isLoading={props.isLoading}
             error={props.error}
           />
-          <LoadingButton color="error" variant="outlined" type="submit" size="large">
+          <LoadingButton
+            color="error"
+            variant="outlined"
+            type="submit"
+            size="large"
+            onClick={(event) => handleDeleteTelegramConfig(event)}
+          >
             <DeleteIcon className={classes['delete-icon']} />
             Delete configuration
           </LoadingButton>

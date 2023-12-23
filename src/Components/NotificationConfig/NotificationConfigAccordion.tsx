@@ -16,6 +16,7 @@ const NotificationConfigAccordion = () => {
   const telegramQuery = useFetchNotificationConfig({
     channel: NotificationChannel.TELEGRAM,
   })
+
   return (
     <>
       <Accordion disableGutters className={classes['accordion']}>

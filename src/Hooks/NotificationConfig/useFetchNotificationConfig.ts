@@ -11,8 +11,8 @@ export type FetchNotificationConfigProps = {
 
 const useFetchNotificationConfig = (props: FetchNotificationConfigProps) => {
   const API = useApiWithToken()
-  const query = useQuery('notification-config', () => {
-    return API.get<DefaultNotificationConfig>(
+  const query = useQuery('notification-config', async () => {
+    return await API.get<DefaultNotificationConfig>(
       `${REST_ROUTES.notificationConfig}/${props.channel.valueOf().toLowerCase()}`,
     )
   })

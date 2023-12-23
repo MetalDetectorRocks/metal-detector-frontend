@@ -92,9 +92,10 @@ const DefaultNotificationConfigOptions = (props: NotificationSettingOptionsProps
     })
   }
 
-  return (
+  return isLoading ? (
+    <LoadingSpinner />
+  ) : (
     <>
-      {isLoading && <LoadingSpinner />}
       {error && <ErrorAlert />}
       <>
         <div className={classes['notification-section']}>

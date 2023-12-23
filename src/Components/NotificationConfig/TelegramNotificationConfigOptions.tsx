@@ -1,21 +1,46 @@
 import { List, ListItem, ListItemText, Typography } from '@mui/material'
 import { LoadingButton } from '@mui/lab'
-import { useState } from 'react'
+import React, { useState } from 'react'
 import DefaultNotificationConfigOptions from './DefaultNotificationConfigOptions'
 import DeleteIcon from '@mui/icons-material/Delete'
 import classes from './TelegramNotificationConfig.module.scss'
 import { NotificationChannel } from '../../Api/Model/NotificationConfig/NotificationConfig'
+import useGenerateRegistrationId from '../../Hooks/NotificationConfig/useGenerateRegistrationId'
+import { toast } from 'react-toastify'
+import { AxiosError } from 'axios'
+import useFetchNotificationConfig from '../../Hooks/NotificationConfig/useFetchNotificationConfig'
+import LoadingSpinner from '../Common/LoadingSpinner'
+import ErrorAlert from '../Common/ErrorAlert'
 
 export type TelegramNotificationSettingsProps = {
   channel: NotificationChannel
 }
 
 const TelegramNotificationConfigOptions = (props: TelegramNotificationSettingsProps) => {
-  const [registrationId] = useState(null)
+  const { mutate: generateRegistrationId } = useGenerateRegistrationId()
+  const [buttonText, setButtonText] = useState('Generate registration ID')
+  const { notificationConfig, isLoading, error } = useFetchNotificationConfig({
+    channel: props.channel,
+  })
 
-  return (
+  const handleGenerateRegistrationIdClick = (event: React.SyntheticEvent) => {
+    event.preventDefault()
+    generateRegistrationId({} as any, {
+      onSuccess: (response: number) => {
+        setButtonText(response.toString())
+      },
+      onError: (error) => {
+        toast.error(`Error generating registration id, please try again: ${(error as AxiosError).message}`)
+      },
+    })
+  }
+
+  return isLoading ? (
+    <LoadingSpinner />
+  ) : (
     <>
-      {!registrationId && (
+      {error && error.status !== 404 && <ErrorAlert />}
+      {!notificationConfig && (
         <>
           <Typography>To activate telegram notifications do the following:</Typography>
           <List dense={true}>
@@ -32,16 +57,22 @@ const TelegramNotificationConfigOptions = (props: TelegramNotificationSettingsPr
             </ListItem>
             <ListItem>
               <ListItemText>
-                4. Finally you can configure which notifications you want to receive from the bot.
+                4. Finally, you can configure which notifications you want to receive from the bot.
               </ListItemText>
             </ListItem>
           </List>
-          <LoadingButton color="success" variant="outlined" type="submit" size="large">
-            Generate registration ID
+          <LoadingButton
+            color="success"
+            variant="outlined"
+            type="submit"
+            size="large"
+            onClick={(event) => handleGenerateRegistrationIdClick(event)}
+          >
+            {buttonText}
           </LoadingButton>
         </>
       )}
-      {registrationId && (
+      {notificationConfig && (
         <>
           <DefaultNotificationConfigOptions channel={props.channel} />
           <LoadingButton color="error" variant="outlined" type="submit" size="large">

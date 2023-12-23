@@ -4,7 +4,7 @@ import React, { useState } from 'react'
 import DefaultNotificationConfigOptions from './DefaultNotificationConfigOptions'
 import DeleteIcon from '@mui/icons-material/Delete'
 import classes from './TelegramNotificationConfig.module.scss'
-import { DefaultNotificationConfig, NotificationChannel } from '../../Api/Model/NotificationConfig/NotificationConfig'
+import { NotificationConfig, NotificationChannel } from '../../Api/Model/NotificationConfig/NotificationConfig'
 import useGenerateRegistrationId from '../../Hooks/NotificationConfig/useGenerateRegistrationId'
 import { toast } from 'react-toastify'
 import { AxiosError } from 'axios'
@@ -14,7 +14,7 @@ import useDeleteTelegramConfig from '../../Hooks/NotificationConfig/useDeleteTel
 
 export type TelegramNotificationSettingsProps = {
   channel: NotificationChannel
-  notificationConfig: DefaultNotificationConfig
+  notificationConfig: NotificationConfig
   isLoading: boolean
   error: AxiosError
 }

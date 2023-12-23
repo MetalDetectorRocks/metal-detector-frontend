@@ -1,6 +1,6 @@
 import classes from './DfaultNotificationConfigOptions.module.scss'
 import { FormControl, FormControlLabel, Radio, RadioGroup, Switch } from '@mui/material'
-import { DefaultNotificationConfig, NotificationChannel } from '../../Api/Model/NotificationConfig/NotificationConfig'
+import { NotificationConfig, NotificationChannel } from '../../Api/Model/NotificationConfig/NotificationConfig'
 import LoadingSpinner from '../Common/LoadingSpinner'
 import ErrorAlert from '../Common/ErrorAlert'
 import React, { useEffect, useState } from 'react'
@@ -10,7 +10,7 @@ import { AxiosError } from 'axios'
 
 export type NotificationSettingOptionsProps = {
   channel: NotificationChannel
-  notificationConfig: DefaultNotificationConfig
+  notificationConfig: NotificationConfig
   isLoading: boolean
   error: AxiosError
 }
@@ -31,7 +31,7 @@ const DefaultNotificationConfigOptions = (props: NotificationSettingOptionsProps
     }
   }, [props.notificationConfig])
 
-  const handleUpdate = (newNotificationConfig: DefaultNotificationConfig) => {
+  const handleUpdate = (newNotificationConfig: NotificationConfig) => {
     updateNotificationConfig(
       {
         channel: props.channel,

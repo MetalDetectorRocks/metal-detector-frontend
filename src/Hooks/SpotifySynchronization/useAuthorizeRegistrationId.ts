@@ -4,23 +4,25 @@ import { AxiosError } from 'axios'
 import { ErrorResponse } from '../../Api/Model/Common/ErrorResponse'
 import { useMutation } from 'react-query'
 import { toast } from 'react-toastify'
-import { useNavigate } from 'react-router-dom'
 
-const useAuthorizeRegistrationId = (registrationId: string) => {
+export interface AuthorizeRegistrationIdRequest {
+  code: string
+  state: string
+}
+
+const useAuthorizeRegistrationId = () => {
   const API = useApiWithToken()
-  const navigate = useNavigate()
 
   const mutation = useMutation({
-    mutationFn: async () => {
-      await API.post(`${REST_ROUTES.oAuthAuthorization}/${registrationId}`)
+    mutationFn: async (request: AuthorizeRegistrationIdRequest) => {
+      await API.post(`${REST_ROUTES.oAuthState}/callback`, { code: request.code, state: request.state })
         .then((response) => {
-          if (response.status === 302) {
-            // window.location.href = response?.headers['Location']
-            navigate(response?.headers['Location'])
-            toast.success('Authorization successful')
-          }
+          console.log(`status: ${response.status}`)
+          toast.success('Authorization successful')
         })
-        .catch((error: AxiosError<ErrorResponse>) => {
+        .catch((error: AxiosError) => {
+          console.log(`status: ${error.status}`)
+          console.log(`message: ${error.message}`)
           toast.error(`Authorization failed: ${error.message}`)
         })
     },

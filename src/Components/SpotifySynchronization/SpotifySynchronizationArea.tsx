@@ -2,6 +2,8 @@ import useFetchAuthorizationState from '../../Hooks/SpotifySynchronization/useFe
 import LoadingSpinner from '../Common/LoadingSpinner'
 import ErrorAlert from '../Common/ErrorAlert'
 import React, { useEffect, useState } from 'react'
+import { REST_ROUTES } from '../../Router/RestRoutes'
+import { useSearchParams } from 'react-router-dom'
 import useAuthorizeRegistrationId from '../../Hooks/SpotifySynchronization/useAuthorizeRegistrationId'
 
 const SpotifySynchronizationArea = () => {
@@ -11,26 +13,30 @@ const SpotifySynchronizationArea = () => {
     isLoading: isLoadingFetchState,
     error,
   } = useFetchAuthorizationState(SPOTIFY_REGISTRATION_ID)
+  const [isAuthorized, setIsAuthorized] = useState(false)
+  const [searchParams] = useSearchParams()
   const {
     authorizeRegistrationId,
     isLoading: isLoadingAuthorization,
     errorMsg,
     isSuccess,
-  } = useAuthorizeRegistrationId(SPOTIFY_REGISTRATION_ID)
-  const [isAuthorized, setIsAuthorized] = useState(false)
+  } = useAuthorizeRegistrationId()
 
   useEffect(() => {
-    if (authorizationExists?.exists) {
+    if (authorizationExists?.exists || isSuccess) {
       setIsAuthorized(true)
+    }
+    if (searchParams.get('code') && searchParams.get('state')) {
+      console.log(searchParams.get('code'))
+      authorizeRegistrationId({ code: searchParams.get('code')!!, state: searchParams.get('state')!! })
     }
   }, [isAuthorized])
 
   const handleConnect = (event: React.SyntheticEvent) => {
     event.preventDefault()
-    authorizeRegistrationId()
-    if (isSuccess) {
-      setIsAuthorized(true)
-    }
+    window.location.href = `${process.env.REACT_APP_BACKEND_URL as string}${
+      REST_ROUTES.oAuthAuthorization
+    }/spotify-user`
   }
 
   return isLoadingFetchState || isLoadingAuthorization ? (

@@ -35,7 +35,7 @@ const DeleteAccount = () => {
       <OkCancelDialog
         open={openConfirmDialog}
         title={'Delete Account'}
-        content={'Dou you really want to delete your account? All data related to your account will be lost.'}
+        content={'Do you really want to delete your account? All data related to your account will be lost.'}
         onOk={() => deleteAccount()}
         onCancel={() => setOpenConfirmDialog(false)}
         onClose={() => setOpenConfirmDialog(false)}

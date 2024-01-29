@@ -7,7 +7,7 @@ export type FetchMyArtistsProps = {
   page: number
 }
 
-const fetchMyArtists = (props: FetchMyArtistsProps) => {
+const useFetchMyArtists = (props: FetchMyArtistsProps) => {
   const API = useApiWithToken()
   const {
     isLoading,
@@ -24,4 +24,4 @@ const fetchMyArtists = (props: FetchMyArtistsProps) => {
   return { artists: response?.data.myArtists, pagination: response?.data.pagination, isLoading, error }
 }
 
-export default fetchMyArtists
+export default useFetchMyArtists

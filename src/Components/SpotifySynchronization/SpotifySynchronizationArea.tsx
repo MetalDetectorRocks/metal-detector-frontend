@@ -2,52 +2,64 @@ import useFetchAuthorizationState from '../../Hooks/SpotifySynchronization/useFe
 import LoadingSpinner from '../Common/LoadingSpinner'
 import ErrorAlert from '../Common/ErrorAlert'
 import React, { useEffect, useState } from 'react'
+import { useCookies } from 'react-cookie'
 import { REST_ROUTES } from '../../Router/RestRoutes'
-import { useSearchParams } from 'react-router-dom'
-import useAuthorizeRegistrationId from '../../Hooks/SpotifySynchronization/useAuthorizeRegistrationId'
+import { useAuthContext } from '../../Context/AuthContext'
+import useDeleteAuthorization from '../../Hooks/SpotifySynchronization/useDeleteAuthorization'
 
 const SpotifySynchronizationArea = () => {
   const SPOTIFY_REGISTRATION_ID = 'spotify-user'
-  const {
-    authorizationExists,
-    isLoading: isLoadingFetchState,
-    error,
-  } = useFetchAuthorizationState(SPOTIFY_REGISTRATION_ID)
-  const [isAuthorized, setIsAuthorized] = useState(false)
-  const [searchParams] = useSearchParams()
-  const {
-    authorizeRegistrationId,
-    isLoading: isLoadingAuthorization,
-    errorMsg,
-    isSuccess,
-  } = useAuthorizeRegistrationId()
+  const { authorizationExists, isLoading: isLoading, error } = useFetchAuthorizationState(SPOTIFY_REGISTRATION_ID)
+  const { deleteAuthorization } = useDeleteAuthorization()
+  const { ctx } = useAuthContext()
+  const [, setCookie, removeCookie] = useCookies(['authorization'])
+  const [linkText, setLinkText] = useState<string>('')
+  const [connectionStatusText, setConnectionStatusText] = useState<string>('')
 
   useEffect(() => {
-    if (authorizationExists?.exists || isSuccess) {
-      setIsAuthorized(true)
+    if (authorizationExists && !authorizationExists.exists) {
+      setConnectionStatusText('disconnected')
+      setLinkText('Connect')
+      setCookie('authorization', `${ctx?.accessToken}`, {
+        path: `${REST_ROUTES.oAuthAuthorization}/spotify-user`,
+        sameSite: 'lax',
+      })
+    } else if (authorizationExists && authorizationExists.exists) {
+      setConnectionStatusText('connected')
+      setLinkText('Disconnect')
+      removeCookie('authorization', {
+        path: `${REST_ROUTES.oAuthAuthorization}/spotify-user`,
+        sameSite: 'lax',
+      })
     }
-    if (searchParams.get('code') && searchParams.get('state')) {
-      console.log(searchParams.get('code'))
-      authorizeRegistrationId({ code: searchParams.get('code')!!, state: searchParams.get('state')!! })
-    }
-  }, [isAuthorized])
+  }, [authorizationExists])
 
   const handleConnect = (event: React.SyntheticEvent) => {
     event.preventDefault()
-    window.location.href = `${process.env.REACT_APP_BACKEND_URL as string}${
-      REST_ROUTES.oAuthAuthorization
-    }/spotify-user`
+    window.location.href = `${process.env.REACT_APP_BACKEND_URL as string}${REST_ROUTES.oAuthAuthorization}/spotify-user`
   }
 
-  return isLoadingFetchState || isLoadingAuthorization ? (
+  const handleDisconnect = (event: React.SyntheticEvent) => {
+    event.preventDefault()
+    deleteAuthorization(SPOTIFY_REGISTRATION_ID)
+    setConnectionStatusText('disconnected')
+    setLinkText('Connect')
+  }
+
+  return isLoading ? (
     <LoadingSpinner />
   ) : (
     <>
-      {(error && <ErrorAlert />) || (errorMsg && <ErrorAlert message={errorMsg} />)}
-      {isAuthorized && <p>Connection status: connected (Disconnect)</p>}
-      {!isAuthorized && (
+      {error && <ErrorAlert />}
+      {authorizationExists && authorizationExists.exists && (
         <p>
-          Connection status: disconnected (<span onClick={(event) => handleConnect(event)}>Connect</span>)
+          Connection status: {connectionStatusText} (
+          <span onClick={(event) => handleDisconnect(event)}>{linkText}</span>)
+        </p>
+      )}
+      {(!authorizationExists || !authorizationExists.exists) && (
+        <p>
+          Connection status: {connectionStatusText} (<span onClick={(event) => handleConnect(event)}>{linkText}</span>)
         </p>
       )}
     </>

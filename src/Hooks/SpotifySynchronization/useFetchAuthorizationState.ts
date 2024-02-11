@@ -1,16 +1,17 @@
 import useApiWithToken from '../Auth/useApiWithToken'
 import { useMutation } from 'react-query'
 import { REST_ROUTES } from '../../Router/RestRoutes'
-import { AxiosError, AxiosResponse } from 'axios'
+import { AxiosError } from 'axios'
 import { ErrorResponse } from '../../Api/Model/Common/ErrorResponse'
+import { OAuth2AuthorizationResponse } from '../../Api/Model/Auth/OAuth2AuthorizationResponse'
 
 const useFetchAuthorizationState = (registrationId: string) => {
   const API = useApiWithToken()
 
   const mutation = useMutation(async () => {
-    return await API.get<boolean>(`${REST_ROUTES.oAuthState}/${registrationId}`)
-      .then((response: AxiosResponse) => {
-        return response.status === 200
+    return await API.get<OAuth2AuthorizationResponse>(`${REST_ROUTES.oAuthState}/${registrationId}`)
+      .then((response) => {
+        return response?.data?.exists || false
       })
       .catch(() => {
         return false

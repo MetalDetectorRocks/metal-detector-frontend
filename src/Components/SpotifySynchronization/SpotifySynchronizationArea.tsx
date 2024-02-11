@@ -16,7 +16,7 @@ const SpotifySynchronizationArea = () => {
   const [linkText, setLinkText] = useState<string>('')
   const [connectionStatusText, setConnectionStatusText] = useState<string>('')
   const [exists, setExists] = useState<boolean>(false)
-  const [trigger, setTrigger] = useState<boolean>(false)
+  const [reload, setReload] = useState<boolean>(false)
 
   useEffect(() => {
     fetchAuthorization().then((response: boolean) => {
@@ -37,7 +37,7 @@ const SpotifySynchronizationArea = () => {
         })
       }
     })
-  }, [trigger])
+  }, [reload])
 
   const handleConnect = (event: React.SyntheticEvent) => {
     event.preventDefault()
@@ -47,7 +47,7 @@ const SpotifySynchronizationArea = () => {
   const handleDisconnect = (event: React.SyntheticEvent) => {
     event.preventDefault()
     deleteAuthorization(SPOTIFY_REGISTRATION_ID).then(() => {
-      setTrigger(!trigger)
+      setReload(!reload)
     })
   }
 

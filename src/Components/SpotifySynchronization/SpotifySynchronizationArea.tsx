@@ -3,15 +3,15 @@ import LoadingSpinner from '../Common/LoadingSpinner'
 import ErrorAlert from '../Common/ErrorAlert'
 import React, { useEffect, useState } from 'react'
 import { useCookies } from 'react-cookie'
-import { REST_ROUTES } from '../../Router/RestRoutes'
 import { useAuthContext } from '../../Context/AuthContext'
 import useDeleteAuthorization from '../../Hooks/SpotifySynchronization/useDeleteAuthorization'
 import classes from './SpotifySynchronizationArea.module.css'
 import { toast } from 'react-toastify'
 
 const SpotifySynchronizationArea = () => {
+  const OAUTH2_AUTHORIZATION_ENDPOINT = '/oauth2/authorization'
   const SPOTIFY_REGISTRATION_ID = 'spotify-user'
-  const SPOTIFY_OAUTH_PATH = `${REST_ROUTES.oAuthAuthorization}/${SPOTIFY_REGISTRATION_ID}`
+  const SPOTIFY_OAUTH_PATH = `${OAUTH2_AUTHORIZATION_ENDPOINT}/${SPOTIFY_REGISTRATION_ID}`
   const { fetchAuthorization, isLoading: isLoading, errorMsg } = useFetchAuthorizationState(SPOTIFY_REGISTRATION_ID)
   const { deleteAuthorization } = useDeleteAuthorization()
   const { ctx } = useAuthContext()

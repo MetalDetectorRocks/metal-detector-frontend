@@ -7,6 +7,7 @@ import { REST_ROUTES } from '../../Router/RestRoutes'
 import { useAuthContext } from '../../Context/AuthContext'
 import useDeleteAuthorization from '../../Hooks/SpotifySynchronization/useDeleteAuthorization'
 import classes from './SpotifySynchronizationArea.module.css'
+import { toast } from 'react-toastify'
 
 const SpotifySynchronizationArea = () => {
   const SPOTIFY_REGISTRATION_ID = 'spotify-user'
@@ -20,24 +21,28 @@ const SpotifySynchronizationArea = () => {
   const [reload, setReload] = useState<boolean>(false)
 
   useEffect(() => {
-    fetchAuthorization().then((response: boolean) => {
-      setExists(response)
-      if (response) {
-        setConnectionStatusText('connected')
-        setLinkText('Disconnect')
-        removeCookie('authorization', {
-          path: `${REST_ROUTES.oAuthAuthorization}/${SPOTIFY_REGISTRATION_ID}`,
-          sameSite: 'lax',
-        })
-      } else {
-        setConnectionStatusText('disconnected')
-        setLinkText('Connect')
-        setCookie('authorization', `${ctx?.accessToken}`, {
-          path: `${REST_ROUTES.oAuthAuthorization}/${SPOTIFY_REGISTRATION_ID}`,
-          sameSite: 'lax',
-        })
-      }
-    })
+    fetchAuthorization()
+      .then((response: boolean) => {
+        setExists(response)
+        if (response) {
+          setConnectionStatusText('connected')
+          setLinkText('Disconnect')
+          removeCookie('authorization', {
+            path: `${REST_ROUTES.oAuthAuthorization}/${SPOTIFY_REGISTRATION_ID}`,
+            sameSite: 'lax',
+          })
+        } else {
+          setConnectionStatusText('disconnected')
+          setLinkText('Connect')
+          setCookie('authorization', `${ctx?.accessToken}`, {
+            path: `${REST_ROUTES.oAuthAuthorization}/${SPOTIFY_REGISTRATION_ID}`,
+            sameSite: 'lax',
+          })
+        }
+      })
+      .catch(() => {
+        toast.error(`Could not load authorization state, please try reloading the page.`)
+      })
   }, [reload])
 
   const handleConnect = (event: React.SyntheticEvent) => {
@@ -47,9 +52,23 @@ const SpotifySynchronizationArea = () => {
 
   const handleDisconnect = (event: React.SyntheticEvent) => {
     event.preventDefault()
-    deleteAuthorization(SPOTIFY_REGISTRATION_ID).then(() => {
-      setReload(!reload)
-    })
+    deleteAuthorization(SPOTIFY_REGISTRATION_ID)
+      .then(() => {
+        setReload(!reload)
+      })
+      .catch(() => {
+        toast.error(`Could not delete authorization.`)
+        setReload(!reload)
+      })
+  }
+
+  const handleClick = (event: React.SyntheticEvent) => {
+    event.preventDefault()
+    if (exists) {
+      handleDisconnect(event)
+    } else {
+      handleConnect(event)
+    }
   }
 
   return isLoading ? (
@@ -57,24 +76,17 @@ const SpotifySynchronizationArea = () => {
   ) : (
     <>
       {errorMsg && <ErrorAlert message={errorMsg} />}
-      {exists && (
-        <p>
-          Connection status: <span className={classes['connected-text']}>{connectionStatusText}</span> (
-          <span className={classes['link-text']} onClick={(event) => handleDisconnect(event)}>
-            {linkText}
-          </span>
-          )
-        </p>
-      )}
-      {!exists && (
-        <p>
-          Connection status: <span className={classes['disconnected-text']}>{connectionStatusText}</span> (
-          <span className={classes['link-text']} onClick={(event) => handleConnect(event)}>
-            {linkText}
-          </span>
-          )
-        </p>
-      )}
+      <p>
+        Connection status:{' '}
+        <span className={exists ? classes['connected-text'] : classes['disconnected-text']}>
+          {connectionStatusText}
+        </span>{' '}
+        (
+        <span className={classes['link-text']} onClick={(event) => handleClick(event)}>
+          {linkText}
+        </span>
+        )
+      </p>
     </>
   )
 }

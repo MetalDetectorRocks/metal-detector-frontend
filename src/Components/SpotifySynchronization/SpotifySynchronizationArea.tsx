@@ -6,6 +6,7 @@ import { useCookies } from 'react-cookie'
 import { REST_ROUTES } from '../../Router/RestRoutes'
 import { useAuthContext } from '../../Context/AuthContext'
 import useDeleteAuthorization from '../../Hooks/SpotifySynchronization/useDeleteAuthorization'
+import classes from './SpotifySynchronizationArea.module.css'
 
 const SpotifySynchronizationArea = () => {
   const SPOTIFY_REGISTRATION_ID = 'spotify-user'
@@ -25,14 +26,14 @@ const SpotifySynchronizationArea = () => {
         setConnectionStatusText('connected')
         setLinkText('Disconnect')
         removeCookie('authorization', {
-          path: `${REST_ROUTES.oAuthAuthorization}/spotify-user`,
+          path: `${REST_ROUTES.oAuthAuthorization}/${SPOTIFY_REGISTRATION_ID}`,
           sameSite: 'lax',
         })
       } else {
         setConnectionStatusText('disconnected')
         setLinkText('Connect')
         setCookie('authorization', `${ctx?.accessToken}`, {
-          path: `${REST_ROUTES.oAuthAuthorization}/spotify-user`,
+          path: `${REST_ROUTES.oAuthAuthorization}/${SPOTIFY_REGISTRATION_ID}`,
           sameSite: 'lax',
         })
       }
@@ -41,7 +42,7 @@ const SpotifySynchronizationArea = () => {
 
   const handleConnect = (event: React.SyntheticEvent) => {
     event.preventDefault()
-    window.location.href = `${process.env.REACT_APP_BACKEND_URL as string}${REST_ROUTES.oAuthAuthorization}/spotify-user`
+    window.location.href = `${process.env.REACT_APP_BACKEND_URL as string}${REST_ROUTES.oAuthAuthorization}/${SPOTIFY_REGISTRATION_ID}`
   }
 
   const handleDisconnect = (event: React.SyntheticEvent) => {
@@ -58,13 +59,20 @@ const SpotifySynchronizationArea = () => {
       {errorMsg && <ErrorAlert message={errorMsg} />}
       {exists && (
         <p>
-          Connection status: {connectionStatusText} (
-          <span onClick={(event) => handleDisconnect(event)}>{linkText}</span>)
+          Connection status: <span className={classes['connected-text']}>{connectionStatusText}</span> (
+          <span className={classes['link-text']} onClick={(event) => handleDisconnect(event)}>
+            {linkText}
+          </span>
+          )
         </p>
       )}
       {!exists && (
         <p>
-          Connection status: {connectionStatusText} (<span onClick={(event) => handleConnect(event)}>{linkText}</span>)
+          Connection status: <span className={classes['disconnected-text']}>{connectionStatusText}</span> (
+          <span className={classes['link-text']} onClick={(event) => handleConnect(event)}>
+            {linkText}
+          </span>
+          )
         </p>
       )}
     </>

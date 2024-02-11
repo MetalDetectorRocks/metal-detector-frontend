@@ -30,14 +30,14 @@ const SpotifySynchronizationArea = () => {
           setLinkText('Disconnect')
           removeCookie('authorization', {
             path: SPOTIFY_OAUTH_PATH,
-            sameSite: 'lax',
+            sameSite: 'strict',
           })
         } else {
           setConnectionStatusText('disconnected')
           setLinkText('Connect')
           setCookie('authorization', `${ctx?.accessToken}`, {
             path: SPOTIFY_OAUTH_PATH,
-            sameSite: 'lax',
+            sameSite: 'strict',
           })
         }
       })

@@ -19,7 +19,6 @@ export const API = Axios.create({
   timeout: TIMEOUT,
   headers: HEADERS,
   paramsSerializer,
-  maxRedirects: 0,
 })
 
 export const API_WITH_TOKEN = Axios.create({
@@ -28,5 +27,4 @@ export const API_WITH_TOKEN = Axios.create({
   timeout: TIMEOUT,
   headers: HEADERS,
   paramsSerializer,
-  maxRedirects: 0,
 })

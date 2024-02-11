@@ -11,8 +11,17 @@ const useDeleteAccount = () => {
     },
   })
 
+  const deleteAuthorization = (registrationID: string): Promise<void> => {
+    return new Promise((resolve, reject) => {
+      mutation.mutate(registrationID, {
+        onSuccess: () => resolve(),
+        onError: (error) => reject(error),
+      })
+    })
+  }
+
   return {
-    deleteAuthorization: mutation.mutate,
+    deleteAuthorization,
   }
 }
 

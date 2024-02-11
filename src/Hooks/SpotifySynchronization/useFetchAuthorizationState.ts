@@ -1,18 +1,38 @@
 import useApiWithToken from '../Auth/useApiWithToken'
-import { useQuery } from 'react-query'
+import { useMutation } from 'react-query'
 import { REST_ROUTES } from '../../Router/RestRoutes'
-import { OAuth2AuthorizationResponse } from '../../Api/Model/Auth/OAuth2AuthorizationResponse'
+import { AxiosError, AxiosResponse } from 'axios'
+import { ErrorResponse } from '../../Api/Model/Common/ErrorResponse'
 
 const useFetchAuthorizationState = (registrationId: string) => {
   const API = useApiWithToken()
-  const {
-    isLoading,
-    data: response,
-    error,
-  } = useQuery('oauth2-authorization-state', async () => {
-    return await API.get<OAuth2AuthorizationResponse>(`${REST_ROUTES.oAuthState}/${registrationId}`)
+
+  const mutation = useMutation(async () => {
+    return await API.get<boolean>(`${REST_ROUTES.oAuthState}/${registrationId}`)
+      .then((response: AxiosResponse) => {
+        return response.status === 200
+      })
+      .catch(() => {
+        return false
+      })
   })
-  return { authorizationExists: response?.data, isLoading, error }
+
+  const fetchAuthorization = async () => {
+    return new Promise<boolean>((resolve, reject) => {
+      mutation.mutate(undefined, {
+        onSuccess: (data) => resolve(data),
+        onError: (error) => reject(error),
+      })
+    })
+  }
+
+  return {
+    fetchAuthorization,
+    isLoading: mutation.isLoading,
+    errorMsg:
+      (mutation.error as AxiosError<ErrorResponse>)?.response?.data?.messages[0] ||
+      (mutation.error as AxiosError<ErrorResponse>)?.message,
+  }
 }
 
 export default useFetchAuthorizationState

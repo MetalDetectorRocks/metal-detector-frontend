@@ -9,30 +9,35 @@ import useDeleteAuthorization from '../../Hooks/SpotifySynchronization/useDelete
 
 const SpotifySynchronizationArea = () => {
   const SPOTIFY_REGISTRATION_ID = 'spotify-user'
-  const { authorizationExists, isLoading: isLoading, error } = useFetchAuthorizationState(SPOTIFY_REGISTRATION_ID)
+  const { fetchAuthorization, isLoading: isLoading, errorMsg } = useFetchAuthorizationState(SPOTIFY_REGISTRATION_ID)
   const { deleteAuthorization } = useDeleteAuthorization()
   const { ctx } = useAuthContext()
   const [, setCookie, removeCookie] = useCookies(['authorization'])
   const [linkText, setLinkText] = useState<string>('')
   const [connectionStatusText, setConnectionStatusText] = useState<string>('')
+  const [exists, setExists] = useState<boolean>(false)
+  const [trigger, setTrigger] = useState<boolean>(false)
 
   useEffect(() => {
-    if (authorizationExists && !authorizationExists.exists) {
-      setConnectionStatusText('disconnected')
-      setLinkText('Connect')
-      setCookie('authorization', `${ctx?.accessToken}`, {
-        path: `${REST_ROUTES.oAuthAuthorization}/spotify-user`,
-        sameSite: 'lax',
-      })
-    } else if (authorizationExists && authorizationExists.exists) {
-      setConnectionStatusText('connected')
-      setLinkText('Disconnect')
-      removeCookie('authorization', {
-        path: `${REST_ROUTES.oAuthAuthorization}/spotify-user`,
-        sameSite: 'lax',
-      })
-    }
-  }, [authorizationExists])
+    fetchAuthorization().then((response: boolean) => {
+      setExists(response)
+      if (response) {
+        setConnectionStatusText('connected')
+        setLinkText('Disconnect')
+        removeCookie('authorization', {
+          path: `${REST_ROUTES.oAuthAuthorization}/spotify-user`,
+          sameSite: 'lax',
+        })
+      } else {
+        setConnectionStatusText('disconnected')
+        setLinkText('Connect')
+        setCookie('authorization', `${ctx?.accessToken}`, {
+          path: `${REST_ROUTES.oAuthAuthorization}/spotify-user`,
+          sameSite: 'lax',
+        })
+      }
+    })
+  }, [trigger])
 
   const handleConnect = (event: React.SyntheticEvent) => {
     event.preventDefault()
@@ -41,23 +46,23 @@ const SpotifySynchronizationArea = () => {
 
   const handleDisconnect = (event: React.SyntheticEvent) => {
     event.preventDefault()
-    deleteAuthorization(SPOTIFY_REGISTRATION_ID)
-    setConnectionStatusText('disconnected')
-    setLinkText('Connect')
+    deleteAuthorization(SPOTIFY_REGISTRATION_ID).then(() => {
+      setTrigger(!trigger)
+    })
   }
 
   return isLoading ? (
     <LoadingSpinner />
   ) : (
     <>
-      {error && <ErrorAlert />}
-      {authorizationExists && authorizationExists.exists && (
+      {errorMsg && <ErrorAlert message={errorMsg} />}
+      {exists && (
         <p>
           Connection status: {connectionStatusText} (
           <span onClick={(event) => handleDisconnect(event)}>{linkText}</span>)
         </p>
       )}
-      {(!authorizationExists || !authorizationExists.exists) && (
+      {!exists && (
         <p>
           Connection status: {connectionStatusText} (<span onClick={(event) => handleConnect(event)}>{linkText}</span>)
         </p>

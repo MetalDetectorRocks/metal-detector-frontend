@@ -11,6 +11,7 @@ import { toast } from 'react-toastify'
 
 const SpotifySynchronizationArea = () => {
   const SPOTIFY_REGISTRATION_ID = 'spotify-user'
+  const SPOTIFY_OAUTH_PATH = `${REST_ROUTES.oAuthAuthorization}/${SPOTIFY_REGISTRATION_ID}`
   const { fetchAuthorization, isLoading: isLoading, errorMsg } = useFetchAuthorizationState(SPOTIFY_REGISTRATION_ID)
   const { deleteAuthorization } = useDeleteAuthorization()
   const { ctx } = useAuthContext()
@@ -28,14 +29,14 @@ const SpotifySynchronizationArea = () => {
           setConnectionStatusText('connected')
           setLinkText('Disconnect')
           removeCookie('authorization', {
-            path: `${REST_ROUTES.oAuthAuthorization}/${SPOTIFY_REGISTRATION_ID}`,
+            path: SPOTIFY_OAUTH_PATH,
             sameSite: 'lax',
           })
         } else {
           setConnectionStatusText('disconnected')
           setLinkText('Connect')
           setCookie('authorization', `${ctx?.accessToken}`, {
-            path: `${REST_ROUTES.oAuthAuthorization}/${SPOTIFY_REGISTRATION_ID}`,
+            path: SPOTIFY_OAUTH_PATH,
             sameSite: 'lax',
           })
         }
@@ -47,7 +48,7 @@ const SpotifySynchronizationArea = () => {
 
   const handleConnect = (event: React.SyntheticEvent) => {
     event.preventDefault()
-    window.location.href = `${process.env.REACT_APP_BACKEND_URL as string}${REST_ROUTES.oAuthAuthorization}/${SPOTIFY_REGISTRATION_ID}`
+    window.location.href = `${process.env.REACT_APP_BACKEND_URL as string}${SPOTIFY_OAUTH_PATH}`
   }
 
   const handleDisconnect = (event: React.SyntheticEvent) => {

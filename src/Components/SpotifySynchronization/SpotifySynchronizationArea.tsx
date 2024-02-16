@@ -2,8 +2,6 @@ import useFetchAuthorizationState from '../../Hooks/SpotifySynchronization/useFe
 import LoadingSpinner from '../Common/LoadingSpinner'
 import ErrorAlert from '../Common/ErrorAlert'
 import React, { useEffect, useState } from 'react'
-import { useCookies } from 'react-cookie'
-import { useAuthContext } from '../../Context/AuthContext'
 import useDeleteAuthorization from '../../Hooks/SpotifySynchronization/useDeleteAuthorization'
 import classes from './SpotifySynchronizationArea.module.css'
 import { toast } from 'react-toastify'
@@ -12,10 +10,9 @@ const SpotifySynchronizationArea = () => {
   const OAUTH2_AUTHORIZATION_ENDPOINT = '/oauth2/authorization'
   const SPOTIFY_REGISTRATION_ID = 'spotify-user'
   const SPOTIFY_OAUTH_PATH = `${OAUTH2_AUTHORIZATION_ENDPOINT}/${SPOTIFY_REGISTRATION_ID}`
+
   const { fetchAuthorization, isLoading: isLoading, errorMsg } = useFetchAuthorizationState(SPOTIFY_REGISTRATION_ID)
   const { deleteAuthorization } = useDeleteAuthorization()
-  const { ctx } = useAuthContext()
-  const [, setCookie, removeCookie] = useCookies(['authorization'])
   const [linkText, setLinkText] = useState<string>('')
   const [connectionStatusText, setConnectionStatusText] = useState<string>('')
   const [exists, setExists] = useState<boolean>(false)
@@ -28,17 +25,9 @@ const SpotifySynchronizationArea = () => {
         if (response) {
           setConnectionStatusText('connected')
           setLinkText('Disconnect')
-          removeCookie('authorization', {
-            path: SPOTIFY_OAUTH_PATH,
-            sameSite: 'strict',
-          })
         } else {
           setConnectionStatusText('disconnected')
           setLinkText('Connect')
-          setCookie('authorization', `${ctx?.accessToken}`, {
-            path: SPOTIFY_OAUTH_PATH,
-            sameSite: 'strict',
-          })
         }
       })
       .catch(() => {

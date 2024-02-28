@@ -44,7 +44,7 @@
     "recharts": "^2.12.1",
     "sass": "^1.71.1",
     "styled-components": "6.1.8",
-    "swiper": "^11.0.6",
+    "swiper": "^11.0.7",
     "typescript": "^5.3.3",
     "web-vitals": "^3.5.2"
   },

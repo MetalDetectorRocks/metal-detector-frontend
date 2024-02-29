@@ -3,8 +3,13 @@ import LoadingSpinner from '../Common/LoadingSpinner'
 import ErrorAlert from '../Common/ErrorAlert'
 import React, { useEffect, useState } from 'react'
 import useDeleteAuthorization from '../../Hooks/SpotifySynchronization/useDeleteAuthorization'
-import classes from './SpotifySynchronizationArea.module.css'
+import classes from './SpotifySynchronizationArea.module.scss'
 import { toast } from 'react-toastify'
+import Button from '@mui/material/Button'
+import useFetchSpotifyArtists from '../../Hooks/Artists/useFetchSpotifyArtists'
+import DataTable from '../Common/Table/DataTable'
+import { columns } from './SpotifySynchronizationTableColumns'
+import CachedIcon from '@mui/icons-material/Cached'
 
 const SpotifySynchronizationArea = () => {
   const OAUTH2_AUTHORIZATION_ENDPOINT = '/oauth2/authorization'
@@ -17,6 +22,7 @@ const SpotifySynchronizationArea = () => {
   const [connectionStatusText, setConnectionStatusText] = useState<string>('')
   const [exists, setExists] = useState<boolean>(false)
   const [reload, setReload] = useState<boolean>(false)
+  const { artists, fetchSpotifyArtists, isLoadingFetchArtists, errorFetchArtists } = useFetchSpotifyArtists()
 
   useEffect(() => {
     fetchAuthorization()
@@ -61,6 +67,10 @@ const SpotifySynchronizationArea = () => {
     }
   }
 
+  const handleFetch = () => {
+    fetchSpotifyArtists()
+  }
+
   return isLoading ? (
     <LoadingSpinner />
   ) : (
@@ -77,6 +87,29 @@ const SpotifySynchronizationArea = () => {
         </span>
         )
       </p>
+      <div className={classes['button-area']}>
+        <Button variant="outlined" color={'success'} onClick={() => handleFetch()}>
+          Fetch
+        </Button>
+        <Button variant="outlined" color={'success'} className={classes['sync-button']}>
+          <CachedIcon color={'success'} fontSize={'small'} /> Synchronize
+        </Button>
+      </div>
+      <>
+        {isLoadingFetchArtists && <LoadingSpinner />}
+        {errorFetchArtists && <ErrorAlert />}
+        {artists !== undefined && artists.length > 0 && (
+          <DataTable
+            columns={columns}
+            data={artists ?? []}
+            defaultSortFieldId={2}
+            defaultSortAsc={false}
+            noTableHead={true}
+            paginationServerOptions={{ persistSelectedOnSort: true, persistSelectedOnPageChange: true }}
+            subHeader
+          />
+        )}
+      </>
     </>
   )
 }

@@ -1,0 +1,17 @@
+@import '../../Styles/partials/02-general/general.to-rem';
+
+.spotify-info-cell {
+  display: flex;
+  flex-direction: column;
+  gap: to-rem(5);
+}
+
+.spotify-genres {
+  display: flex;
+  flex-direction: row;
+  gap: to-rem(5);
+}
+
+.spotify-thumb {
+  height: to-rem(100);
+}

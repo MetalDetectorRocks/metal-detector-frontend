@@ -1,0 +1,23 @@
+@import '../../Styles/partials/02-general/general.to-rem';
+
+.link-text {
+  color: #0288d1;
+}
+
+.connected-text {
+  color: green;
+}
+
+.disconnected-text {
+  color: red;
+}
+
+.button-area {
+  display: flex;
+  gap: to-rem(10);
+}
+
+.sync-button {
+  display: flex;
+  gap: to-rem(5);
+}

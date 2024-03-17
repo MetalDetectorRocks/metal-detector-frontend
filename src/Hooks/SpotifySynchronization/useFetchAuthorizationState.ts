@@ -30,7 +30,7 @@ const useFetchAuthorizationState = (registrationId: string) => {
   return {
     fetchAuthorization,
     isLoading: mutation.isLoading,
-    errorMsg:
+    errorMessage:
       (mutation.error as AxiosError<ErrorResponse>)?.response?.data?.messages[0] ||
       (mutation.error as AxiosError<ErrorResponse>)?.message,
   }

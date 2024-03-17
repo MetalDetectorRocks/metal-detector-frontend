@@ -1,5 +1,5 @@
 import { SpotifyArtist } from '../../Api/Model/Artist/SpotifyArtist'
-import { Chip, Switch, Typography } from '@mui/material'
+import { Chip, Typography } from '@mui/material'
 import classes from './SpotifySynchronizationTableColumns.module.scss'
 
 const numberFormatter = new Intl.NumberFormat('en-us', { minimumFractionDigits: 0 })
@@ -34,11 +34,5 @@ export const columns = [
     ),
     sortable: true,
     width: '80%',
-  },
-  {
-    name: 'Synchronize',
-    cell: () => <Switch color={'info'} />,
-    sortable: false,
-    width: '10%',
   },
 ]

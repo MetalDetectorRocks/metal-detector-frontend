@@ -1,7 +1,7 @@
 import useFetchAuthorizationState from '../../Hooks/SpotifySynchronization/useFetchAuthorizationState'
 import LoadingSpinner from '../Common/LoadingSpinner'
 import ErrorAlert from '../Common/ErrorAlert'
-import React, { useEffect, useState } from 'react'
+import React, { ReactNode, useEffect, useState } from 'react'
 import useDeleteAuthorization from '../../Hooks/SpotifySynchronization/useDeleteAuthorization'
 import classes from './SpotifySynchronizationArea.module.scss'
 import { toast } from 'react-toastify'
@@ -10,18 +10,32 @@ import useFetchSpotifyArtists from '../../Hooks/Artists/useFetchSpotifyArtists'
 import DataTable from '../Common/Table/DataTable'
 import { columns } from './SpotifySynchronizationTableColumns'
 import CachedIcon from '@mui/icons-material/Cached'
+import { Switch } from '@mui/material'
+import useSynchronizeArtists from '../../Hooks/SpotifySynchronization/useSynchronizeArtists'
+import { SpotifyArtist } from '../../Api/Model/Artist/SpotifyArtist'
 
 const SpotifySynchronizationArea = () => {
   const OAUTH2_AUTHORIZATION_ENDPOINT = '/oauth2/authorization'
   const SPOTIFY_REGISTRATION_ID = 'spotify-user'
   const SPOTIFY_OAUTH_PATH = `${OAUTH2_AUTHORIZATION_ENDPOINT}/${SPOTIFY_REGISTRATION_ID}`
 
-  const { fetchAuthorization, isLoading: isLoading, errorMsg } = useFetchAuthorizationState(SPOTIFY_REGISTRATION_ID)
+  const {
+    fetchAuthorization,
+    isLoading: isLoadingFetchAuthorizationState,
+    errorMessage: errorMessageFetchAuthorizationState,
+  } = useFetchAuthorizationState(SPOTIFY_REGISTRATION_ID)
+  const {
+    synchronizeArtists,
+    artistsCount,
+    isLoading: isLoadingSynchronizeArtists,
+    errorMsg: errorMessageSynchronizeArtists,
+  } = useSynchronizeArtists()
   const { deleteAuthorization } = useDeleteAuthorization()
   const [linkText, setLinkText] = useState<string>('')
   const [connectionStatusText, setConnectionStatusText] = useState<string>('')
   const [exists, setExists] = useState<boolean>(false)
   const [reload, setReload] = useState<boolean>(false)
+  const [selectedArtists, setSelectedArtists] = useState<string[]>([])
   const { artists, fetchSpotifyArtists, isLoadingFetchArtists, errorFetchArtists } = useFetchSpotifyArtists()
 
   useEffect(() => {
@@ -71,11 +85,22 @@ const SpotifySynchronizationArea = () => {
     fetchSpotifyArtists()
   }
 
-  return isLoading ? (
+  const handleSynchronize = () => {
+    synchronizeArtists(selectedArtists)
+    toast.info(`Synchronized ${artistsCount} artists.`)
+  }
+
+  const handleRowSelected = (rows: SpotifyArtist[]) => {
+    const selectedArtists = rows.map((row) => row.id)
+    setSelectedArtists(selectedArtists)
+  }
+
+  return isLoadingFetchAuthorizationState || isLoadingSynchronizeArtists ? (
     <LoadingSpinner />
   ) : (
     <>
-      {errorMsg && <ErrorAlert message={errorMsg} />}
+      {errorMessageFetchAuthorizationState && <ErrorAlert message={errorMessageFetchAuthorizationState} />}
+      {errorMessageSynchronizeArtists && <ErrorAlert message={errorMessageSynchronizeArtists} />}
       <p>
         Connection status:{' '}
         <span className={exists ? classes['connected-text'] : classes['disconnected-text']}>
@@ -91,22 +116,32 @@ const SpotifySynchronizationArea = () => {
         <Button variant="outlined" color={'success'} onClick={() => handleFetch()}>
           Fetch
         </Button>
-        <Button variant="outlined" color={'success'} className={classes['sync-button']}>
+        <Button
+          variant="outlined"
+          color={'success'}
+          onClick={() => handleSynchronize()}
+          className={classes['sync-artists-button']}
+        >
           <CachedIcon color={'success'} fontSize={'small'} /> Synchronize
         </Button>
       </div>
       <>
         {isLoadingFetchArtists && <LoadingSpinner />}
         {errorFetchArtists && <ErrorAlert />}
-        {artists !== undefined && artists.length > 0 && (
+        {artists.length > 0 && (
           <DataTable
             columns={columns}
-            data={artists ?? []}
+            data={artists}
             defaultSortFieldId={2}
             defaultSortAsc={false}
-            noTableHead={true}
-            paginationServerOptions={{ persistSelectedOnSort: true, persistSelectedOnPageChange: true }}
+            noTableHead
             subHeader
+            paginationServerOptions={{ persistSelectedOnSort: true, persistSelectedOnPageChange: true }}
+            selectableRows
+            selectableRowsHighlight
+            selectableRowsComponent={Switch as unknown as 'input' | ReactNode}
+            selectableRowsComponentProps={{ color: 'info', className: classes['sync-artist-switch'] }}
+            onSelectedRowsChange={(rows) => handleRowSelected(rows.selectedRows)}
           />
         )}
       </>

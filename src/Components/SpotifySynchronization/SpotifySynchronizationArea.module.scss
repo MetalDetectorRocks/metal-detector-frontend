@@ -17,7 +17,11 @@
   gap: to-rem(10);
 }
 
-.sync-button {
+.sync-artists-button {
   display: flex;
   gap: to-rem(5);
+}
+
+.sync-artist-switch {
+  margin-left: to-rem(15);
 }

@@ -1,0 +1,11 @@
+.link-text {
+  color: #0288d1;
+}
+
+.connected-text {
+  color: green;
+}
+
+.disconnected-text {
+  color: red;
+}

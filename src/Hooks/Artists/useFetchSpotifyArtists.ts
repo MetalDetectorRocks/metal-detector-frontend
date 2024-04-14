@@ -9,7 +9,7 @@ const useFetchSpotifyArtists = () => {
   const mutation = useMutation('spotify-artists', async () => {
     return await API.get<SpotifyFetchArtistsResponse>(REST_ROUTES.spotifyArtists, {
       params: {
-        fetchTypes: ['ARTISTS'], // todo NilsD REVERT
+        fetchTypes: ['ALBUMS', 'ARTISTS'],
       },
     })
       .then((response) => {

@@ -45,3 +45,9 @@ There are a bunch of other npm scripts which can be executed with `npm run {scri
 - `lint`: checks the configured lint rules
 - `lint:fix`: fixes lint violations
 - `format`: formats according to configured prettier rules
+
+-----------------------------
+
+Supported by [JetBrains](https://jb.gg/OpenSourceSupport)
+
+<img src="https://resources.jetbrains.com/storage/products/company/brand/logos/IntelliJ_IDEA.svg" height="35" alt="Logo of Jetbrains IntelliJ IDEA IDE">

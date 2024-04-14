@@ -34,13 +34,9 @@ const SpotifySynchronizationArea = () => {
   const [connectionStatusText, setConnectionStatusText] = useState<string>('')
   const [exists, setExists] = useState<boolean>(false)
   const [reload, setReload] = useState<boolean>(false)
+  const [artists, setArtists] = useState<SpotifyArtist[]>([])
   const [selectedArtists, setSelectedArtists] = useState<string[]>([])
-  const {
-    artists,
-    fetchSpotifyArtists,
-    isLoading: isLoadingFetchArtists,
-    error: errorFetchArtists,
-  } = useFetchSpotifyArtists()
+  const { fetchSpotifyArtists, isLoading: isLoadingFetchArtists, error: errorFetchArtists } = useFetchSpotifyArtists()
 
   useEffect(() => {
     fetchAuthorization()
@@ -87,12 +83,19 @@ const SpotifySynchronizationArea = () => {
 
   const handleFetchSpotifyArtists = () => {
     fetchSpotifyArtists()
+      .then((response) => {
+        setArtists(response)
+      })
+      .catch(() => {
+        toast.error(`Could not fetch artists from spotify, please try again.`)
+      })
   }
 
   const handleSynchronizeSpotifyArtists = () => {
     synchronizeArtists(selectedArtists)
       .then((artistsCount) => {
         toast.info(`Synchronized ${artistsCount} artists.`)
+        setArtists((currentArtists) => currentArtists.filter((artist) => selectedArtists.indexOf(artist.id) === -1))
       })
       .catch(() => {
         toast.error('Could not synchronize artists, please try again.')

@@ -34,8 +34,9 @@ const SpotifySynchronizationArea = () => {
   const [connectionStatusText, setConnectionStatusText] = useState<string>('')
   const [exists, setExists] = useState<boolean>(false)
   const [reload, setReload] = useState<boolean>(false)
+  const [selectAll, setSelectAll] = useState<boolean>(false)
   const [artists, setArtists] = useState<SpotifyArtist[]>([])
-  const [selectedArtists, setSelectedArtists] = useState<string[]>([])
+  const [selectedArtists, setSelectedArtists] = useState<SpotifyArtist[]>([])
   const { fetchSpotifyArtists, isLoading: isLoadingFetchArtists, error: errorFetchArtists } = useFetchSpotifyArtists()
 
   useEffect(() => {
@@ -87,7 +88,7 @@ const SpotifySynchronizationArea = () => {
         setArtists(response)
       })
       .catch(() => {
-        toast.error(`Could not fetch artists from spotify, please try again.`)
+        toast.error('Could not fetch artists from spotify, please try again.')
       })
   }
 
@@ -95,7 +96,7 @@ const SpotifySynchronizationArea = () => {
     synchronizeArtists(selectedArtists)
       .then((artistsCount) => {
         toast.info(`Synchronized ${artistsCount} artists.`)
-        setArtists((currentArtists) => currentArtists.filter((artist) => selectedArtists.indexOf(artist.id) === -1))
+        setArtists((currentArtists) => currentArtists.filter((artist) => selectedArtists.indexOf(artist) === -1))
       })
       .catch(() => {
         toast.error('Could not synchronize artists, please try again.')
@@ -103,8 +104,21 @@ const SpotifySynchronizationArea = () => {
   }
 
   const handleRowSelected = (rows: SpotifyArtist[]) => {
-    const selectedArtists = rows.map((row) => row.id)
-    setSelectedArtists(selectedArtists)
+    if (selectAll) {
+      setSelectAll(!selectAll)
+    }
+    setSelectedArtists(rows)
+  }
+
+  const handleSelectAll = () => {
+    setSelectedArtists(artists)
+    setSelectAll(true)
+  }
+
+  const handleDeselectAll = () => {
+    setSelectedArtists([])
+    setReload(!reload)
+    setSelectAll(false)
   }
 
   return isLoadingFetchAuthorizationState || isLoadingSynchronizeArtists ? (
@@ -141,20 +155,32 @@ const SpotifySynchronizationArea = () => {
         {isLoadingFetchArtists && <LoadingSpinner />}
         {errorFetchArtists && <ErrorAlert />}
         {artists.length > 0 && (
-          <DataTable
-            columns={columns}
-            data={artists}
-            defaultSortFieldId={2}
-            defaultSortAsc={false}
-            noTableHead
-            subHeader
-            paginationServerOptions={{ persistSelectedOnSort: true, persistSelectedOnPageChange: true }}
-            selectableRows
-            selectableRowsHighlight
-            selectableRowsComponent={Switch as unknown as 'input' | ReactNode}
-            selectableRowsComponentProps={{ color: 'info', className: classes['sync-artist-switch'] }}
-            onSelectedRowsChange={(rows) => handleRowSelected(rows.selectedRows)}
-          />
+          <>
+            {artists.length !== selectedArtists.length && (
+              <p className={classes['select-all-none-link']} onClick={() => handleSelectAll()}>
+                Select all
+              </p>
+            )}
+            {artists.length === selectedArtists.length && (
+              <p className={classes['select-all-none-link']} onClick={() => handleDeselectAll()}>
+                Deselect all
+              </p>
+            )}
+            <DataTable
+              columns={columns}
+              data={artists}
+              defaultSortFieldId={2}
+              defaultSortAsc={false}
+              noTableHead
+              paginationServerOptions={{ persistSelectedOnSort: true, persistSelectedOnPageChange: true }}
+              selectableRows
+              selectableRowsHighlight
+              selectableRowsComponent={Switch as unknown as 'input' | ReactNode}
+              selectableRowsComponentProps={{ color: 'info', className: classes['sync-artist-switch'] }}
+              selectableRowSelected={selectAll ? () => true : null}
+              onSelectedRowsChange={(rows) => handleRowSelected(rows.selectedRows)}
+            />
+          </>
         )}
       </>
     </>

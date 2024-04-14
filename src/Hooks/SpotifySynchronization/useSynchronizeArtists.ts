@@ -4,6 +4,7 @@ import { REST_ROUTES } from '../../Router/RestRoutes'
 import { AxiosError } from 'axios'
 import { ErrorResponse } from '../../Api/Model/Common/ErrorResponse'
 import { SpotifySynchronizeArtistsResponse } from '../../Api/Model/Artist/SpotifySynchronizeArtistsResponse'
+import { SpotifyArtist } from '../../Api/Model/Artist/SpotifyArtist'
 
 const useSynchronizeArtists = () => {
   const API = useApiWithToken()
@@ -21,12 +22,15 @@ const useSynchronizeArtists = () => {
       })
   })
 
-  const synchronizeArtists = async (artistIds: string[]) => {
+  const synchronizeArtists = async (artistIds: SpotifyArtist[]) => {
     return new Promise<number>((resolve, reject) => {
-      mutation.mutate(artistIds, {
-        onSuccess: (data) => resolve(data),
-        onError: (error) => reject(error),
-      })
+      mutation.mutate(
+        artistIds.map((artist) => artist.id),
+        {
+          onSuccess: (data) => resolve(data),
+          onError: (error) => reject(error),
+        },
+      )
     })
   }
 

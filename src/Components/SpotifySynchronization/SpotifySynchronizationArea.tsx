@@ -26,9 +26,8 @@ const SpotifySynchronizationArea = () => {
   } = useFetchAuthorizationState(SPOTIFY_REGISTRATION_ID)
   const {
     synchronizeArtists,
-    artistsCount,
     isLoading: isLoadingSynchronizeArtists,
-    errorMsg: errorMessageSynchronizeArtists,
+    errorMessage: errorMsgSynchronizeArtists,
   } = useSynchronizeArtists()
   const { deleteAuthorization } = useDeleteAuthorization()
   const [linkText, setLinkText] = useState<string>('')
@@ -36,7 +35,12 @@ const SpotifySynchronizationArea = () => {
   const [exists, setExists] = useState<boolean>(false)
   const [reload, setReload] = useState<boolean>(false)
   const [selectedArtists, setSelectedArtists] = useState<string[]>([])
-  const { artists, fetchSpotifyArtists, isLoadingFetchArtists, errorFetchArtists } = useFetchSpotifyArtists()
+  const {
+    artists,
+    fetchSpotifyArtists,
+    isLoading: isLoadingFetchArtists,
+    error: errorFetchArtists,
+  } = useFetchSpotifyArtists()
 
   useEffect(() => {
     fetchAuthorization()
@@ -72,7 +76,7 @@ const SpotifySynchronizationArea = () => {
       })
   }
 
-  const handleClick = (event: React.SyntheticEvent) => {
+  const handleConnectDisconnectClick = (event: React.SyntheticEvent) => {
     event.preventDefault()
     if (exists) {
       handleDisconnect(event)
@@ -81,13 +85,18 @@ const SpotifySynchronizationArea = () => {
     }
   }
 
-  const handleFetch = () => {
+  const handleFetchSpotifyArtists = () => {
     fetchSpotifyArtists()
   }
 
-  const handleSynchronize = () => {
+  const handleSynchronizeSpotifyArtists = () => {
     synchronizeArtists(selectedArtists)
-    toast.info(`Synchronized ${artistsCount} artists.`)
+      .then((artistsCount) => {
+        toast.info(`Synchronized ${artistsCount} artists.`)
+      })
+      .catch(() => {
+        toast.error('Could not synchronize artists, please try again.')
+      })
   }
 
   const handleRowSelected = (rows: SpotifyArtist[]) => {
@@ -100,26 +109,26 @@ const SpotifySynchronizationArea = () => {
   ) : (
     <>
       {errorMessageFetchAuthorizationState && <ErrorAlert message={errorMessageFetchAuthorizationState} />}
-      {errorMessageSynchronizeArtists && <ErrorAlert message={errorMessageSynchronizeArtists} />}
+      {errorMsgSynchronizeArtists && <ErrorAlert message={errorMsgSynchronizeArtists} />}
       <p>
         Connection status:{' '}
         <span className={exists ? classes['connected-text'] : classes['disconnected-text']}>
           {connectionStatusText}
         </span>{' '}
         (
-        <span className={classes['link-text']} onClick={(event) => handleClick(event)}>
+        <span className={classes['link-text']} onClick={(event) => handleConnectDisconnectClick(event)}>
           {linkText}
         </span>
         )
       </p>
       <div className={classes['button-area']}>
-        <Button variant="outlined" color={'success'} onClick={() => handleFetch()}>
+        <Button variant="outlined" color={'success'} onClick={() => handleFetchSpotifyArtists()}>
           Fetch
         </Button>
         <Button
           variant="outlined"
           color={'success'}
-          onClick={() => handleSynchronize()}
+          onClick={() => handleSynchronizeSpotifyArtists()}
           className={classes['sync-artists-button']}
         >
           <CachedIcon color={'success'} fontSize={'small'} /> Synchronize

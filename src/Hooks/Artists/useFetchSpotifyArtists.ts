@@ -16,8 +16,8 @@ const useFetchSpotifyArtists = () => {
   return {
     artists: mutation.data?.data.artists || [],
     fetchSpotifyArtists: mutation.mutate,
-    isLoadingFetchArtists: mutation.isLoading,
-    errorFetchArtists: mutation.error,
+    isLoading: mutation.isLoading,
+    error: mutation.error,
   }
 }
 

@@ -21,11 +21,19 @@ const useSynchronizeArtists = () => {
       })
   })
 
+  const synchronizeArtists = async (artistIds: string[]) => {
+    return new Promise<number>((resolve, reject) => {
+      mutation.mutate(artistIds, {
+        onSuccess: (data) => resolve(data),
+        onError: (error) => reject(error),
+      })
+    })
+  }
+
   return {
-    synchronizeArtists: mutation.mutate,
-    artistsCount: mutation.data,
+    synchronizeArtists,
     isLoading: mutation.isLoading,
-    errorMsg:
+    errorMessage:
       (mutation.error as AxiosError<ErrorResponse>)?.response?.data?.messages[0] ||
       (mutation.error as AxiosError<ErrorResponse>)?.message,
   }

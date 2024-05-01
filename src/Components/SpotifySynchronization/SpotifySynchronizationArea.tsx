@@ -1,7 +1,7 @@
 import useFetchAuthorizationState from '../../Hooks/SpotifySynchronization/useFetchAuthorizationState'
 import LoadingSpinner from '../Common/LoadingSpinner'
 import ErrorAlert from '../Common/ErrorAlert'
-import React, { ReactNode, useEffect, useState } from 'react'
+import React, { ChangeEvent, ReactNode, useEffect, useState } from 'react'
 import useDeleteAuthorization from '../../Hooks/SpotifySynchronization/useDeleteAuthorization'
 import classes from './SpotifySynchronizationArea.module.scss'
 import { toast } from 'react-toastify'
@@ -13,6 +13,8 @@ import CachedIcon from '@mui/icons-material/Cached'
 import { Switch } from '@mui/material'
 import useSynchronizeArtists from '../../Hooks/SpotifySynchronization/useSynchronizeArtists'
 import { SpotifyArtist } from '../../Api/Model/Artist/SpotifyArtist'
+import DataTableSearch from '../Common/Table/DataTableSearch'
+import { Alignment } from 'react-data-table-component'
 
 const SpotifySynchronizationArea = () => {
   const OAUTH2_AUTHORIZATION_ENDPOINT = '/oauth2/authorization'
@@ -38,6 +40,20 @@ const SpotifySynchronizationArea = () => {
   const [artists, setArtists] = useState<SpotifyArtist[]>([])
   const [selectedArtists, setSelectedArtists] = useState<SpotifyArtist[]>([])
   const { fetchSpotifyArtists, isLoading: isLoadingFetchArtists, error: errorFetchArtists } = useFetchSpotifyArtists()
+  const [searchText, setSearchText] = useState('')
+  const [filteredArtists, setFilteredArtists] = useState<SpotifyArtist[]>([])
+
+  useEffect(() => {
+    if (artists) {
+      setFilteredArtists(
+        artists.filter(
+          (artist: SpotifyArtist) =>
+            (artist.name && artist.name.toLowerCase().includes(searchText.toLowerCase())) ||
+            (artist.genres && artist.genres.find((genre) => genre.toLowerCase().includes(searchText.toLowerCase()))),
+        ),
+      )
+    }
+  }, [artists, searchText])
 
   useEffect(() => {
     fetchAuthorization()
@@ -55,6 +71,28 @@ const SpotifySynchronizationArea = () => {
         toast.error(`Could not load authorization state, please try reloading the page.`)
       })
   }, [reload])
+
+  const subHeaderComponent = (
+    <>
+      {artists.length !== selectedArtists.length && (
+        <p className={classes['select-all-none-link']} onClick={() => handleSelectAll()}>
+          Select all
+        </p>
+      )}
+      {artists.length === selectedArtists.length && (
+        <p className={classes['select-all-none-link']} onClick={() => handleDeselectAll()}>
+          Deselect all
+        </p>
+      )}
+      <div className={classes['sub-header']}>
+        <DataTableSearch
+          searchText={searchText}
+          searchPlaceholder={'artist'}
+          onSearch={(event: ChangeEvent<HTMLInputElement>) => setSearchText(event.target.value)}
+        />
+      </div>
+    </>
+  )
 
   const handleConnect = (event: React.SyntheticEvent) => {
     event.preventDefault()
@@ -156,22 +194,25 @@ const SpotifySynchronizationArea = () => {
         {errorFetchArtists && <ErrorAlert />}
         {artists.length > 0 && (
           <>
-            {artists.length !== selectedArtists.length && (
-              <p className={classes['select-all-none-link']} onClick={() => handleSelectAll()}>
-                Select all
-              </p>
-            )}
-            {artists.length === selectedArtists.length && (
-              <p className={classes['select-all-none-link']} onClick={() => handleDeselectAll()}>
-                Deselect all
-              </p>
-            )}
+            {/*{artists.length !== selectedArtists.length && (*/}
+            {/*  <p className={classes['select-all-none-link']} onClick={() => handleSelectAll()}>*/}
+            {/*    Select all*/}
+            {/*  </p>*/}
+            {/*)}*/}
+            {/*{artists.length === selectedArtists.length && (*/}
+            {/*  <p className={classes['select-all-none-link']} onClick={() => handleDeselectAll()}>*/}
+            {/*    Deselect all*/}
+            {/*  </p>*/}
+            {/*)}*/}
             <DataTable
               columns={columns}
-              data={artists}
+              data={filteredArtists}
               defaultSortFieldId={2}
               defaultSortAsc={false}
               noTableHead
+              subHeader
+              subHeaderAlign={Alignment.RIGHT}
+              subHeaderComponent={subHeaderComponent}
               paginationServerOptions={{ persistSelectedOnSort: true, persistSelectedOnPageChange: true }}
               selectableRows
               selectableRowsHighlight

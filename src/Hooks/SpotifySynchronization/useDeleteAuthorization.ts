@@ -2,7 +2,7 @@ import { REST_ROUTES } from '../../Router/RestRoutes'
 import { useMutation } from 'react-query'
 import useApiWithToken from '../Auth/useApiWithToken'
 
-const useDeleteAccount = () => {
+const useDeleteAuthorization = () => {
   const API = useApiWithToken()
 
   const mutation = useMutation({
@@ -25,4 +25,4 @@ const useDeleteAccount = () => {
   }
 }
 
-export default useDeleteAccount
+export default useDeleteAuthorization

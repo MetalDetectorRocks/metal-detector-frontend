@@ -194,16 +194,6 @@ const SpotifySynchronizationArea = () => {
         {errorFetchArtists && <ErrorAlert />}
         {artists.length > 0 && (
           <>
-            {/*{artists.length !== selectedArtists.length && (*/}
-            {/*  <p className={classes['select-all-none-link']} onClick={() => handleSelectAll()}>*/}
-            {/*    Select all*/}
-            {/*  </p>*/}
-            {/*)}*/}
-            {/*{artists.length === selectedArtists.length && (*/}
-            {/*  <p className={classes['select-all-none-link']} onClick={() => handleDeselectAll()}>*/}
-            {/*    Deselect all*/}
-            {/*  </p>*/}
-            {/*)}*/}
             <DataTable
               columns={columns}
               data={filteredArtists}

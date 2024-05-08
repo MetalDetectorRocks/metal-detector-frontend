@@ -36,7 +36,6 @@ const SpotifySynchronizationArea = () => {
   const [connectionStatusText, setConnectionStatusText] = useState<string>('')
   const [exists, setExists] = useState<boolean>(false)
   const [reload, setReload] = useState<boolean>(false)
-  const [selectAll, setSelectAll] = useState<boolean>(false)
   const [artists, setArtists] = useState<SpotifyArtist[]>([])
   const [selectedArtists, setSelectedArtists] = useState<SpotifyArtist[]>([])
   const { fetchSpotifyArtists, isLoading: isLoadingFetchArtists, error: errorFetchArtists } = useFetchSpotifyArtists()
@@ -73,25 +72,11 @@ const SpotifySynchronizationArea = () => {
   }, [reload])
 
   const subHeaderComponent = (
-    <>
-      {artists.length !== selectedArtists.length && (
-        <p className={classes['select-all-none-link']} onClick={() => handleSelectAll()}>
-          Select all
-        </p>
-      )}
-      {artists.length === selectedArtists.length && (
-        <p className={classes['select-all-none-link']} onClick={() => handleDeselectAll()}>
-          Deselect all
-        </p>
-      )}
-      <div className={classes['sub-header']}>
-        <DataTableSearch
-          searchText={searchText}
-          searchPlaceholder={'artist'}
-          onSearch={(event: ChangeEvent<HTMLInputElement>) => setSearchText(event.target.value)}
-        />
-      </div>
-    </>
+    <DataTableSearch
+      searchText={searchText}
+      searchPlaceholder={'artist'}
+      onSearch={(event: ChangeEvent<HTMLInputElement>) => setSearchText(event.target.value)}
+    />
   )
 
   const handleConnect = (event: React.SyntheticEvent) => {
@@ -141,24 +126,6 @@ const SpotifySynchronizationArea = () => {
       })
   }
 
-  const handleRowSelected = (rows: SpotifyArtist[]) => {
-    if (selectAll) {
-      setSelectAll(!selectAll)
-    }
-    setSelectedArtists(rows)
-  }
-
-  const handleSelectAll = () => {
-    setSelectedArtists(artists)
-    setSelectAll(true)
-  }
-
-  const handleDeselectAll = () => {
-    setSelectedArtists([])
-    setReload(!reload)
-    setSelectAll(false)
-  }
-
   return isLoadingFetchAuthorizationState || isLoadingSynchronizeArtists ? (
     <LoadingSpinner />
   ) : (
@@ -198,18 +165,15 @@ const SpotifySynchronizationArea = () => {
               columns={columns}
               data={filteredArtists}
               defaultSortFieldId={2}
-              defaultSortAsc={false}
-              noTableHead
+              defaultSortAsc={true}
               subHeader
               subHeaderAlign={Alignment.RIGHT}
               subHeaderComponent={subHeaderComponent}
-              paginationServerOptions={{ persistSelectedOnSort: true, persistSelectedOnPageChange: true }}
               selectableRows
               selectableRowsHighlight
               selectableRowsComponent={Switch as unknown as 'input' | ReactNode}
               selectableRowsComponentProps={{ color: 'info', className: classes['sync-artist-switch'] }}
-              selectableRowSelected={selectAll ? () => true : null}
-              onSelectedRowsChange={(rows) => handleRowSelected(rows.selectedRows)}
+              onSelectedRowsChange={(rows) => setSelectedArtists(rows.selectedRows)}
             />
           </>
         )}

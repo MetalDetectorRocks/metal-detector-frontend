@@ -41,7 +41,7 @@
     "react-router-dom": "^6.23.0",
     "react-scripts": "5.0.1",
     "react-toastify": "^10.0.5",
-    "recharts": "^2.12.6",
+    "recharts": "^2.12.7",
     "sass": "^1.77.0",
     "styled-components": "6.1.10",
     "swiper": "^11.1.1",

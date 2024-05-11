@@ -12,6 +12,12 @@
   gap: to-rem(5);
 }
 
-.spotify-thumb {
-  height: to-rem(100);
+.spotify-thumb-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+
+  .spotify-thumb {
+    width: 100%;
+  }
 }

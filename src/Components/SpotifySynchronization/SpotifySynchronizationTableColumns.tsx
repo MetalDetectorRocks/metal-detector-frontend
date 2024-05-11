@@ -8,7 +8,9 @@ export const columns = [
   {
     name: 'Thumb',
     cell: (artist: SpotifyArtist) => (
-      <img src={artist.thumbnailImage} className={classes['spotify-thumb']} alt="Spotify artist thumbnail" />
+      <div className={classes['spotify-thumb-wrapper']}>
+        <img src={artist.thumbnailImage} className={classes['spotify-thumb']} alt="Spotify artist thumbnail" />
+      </div>
     ),
     sortable: false,
     width: '10%',

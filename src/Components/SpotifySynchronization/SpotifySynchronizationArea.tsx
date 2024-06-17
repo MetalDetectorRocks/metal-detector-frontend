@@ -171,7 +171,7 @@ const SpotifySynchronizationArea = () => {
               subHeaderComponent={subHeaderComponent}
               selectableRows
               selectableRowsHighlight
-              selectableRowsComponent={Switch as unknown as 'input' | ReactNode}
+              selectableRowsComponent={Switch as unknown as 'input' | ReactNode} // ToDo NilsD just Switch should be enough but does not work
               selectableRowsComponentProps={{ color: 'info', className: classes['sync-artist-switch'] }}
               onSelectedRowsChange={(rows) => setSelectedArtists(rows.selectedRows)}
             />

@@ -35,6 +35,7 @@ export const columns = [
       </div>
     ),
     sortable: true,
+    sortFunction: (artist1: SpotifyArtist, artist2: SpotifyArtist) => artist1.name.localeCompare(artist2.name),
     width: '80%',
   },
 ]

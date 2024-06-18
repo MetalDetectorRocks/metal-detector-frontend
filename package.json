@@ -43,15 +43,15 @@
     "react-scripts": "5.0.1",
     "react-toastify": "^10.0.5",
     "recharts": "^2.12.7",
-    "sass": "^1.77.5",
+    "sass": "^1.77.6",
     "styled-components": "6.1.11",
     "swiper": "^11.1.4",
     "typescript": "^5.4.5"
   },
   "devDependencies": {
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
-    "@typescript-eslint/eslint-plugin": "^7.13.0",
-    "@typescript-eslint/parser": "^7.13.0",
+    "@typescript-eslint/eslint-plugin": "^7.13.1",
+    "@typescript-eslint/parser": "^7.13.1",
     "eslint": "^8.57.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-config-standard": "^17.1.0",

@@ -109,6 +109,9 @@ const SpotifySynchronizationArea = () => {
     fetchSpotifyArtists()
       .then((response) => {
         setArtists(response)
+        if (response.length === 0) {
+          toast.info('No new artists found.')
+        }
       })
       .catch(() => {
         toast.error('Could not fetch artists from spotify, please try again.')
@@ -143,19 +146,21 @@ const SpotifySynchronizationArea = () => {
         </span>
         )
       </p>
-      <div className={classes['button-area']}>
-        <Button variant="outlined" color={'success'} onClick={() => handleFetchSpotifyArtists()}>
-          Fetch
-        </Button>
-        <Button
-          variant="outlined"
-          color={'success'}
-          onClick={() => handleSynchronizeSpotifyArtists()}
-          className={classes['sync-artists-button']}
-        >
-          <CachedIcon color={'success'} fontSize={'small'} /> Synchronize
-        </Button>
-      </div>
+      {exists && (
+        <div className={classes['button-area']}>
+          <Button variant="outlined" color={'success'} onClick={() => handleFetchSpotifyArtists()}>
+            Fetch
+          </Button>
+          <Button
+            variant="outlined"
+            color={'success'}
+            onClick={() => handleSynchronizeSpotifyArtists()}
+            className={classes['sync-artists-button']}
+          >
+            <CachedIcon color={'success'} fontSize={'small'} /> Synchronize
+          </Button>
+        </div>
+      )}
       <>
         {isLoadingFetchArtists && <LoadingSpinner />}
         {errorFetchArtists && <ErrorAlert />}

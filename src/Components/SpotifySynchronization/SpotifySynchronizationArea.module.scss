@@ -1,5 +1,16 @@
 @import '../../Styles/partials/02-general/general.to-rem';
 
+.sync-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: to-rem(10);
+  width: 100%;
+}
+
+.sync-status-text {
+  margin-bottom: 0;
+}
+
 .link-text {
   color: #0288d1;
   cursor: pointer;

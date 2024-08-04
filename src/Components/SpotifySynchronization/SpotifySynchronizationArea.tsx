@@ -132,11 +132,11 @@ const SpotifySynchronizationArea = () => {
   return isLoadingFetchAuthorizationState || isLoadingSynchronizeArtists ? (
     <LoadingSpinner />
   ) : (
-    <>
+    <div className={classes['sync-wrapper']}>
       {errorMessageFetchAuthorizationState && <ErrorAlert message={errorMessageFetchAuthorizationState} />}
       {errorMsgSynchronizeArtists && <ErrorAlert message={errorMsgSynchronizeArtists} />}
-      <p>
-        Connection status:{' '}
+      <p className={classes['sync-status-text']}>
+        Status:{' '}
         <span className={exists ? classes['connected-text'] : classes['disconnected-text']}>
           {connectionStatusText}
         </span>{' '}
@@ -165,25 +165,23 @@ const SpotifySynchronizationArea = () => {
         {isLoadingFetchArtists && <LoadingSpinner />}
         {errorFetchArtists && <ErrorAlert />}
         {artists.length > 0 && (
-          <>
-            <DataTable
-              columns={columns}
-              data={filteredArtists}
-              defaultSortFieldId={2}
-              defaultSortAsc={true}
-              subHeader
-              subHeaderAlign={Alignment.RIGHT}
-              subHeaderComponent={subHeaderComponent}
-              selectableRows
-              selectableRowsHighlight
-              selectableRowsComponent={Switch as unknown as 'input' | ReactNode} // ToDo NilsD just Switch should be enough but does not work
-              selectableRowsComponentProps={{ color: 'info', className: classes['sync-artist-switch'] }}
-              onSelectedRowsChange={(rows) => setSelectedArtists(rows.selectedRows)}
-            />
-          </>
+          <DataTable
+            columns={columns}
+            data={filteredArtists}
+            defaultSortFieldId={2}
+            defaultSortAsc={true}
+            subHeader
+            subHeaderAlign={Alignment.RIGHT}
+            subHeaderComponent={subHeaderComponent}
+            selectableRows
+            selectableRowsHighlight
+            selectableRowsComponent={Switch as unknown as 'input' | ReactNode} // ToDo NilsD just Switch should be enough but does not work
+            selectableRowsComponentProps={{ color: 'info', className: classes['sync-artist-switch'] }}
+            onSelectedRowsChange={(rows) => setSelectedArtists(rows.selectedRows)}
+          />
         )}
       </>
-    </>
+    </div>
   )
 }
 

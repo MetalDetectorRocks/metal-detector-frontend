@@ -13,7 +13,8 @@ export const columns = [
       </div>
     ),
     sortable: false,
-    width: '10%',
+    // width: '10%',
+    grow: 1,
   },
   {
     name: 'Name',
@@ -36,6 +37,7 @@ export const columns = [
     ),
     sortable: true,
     sortFunction: (artist1: SpotifyArtist, artist2: SpotifyArtist) => artist1.name.localeCompare(artist2.name),
-    width: '80%',
+    // width: '80%',
+    grow: 15,
   },
 ]

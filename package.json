@@ -20,8 +20,8 @@
     "@mui/icons-material": "^5.16.6",
     "@mui/lab": "^5.0.0-alpha.173",
     "@mui/material": "^5.16.6",
-    "@testing-library/jest-dom": "^6.4.8",
     "@testing-library/dom": "^10.4.0",
+    "@testing-library/jest-dom": "^6.4.8",
     "@testing-library/react": "^16.0.0",
     "@testing-library/user-event": "^14.5.2",
     "@types/jest": "^29.5.12",
@@ -54,14 +54,14 @@
     "@typescript-eslint/parser": "^8.0.0",
     "eslint": "^8.57.0",
     "eslint-config-prettier": "^9.1.0",
-    "eslint-config-standard": "^17.1.0",
     "eslint-plugin-import": "^2.29.1",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-prettier": "^5.2.1",
     "eslint-plugin-promise": "^7.0.0",
     "eslint-plugin-react": "^7.35.0",
     "eslint-plugin-react-hooks": "^4.6.2",
-    "prettier": "^3.3.3"
+    "prettier": "^3.3.3",
+    "standard": "^17.1.0"
   },
   "overrides": {
     "react-scripts": {

@@ -171,7 +171,7 @@ const SpotifySynchronizationArea = () => {
             defaultSortFieldId={2}
             defaultSortAsc={true}
             subHeader
-            subHeaderAlign={Alignment.RIGHT}
+            subHeaderAlign={Alignment.LEFT}
             subHeaderComponent={subHeaderComponent}
             selectableRows
             selectableRowsHighlight

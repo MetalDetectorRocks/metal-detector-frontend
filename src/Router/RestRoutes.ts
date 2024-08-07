@@ -21,6 +21,8 @@ export const REST_ROUTES = {
   signOut: '/rest/v1/auth/logout',
   signUp: '/rest/v1/auth/register',
   signUpVerification: '/rest/v1/auth/register/verification',
+  spotifyArtists: '/rest/v1/spotify/saved-artists',
+  spotifySynchronization: '/rest/v1/spotify/synchronize',
   statistics: '/rest/v1/statistics',
   telegramConfig: '/rest/v1/telegram-config',
   unfollowArtist: '/rest/v1/artists/unfollow',

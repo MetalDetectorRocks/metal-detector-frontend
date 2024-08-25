@@ -13,7 +13,6 @@ export const columns = [
       </div>
     ),
     sortable: false,
-    // width: '10%',
     grow: 1,
   },
   {

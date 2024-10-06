@@ -15,6 +15,7 @@ import useSynchronizeArtists from '../../Hooks/SpotifySynchronization/useSynchro
 import { SpotifyArtist } from '../../Api/Model/Artist/SpotifyArtist'
 import DataTableSearch from '../Common/Table/DataTableSearch'
 import { Alignment } from 'react-data-table-component'
+import SpotifyArtistCard from '../Card/SpotifyArtistCard'
 
 const SpotifySynchronizationArea = () => {
   const OAUTH2_AUTHORIZATION_ENDPOINT = '/oauth2/authorization'
@@ -181,6 +182,20 @@ const SpotifySynchronizationArea = () => {
           />
         )}
       </>
+      <div className={classes['artist-container']}>
+        {isLoadingFetchArtists && <LoadingSpinner />}
+        {/*{errorFetchArtists && <ErrorAlert />}*/}
+        {artists?.map((artist: SpotifyArtist) => (
+          <SpotifyArtistCard
+            key={artist.id}
+            name={artist.name}
+            followedSince={''}
+            image={artist.thumbnailImage}
+            followers={artist.follower}
+            genres={artist.genres}
+          />
+        ))}
+      </div>
     </div>
   )
 }

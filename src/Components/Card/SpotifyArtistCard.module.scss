@@ -1,0 +1,25 @@
+@import '../../Styles/partials/02-general/general.to-rem';
+
+.artist-card {
+  padding: to-rem(10);
+  margin: to-rem(10);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  width: to-rem(250);
+  height: max-content;
+}
+
+.genre-chips-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.genre-chip {
+  margin: to-rem(1);
+}
+
+.follower-count {
+  text-align: left;
+}

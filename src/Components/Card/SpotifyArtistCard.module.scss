@@ -1,12 +1,12 @@
 @import '../../Styles/partials/02-general/general.to-rem';
 
 .artist-card {
-  padding: to-rem(10);
   margin: to-rem(10);
+  padding: to-rem(10);
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  width: to-rem(250);
+  width: to-rem(225);
   height: max-content;
 }
 
@@ -22,4 +22,12 @@
 
 .follower-count {
   text-align: left;
+}
+
+.artist-card-header {
+  padding-bottom: to-rem(10);
+}
+
+.artist-card-content {
+  padding-top: 0;
 }

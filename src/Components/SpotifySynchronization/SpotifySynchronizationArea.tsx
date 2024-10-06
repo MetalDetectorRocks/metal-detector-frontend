@@ -21,6 +21,7 @@ const SpotifySynchronizationArea = () => {
   const OAUTH2_AUTHORIZATION_ENDPOINT = '/oauth2/authorization'
   const SPOTIFY_REGISTRATION_ID = 'spotify-user'
   const SPOTIFY_OAUTH_PATH = `${OAUTH2_AUTHORIZATION_ENDPOINT}/${SPOTIFY_REGISTRATION_ID}`
+  const ITEMS_PER_PAGE = 20
 
   const {
     fetchAuthorization,
@@ -42,6 +43,7 @@ const SpotifySynchronizationArea = () => {
   const { fetchSpotifyArtists, isLoading: isLoadingFetchArtists, error: errorFetchArtists } = useFetchSpotifyArtists()
   const [searchText, setSearchText] = useState('')
   const [filteredArtists, setFilteredArtists] = useState<SpotifyArtist[]>([])
+  const [currentPage, setCurrentPage] = useState<number>(1)
 
   useEffect(() => {
     if (artists) {
@@ -130,6 +132,37 @@ const SpotifySynchronizationArea = () => {
       })
   }
 
+  const handlePaginationChange = (newPage: number) => {
+    setCurrentPage(newPage)
+  }
+
+  const indexOfLastItem = currentPage * ITEMS_PER_PAGE
+  const indexOfFirstItem = indexOfLastItem - ITEMS_PER_PAGE
+  const currentItems = filteredArtists.slice(indexOfFirstItem, indexOfLastItem)
+
+  const renderPaginationButtons = () => {
+    const pageNumbers = []
+    for (let i = 1; i <= Math.ceil(filteredArtists.length / ITEMS_PER_PAGE); i++) {
+      pageNumbers.push(i)
+    }
+
+    return (
+      <div className={classes['pagination-wrapper']}>
+        {pageNumbers.map((number) => (
+          <button
+            key={number}
+            onClick={() => handlePaginationChange(number)}
+            className={`${classes['pagination-button']} ${
+              currentPage === number ? classes['active-pagination-button'] : ''
+            }`}
+          >
+            {number}
+          </button>
+        ))}
+      </div>
+    )
+  }
+
   return isLoadingFetchAuthorizationState || isLoadingSynchronizeArtists ? (
     <LoadingSpinner />
   ) : (
@@ -185,16 +218,18 @@ const SpotifySynchronizationArea = () => {
       <div className={classes['artist-container']}>
         {isLoadingFetchArtists && <LoadingSpinner />}
         {/*{errorFetchArtists && <ErrorAlert />}*/}
-        {artists?.map((artist: SpotifyArtist) => (
-          <SpotifyArtistCard
-            key={artist.id}
-            name={artist.name}
-            followedSince={''}
-            image={artist.thumbnailImage}
-            followers={artist.follower}
-            genres={artist.genres}
-          />
-        ))}
+        {artists.length > 0 &&
+          currentItems?.map((artist: SpotifyArtist) => (
+            <SpotifyArtistCard
+              key={artist.id}
+              name={artist.name}
+              followedSince={''}
+              image={artist.mediumImage}
+              followers={artist.follower}
+              genres={artist.genres}
+            />
+          ))}
+        {artists.length > ITEMS_PER_PAGE && renderPaginationButtons()}
       </div>
     </div>
   )

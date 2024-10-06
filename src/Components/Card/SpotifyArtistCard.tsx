@@ -15,8 +15,8 @@ const SpotifyArtistCard = (props: SpotifyArtistCardProps) => {
   return (
     <Card className={classes['artist-card']} variant={'outlined'}>
       <CardMedia component={'img'} alt={'artist image'} image={props.image} />
-      <CardHeader title={props.name} />
-      <CardContent>
+      <CardHeader className={classes['artist-card-header']} title={props.name} />
+      <CardContent className={classes['artist-card-content']}>
         <Typography className={classes['follower-count']}>
           {numberFormatter.format(props.followers)} followers on Spotify
         </Typography>

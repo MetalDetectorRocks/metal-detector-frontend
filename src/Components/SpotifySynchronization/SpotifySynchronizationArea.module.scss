@@ -43,3 +43,9 @@
   margin-top: to-rem(15);
   margin-right: to-rem(15);
 }
+
+.artist-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}

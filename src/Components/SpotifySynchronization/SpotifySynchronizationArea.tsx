@@ -105,11 +105,11 @@ const SpotifySynchronizationArea = () => {
     synchronizeArtists(artists)
       .then((artistNames) => {
         toast.info(createFollowedArtistsList(artistNames))
-        setArtists((currentArtists) => currentArtists.filter((artist) => artists.indexOf(artist) === -1))
       })
       .catch(() => {
         toast.error('Could not synchronize artists, please try again.')
       })
+    setArtists([])
   }
 
   const createFollowedArtistsList = (artistNames: string[]) => {

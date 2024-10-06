@@ -1,27 +1,21 @@
 import useFetchAuthorizationState from '../../Hooks/SpotifySynchronization/useFetchAuthorizationState'
 import LoadingSpinner from '../Common/LoadingSpinner'
 import ErrorAlert from '../Common/ErrorAlert'
-import React, { ChangeEvent, ReactNode, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import useDeleteAuthorization from '../../Hooks/SpotifySynchronization/useDeleteAuthorization'
 import classes from './SpotifySynchronizationArea.module.scss'
 import { toast } from 'react-toastify'
 import Button from '@mui/material/Button'
 import useFetchSpotifyArtists from '../../Hooks/Artists/useFetchSpotifyArtists'
-import DataTable from '../Common/Table/DataTable'
-import { columns } from './SpotifySynchronizationTableColumns'
 import CachedIcon from '@mui/icons-material/Cached'
-import { Switch } from '@mui/material'
 import useSynchronizeArtists from '../../Hooks/SpotifySynchronization/useSynchronizeArtists'
 import { SpotifyArtist } from '../../Api/Model/Artist/SpotifyArtist'
-import DataTableSearch from '../Common/Table/DataTableSearch'
-import { Alignment } from 'react-data-table-component'
-import SpotifyArtistCard from '../Card/SpotifyArtistCard'
+import { List, ListItem, Typography } from '@mui/material'
 
 const SpotifySynchronizationArea = () => {
   const OAUTH2_AUTHORIZATION_ENDPOINT = '/oauth2/authorization'
   const SPOTIFY_REGISTRATION_ID = 'spotify-user'
   const SPOTIFY_OAUTH_PATH = `${OAUTH2_AUTHORIZATION_ENDPOINT}/${SPOTIFY_REGISTRATION_ID}`
-  const ITEMS_PER_PAGE = 20
 
   const {
     fetchAuthorization,
@@ -33,29 +27,17 @@ const SpotifySynchronizationArea = () => {
     isLoading: isLoadingSynchronizeArtists,
     errorMessage: errorMsgSynchronizeArtists,
   } = useSynchronizeArtists()
+  const {
+    fetchSpotifyArtists,
+    isLoading: isLoadingFetchSpotifyArtists,
+    errorMessage: errorMsgFetchSpotifyArtists,
+  } = useFetchSpotifyArtists()
   const { deleteAuthorization } = useDeleteAuthorization()
   const [linkText, setLinkText] = useState<string>('')
   const [connectionStatusText, setConnectionStatusText] = useState<string>('')
   const [exists, setExists] = useState<boolean>(false)
   const [reload, setReload] = useState<boolean>(false)
   const [artists, setArtists] = useState<SpotifyArtist[]>([])
-  const [selectedArtists, setSelectedArtists] = useState<SpotifyArtist[]>([])
-  const { fetchSpotifyArtists, isLoading: isLoadingFetchArtists, error: errorFetchArtists } = useFetchSpotifyArtists()
-  const [searchText, setSearchText] = useState('')
-  const [filteredArtists, setFilteredArtists] = useState<SpotifyArtist[]>([])
-  const [currentPage, setCurrentPage] = useState<number>(1)
-
-  useEffect(() => {
-    if (artists) {
-      setFilteredArtists(
-        artists.filter(
-          (artist: SpotifyArtist) =>
-            (artist.name && artist.name.toLowerCase().includes(searchText.toLowerCase())) ||
-            (artist.genres && artist.genres.find((genre) => genre.toLowerCase().includes(searchText.toLowerCase()))),
-        ),
-      )
-    }
-  }, [artists, searchText])
 
   useEffect(() => {
     fetchAuthorization()
@@ -74,13 +56,11 @@ const SpotifySynchronizationArea = () => {
       })
   }, [reload])
 
-  const subHeaderComponent = (
-    <DataTableSearch
-      searchText={searchText}
-      searchPlaceholder={'artist'}
-      onSearch={(event: ChangeEvent<HTMLInputElement>) => setSearchText(event.target.value)}
-    />
-  )
+  useEffect(() => {
+    if (artists.length > 0) {
+      handleSynchronizeSpotifyArtists()
+    }
+  }, [artists])
 
   const handleConnect = (event: React.SyntheticEvent) => {
     event.preventDefault()
@@ -108,7 +88,7 @@ const SpotifySynchronizationArea = () => {
     }
   }
 
-  const handleFetchSpotifyArtists = () => {
+  const doFetchSpotifyArtists = () => {
     fetchSpotifyArtists()
       .then((response) => {
         setArtists(response)
@@ -122,53 +102,45 @@ const SpotifySynchronizationArea = () => {
   }
 
   const handleSynchronizeSpotifyArtists = () => {
-    synchronizeArtists(selectedArtists)
-      .then((artistsCount) => {
-        toast.info(`Synchronized ${artistsCount} artists.`)
-        setArtists((currentArtists) => currentArtists.filter((artist) => selectedArtists.indexOf(artist) === -1))
+    synchronizeArtists(artists)
+      .then((artistNames) => {
+        toast.info(createFollowedArtistsList(artistNames))
+        setArtists((currentArtists) => currentArtists.filter((artist) => artists.indexOf(artist) === -1))
       })
       .catch(() => {
         toast.error('Could not synchronize artists, please try again.')
       })
   }
 
-  const handlePaginationChange = (newPage: number) => {
-    setCurrentPage(newPage)
-  }
-
-  const indexOfLastItem = currentPage * ITEMS_PER_PAGE
-  const indexOfFirstItem = indexOfLastItem - ITEMS_PER_PAGE
-  const currentItems = filteredArtists.slice(indexOfFirstItem, indexOfLastItem)
-
-  const renderPaginationButtons = () => {
-    const pageNumbers = []
-    for (let i = 1; i <= Math.ceil(filteredArtists.length / ITEMS_PER_PAGE); i++) {
-      pageNumbers.push(i)
-    }
-
+  const createFollowedArtistsList = (artistNames: string[]) => {
     return (
-      <div className={classes['pagination-wrapper']}>
-        {pageNumbers.map((number) => (
-          <button
-            key={number}
-            onClick={() => handlePaginationChange(number)}
-            className={`${classes['pagination-button']} ${
-              currentPage === number ? classes['active-pagination-button'] : ''
-            }`}
-          >
-            {number}
-          </button>
-        ))}
-      </div>
+      <>
+        {artistNames.length == 0 && <Typography> No new artists found.</Typography>}
+        {artistNames.length > 0 && (
+          <>
+            <Typography>Synchronized {artistNames.length} new artists:</Typography>
+            <List>
+              {artistNames.slice(0, Math.min(artistNames.length, 10)).map((artist: string) => (
+                <ListItem key={artist}>{artist}</ListItem>
+              ))}
+              {artistNames.length > 10 && (
+                <ListItem key={'more'}>{`... and ${artistNames.length - 10} more.`}</ListItem>
+              )}
+            </List>
+          </>
+        )}
+      </>
     )
   }
 
-  return isLoadingFetchAuthorizationState || isLoadingSynchronizeArtists ? (
+  return isLoadingFetchAuthorizationState ? (
     <LoadingSpinner />
   ) : (
     <div className={classes['sync-wrapper']}>
+      {(isLoadingFetchSpotifyArtists || isLoadingSynchronizeArtists) && <LoadingSpinner />}
       {errorMessageFetchAuthorizationState && <ErrorAlert message={errorMessageFetchAuthorizationState} />}
       {errorMsgSynchronizeArtists && <ErrorAlert message={errorMsgSynchronizeArtists} />}
+      {errorMsgFetchSpotifyArtists && <ErrorAlert message={errorMsgFetchSpotifyArtists} />}
       <p className={classes['sync-status-text']}>
         Status:{' '}
         <span className={exists ? classes['connected-text'] : classes['disconnected-text']}>
@@ -182,55 +154,16 @@ const SpotifySynchronizationArea = () => {
       </p>
       {exists && (
         <div className={classes['button-area']}>
-          <Button variant="outlined" color={'success'} onClick={() => handleFetchSpotifyArtists()}>
-            Fetch
-          </Button>
           <Button
             variant="outlined"
             color={'success'}
-            onClick={() => handleSynchronizeSpotifyArtists()}
+            onClick={() => doFetchSpotifyArtists()}
             className={classes['sync-artists-button']}
           >
             <CachedIcon color={'success'} fontSize={'small'} /> Synchronize
           </Button>
         </div>
       )}
-      <>
-        {isLoadingFetchArtists && <LoadingSpinner />}
-        {errorFetchArtists && <ErrorAlert />}
-        {artists.length > 0 && (
-          <DataTable
-            columns={columns}
-            data={filteredArtists}
-            defaultSortFieldId={2}
-            defaultSortAsc={true}
-            subHeader
-            subHeaderAlign={Alignment.LEFT}
-            subHeaderComponent={subHeaderComponent}
-            selectableRows
-            selectableRowsHighlight
-            selectableRowsComponent={Switch as unknown as 'input' | ReactNode} // ToDo NilsD just Switch should be enough but does not work
-            selectableRowsComponentProps={{ color: 'info', className: classes['sync-artist-switch'] }}
-            onSelectedRowsChange={(rows) => setSelectedArtists(rows.selectedRows)}
-          />
-        )}
-      </>
-      <div className={classes['artist-container']}>
-        {isLoadingFetchArtists && <LoadingSpinner />}
-        {/*{errorFetchArtists && <ErrorAlert />}*/}
-        {artists.length > 0 &&
-          currentItems?.map((artist: SpotifyArtist) => (
-            <SpotifyArtistCard
-              key={artist.id}
-              name={artist.name}
-              followedSince={''}
-              image={artist.mediumImage}
-              followers={artist.follower}
-              genres={artist.genres}
-            />
-          ))}
-        {artists.length > ITEMS_PER_PAGE && renderPaginationButtons()}
-      </div>
     </div>
   )
 }

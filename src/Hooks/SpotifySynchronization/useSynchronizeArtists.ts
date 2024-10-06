@@ -15,15 +15,15 @@ const useSynchronizeArtists = () => {
       JSON.stringify({ artistIds: artistIds }),
     )
       .then((response) => {
-        return response?.data?.artistsCount || 0
+        return response?.data?.artistNames || []
       })
       .catch(() => {
-        return 0
+        return []
       })
   })
 
   const synchronizeArtists = async (artistIds: SpotifyArtist[]) => {
-    return new Promise<number>((resolve, reject) => {
+    return new Promise<string[]>((resolve, reject) => {
       mutation.mutate(
         artistIds.map((artist) => artist.id),
         {

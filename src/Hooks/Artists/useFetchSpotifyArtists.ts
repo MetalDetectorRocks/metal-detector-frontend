@@ -3,6 +3,8 @@ import { REST_ROUTES } from '../../Router/RestRoutes'
 import { useMutation } from 'react-query'
 import { SpotifyFetchArtistsResponse } from '../../Api/Model/Artist/SpotifyFetchArtistsResponse'
 import { SpotifyArtist } from '../../Api/Model/Artist/SpotifyArtist'
+import { AxiosError } from 'axios'
+import { ErrorResponse } from '../../Api/Model/Common/ErrorResponse'
 
 const useFetchSpotifyArtists = () => {
   const API = useApiWithToken()
@@ -32,7 +34,9 @@ const useFetchSpotifyArtists = () => {
   return {
     fetchSpotifyArtists,
     isLoading: mutation.isLoading,
-    error: mutation.error,
+    errorMessage:
+      (mutation.error as AxiosError<ErrorResponse>)?.response?.data?.messages[0] ||
+      (mutation.error as AxiosError<ErrorResponse>)?.message,
   }
 }
 

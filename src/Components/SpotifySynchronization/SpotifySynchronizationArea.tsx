@@ -6,10 +6,8 @@ import useDeleteAuthorization from '../../Hooks/SpotifySynchronization/useDelete
 import classes from './SpotifySynchronizationArea.module.scss'
 import { toast } from 'react-toastify'
 import Button from '@mui/material/Button'
-import useFetchSpotifyArtists from '../../Hooks/Artists/useFetchSpotifyArtists'
 import CachedIcon from '@mui/icons-material/Cached'
 import useSynchronizeArtists from '../../Hooks/SpotifySynchronization/useSynchronizeArtists'
-import { SpotifyArtist } from '../../Api/Model/Artist/SpotifyArtist'
 import { List, ListItem, Typography } from '@mui/material'
 
 const SpotifySynchronizationArea = () => {
@@ -27,17 +25,11 @@ const SpotifySynchronizationArea = () => {
     isLoading: isLoadingSynchronizeArtists,
     errorMessage: errorMsgSynchronizeArtists,
   } = useSynchronizeArtists()
-  const {
-    fetchSpotifyArtists,
-    isLoading: isLoadingFetchSpotifyArtists,
-    errorMessage: errorMsgFetchSpotifyArtists,
-  } = useFetchSpotifyArtists()
   const { deleteAuthorization } = useDeleteAuthorization()
   const [linkText, setLinkText] = useState<string>('')
   const [connectionStatusText, setConnectionStatusText] = useState<string>('')
   const [exists, setExists] = useState<boolean>(false)
   const [reload, setReload] = useState<boolean>(false)
-  const [artists, setArtists] = useState<SpotifyArtist[]>([])
 
   useEffect(() => {
     fetchAuthorization()
@@ -55,12 +47,6 @@ const SpotifySynchronizationArea = () => {
         toast.error(`Could not load authorization state, please try reloading the page.`)
       })
   }, [reload])
-
-  useEffect(() => {
-    if (artists.length > 0) {
-      handleSynchronizeSpotifyArtists()
-    }
-  }, [artists])
 
   const handleConnect = (event: React.SyntheticEvent) => {
     event.preventDefault()
@@ -88,28 +74,14 @@ const SpotifySynchronizationArea = () => {
     }
   }
 
-  const doFetchSpotifyArtists = () => {
-    fetchSpotifyArtists()
-      .then((response) => {
-        setArtists(response)
-        if (response.length === 0) {
-          toast.info('No new artists found.')
-        }
-      })
-      .catch(() => {
-        toast.error('Could not fetch artists from spotify, please try again.')
-      })
-  }
-
   const handleSynchronizeSpotifyArtists = () => {
-    synchronizeArtists(artists)
+    synchronizeArtists()
       .then((artistNames) => {
         toast.info(createFollowedArtistsList(artistNames))
       })
       .catch(() => {
         toast.error('Could not synchronize artists, please try again.')
       })
-    setArtists([])
   }
 
   const createFollowedArtistsList = (artistNames: string[]) => {
@@ -137,10 +109,9 @@ const SpotifySynchronizationArea = () => {
     <LoadingSpinner />
   ) : (
     <div className={classes['sync-wrapper']}>
-      {(isLoadingFetchSpotifyArtists || isLoadingSynchronizeArtists) && <LoadingSpinner />}
+      {isLoadingSynchronizeArtists && <LoadingSpinner />}
       {errorMessageFetchAuthorizationState && <ErrorAlert message={errorMessageFetchAuthorizationState} />}
       {errorMsgSynchronizeArtists && <ErrorAlert message={errorMsgSynchronizeArtists} />}
-      {errorMsgFetchSpotifyArtists && <ErrorAlert message={errorMsgFetchSpotifyArtists} />}
       <p className={classes['sync-status-text']}>
         Status:{' '}
         <span className={exists ? classes['connected-text'] : classes['disconnected-text']}>
@@ -157,7 +128,7 @@ const SpotifySynchronizationArea = () => {
           <Button
             variant="outlined"
             color={'success'}
-            onClick={() => doFetchSpotifyArtists()}
+            onClick={() => handleSynchronizeSpotifyArtists()}
             className={classes['sync-artists-button']}
           >
             <CachedIcon color={'success'} fontSize={'small'} /> Synchronize

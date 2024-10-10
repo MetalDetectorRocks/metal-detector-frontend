@@ -9,11 +9,11 @@ import Button from '@mui/material/Button'
 import CachedIcon from '@mui/icons-material/Cached'
 import useSynchronizeArtists from '../../Hooks/SpotifySynchronization/useSynchronizeArtists'
 import { List, ListItem, Typography } from '@mui/material'
+import { REST_ROUTES } from '../../Router/RestRoutes'
 
 const SpotifySynchronizationArea = () => {
-  const OAUTH2_AUTHORIZATION_ENDPOINT = '/oauth2/authorization'
   const SPOTIFY_REGISTRATION_ID = 'spotify-user'
-  const SPOTIFY_OAUTH_PATH = `${OAUTH2_AUTHORIZATION_ENDPOINT}/${SPOTIFY_REGISTRATION_ID}`
+  const SPOTIFY_OAUTH_PATH = `${REST_ROUTES.oAuthAuthorization}/${SPOTIFY_REGISTRATION_ID}`
 
   const {
     fetchAuthorization,

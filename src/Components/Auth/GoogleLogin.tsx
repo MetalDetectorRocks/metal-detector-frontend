@@ -1,11 +1,11 @@
 import GoogleIcon from '@mui/icons-material/Google'
 import { Button, FormGroup } from '@mui/material'
 import React from 'react'
-import { REST_ROUTES } from '../../Router/RestRoutes'
+import { MISC_BACKEND_ROUTES } from '../../Router/MiscBackendRoutes'
 
 const GoogleLogin = () => {
   const GOOGLE_REGISTRATION_ID = 'google'
-  const GOOGLE_OAUTH_PATH = `${REST_ROUTES.oAuthAuthorization}/${GOOGLE_REGISTRATION_ID}`
+  const GOOGLE_OAUTH_PATH = `${MISC_BACKEND_ROUTES.oAuthAuthorization}/${GOOGLE_REGISTRATION_ID}`
 
   const handleGoogleLogin = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault()

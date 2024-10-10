@@ -1,3 +1,3 @@
 export type SpotifySynchronizeArtistsResponse = {
-  readonly artistsCount: number
+  readonly artistNames: string[]
 }

@@ -1,20 +1,14 @@
 import useFetchAuthorizationState from '../../Hooks/SpotifySynchronization/useFetchAuthorizationState'
 import LoadingSpinner from '../Common/LoadingSpinner'
 import ErrorAlert from '../Common/ErrorAlert'
-import React, { ChangeEvent, ReactNode, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import useDeleteAuthorization from '../../Hooks/SpotifySynchronization/useDeleteAuthorization'
 import classes from './SpotifySynchronizationArea.module.scss'
 import { toast } from 'react-toastify'
 import Button from '@mui/material/Button'
-import useFetchSpotifyArtists from '../../Hooks/Artists/useFetchSpotifyArtists'
-import DataTable from '../Common/Table/DataTable'
-import { columns } from './SpotifySynchronizationTableColumns'
 import CachedIcon from '@mui/icons-material/Cached'
-import { Switch } from '@mui/material'
 import useSynchronizeArtists from '../../Hooks/SpotifySynchronization/useSynchronizeArtists'
-import { SpotifyArtist } from '../../Api/Model/Artist/SpotifyArtist'
-import DataTableSearch from '../Common/Table/DataTableSearch'
-import { Alignment } from 'react-data-table-component'
+import { List, ListItem, Typography } from '@mui/material'
 
 const SpotifySynchronizationArea = () => {
   const OAUTH2_AUTHORIZATION_ENDPOINT = '/oauth2/authorization'
@@ -36,23 +30,6 @@ const SpotifySynchronizationArea = () => {
   const [connectionStatusText, setConnectionStatusText] = useState<string>('')
   const [exists, setExists] = useState<boolean>(false)
   const [reload, setReload] = useState<boolean>(false)
-  const [artists, setArtists] = useState<SpotifyArtist[]>([])
-  const [selectedArtists, setSelectedArtists] = useState<SpotifyArtist[]>([])
-  const { fetchSpotifyArtists, isLoading: isLoadingFetchArtists, error: errorFetchArtists } = useFetchSpotifyArtists()
-  const [searchText, setSearchText] = useState('')
-  const [filteredArtists, setFilteredArtists] = useState<SpotifyArtist[]>([])
-
-  useEffect(() => {
-    if (artists) {
-      setFilteredArtists(
-        artists.filter(
-          (artist: SpotifyArtist) =>
-            (artist.name && artist.name.toLowerCase().includes(searchText.toLowerCase())) ||
-            (artist.genres && artist.genres.find((genre) => genre.toLowerCase().includes(searchText.toLowerCase()))),
-        ),
-      )
-    }
-  }, [artists, searchText])
 
   useEffect(() => {
     fetchAuthorization()
@@ -70,14 +47,6 @@ const SpotifySynchronizationArea = () => {
         toast.error(`Could not load authorization state, please try reloading the page.`)
       })
   }, [reload])
-
-  const subHeaderComponent = (
-    <DataTableSearch
-      searchText={searchText}
-      searchPlaceholder={'artist'}
-      onSearch={(event: ChangeEvent<HTMLInputElement>) => setSearchText(event.target.value)}
-    />
-  )
 
   const handleConnect = (event: React.SyntheticEvent) => {
     event.preventDefault()
@@ -105,34 +74,42 @@ const SpotifySynchronizationArea = () => {
     }
   }
 
-  const handleFetchSpotifyArtists = () => {
-    fetchSpotifyArtists()
-      .then((response) => {
-        setArtists(response)
-        if (response.length === 0) {
-          toast.info('No new artists found.')
-        }
-      })
-      .catch(() => {
-        toast.error('Could not fetch artists from spotify, please try again.')
-      })
-  }
-
   const handleSynchronizeSpotifyArtists = () => {
-    synchronizeArtists(selectedArtists)
-      .then((artistsCount) => {
-        toast.info(`Synchronized ${artistsCount} artists.`)
-        setArtists((currentArtists) => currentArtists.filter((artist) => selectedArtists.indexOf(artist) === -1))
+    synchronizeArtists()
+      .then((artistNames) => {
+        toast.info(createFollowedArtistsList(artistNames))
       })
       .catch(() => {
         toast.error('Could not synchronize artists, please try again.')
       })
   }
 
-  return isLoadingFetchAuthorizationState || isLoadingSynchronizeArtists ? (
+  const createFollowedArtistsList = (artistNames: string[]) => {
+    return (
+      <>
+        {artistNames.length == 0 && <Typography> No new artists found.</Typography>}
+        {artistNames.length > 0 && (
+          <>
+            <Typography>Synchronized {artistNames.length} new artists:</Typography>
+            <List>
+              {artistNames.slice(0, Math.min(artistNames.length, 10)).map((artist: string) => (
+                <ListItem key={artist}>{artist}</ListItem>
+              ))}
+              {artistNames.length > 10 && (
+                <ListItem key={'more'}>{`... and ${artistNames.length - 10} more.`}</ListItem>
+              )}
+            </List>
+          </>
+        )}
+      </>
+    )
+  }
+
+  return isLoadingFetchAuthorizationState ? (
     <LoadingSpinner />
   ) : (
     <div className={classes['sync-wrapper']}>
+      {isLoadingSynchronizeArtists && <LoadingSpinner />}
       {errorMessageFetchAuthorizationState && <ErrorAlert message={errorMessageFetchAuthorizationState} />}
       {errorMsgSynchronizeArtists && <ErrorAlert message={errorMsgSynchronizeArtists} />}
       <p className={classes['sync-status-text']}>
@@ -148,9 +125,6 @@ const SpotifySynchronizationArea = () => {
       </p>
       {exists && (
         <div className={classes['button-area']}>
-          <Button variant="outlined" color={'success'} onClick={() => handleFetchSpotifyArtists()}>
-            Fetch
-          </Button>
           <Button
             variant="outlined"
             color={'success'}
@@ -161,26 +135,6 @@ const SpotifySynchronizationArea = () => {
           </Button>
         </div>
       )}
-      <>
-        {isLoadingFetchArtists && <LoadingSpinner />}
-        {errorFetchArtists && <ErrorAlert />}
-        {artists.length > 0 && (
-          <DataTable
-            columns={columns}
-            data={filteredArtists}
-            defaultSortFieldId={2}
-            defaultSortAsc={true}
-            subHeader
-            subHeaderAlign={Alignment.LEFT}
-            subHeaderComponent={subHeaderComponent}
-            selectableRows
-            selectableRowsHighlight
-            selectableRowsComponent={Switch as unknown as 'input' | ReactNode} // ToDo NilsD just Switch should be enough but does not work
-            selectableRowsComponentProps={{ color: 'info', className: classes['sync-artist-switch'] }}
-            onSelectedRowsChange={(rows) => setSelectedArtists(rows.selectedRows)}
-          />
-        )}
-      </>
     </div>
   )
 }

@@ -8,7 +8,6 @@ const HEADERS = {
   'Content-Type': 'application/json',
   Accept: 'application/json',
 }
-// ToDo NilsD check out if this does the job
 const paramsSerializer = {
   serialize: (params: Record<string, any>) => {
     const pairs: string[] = []

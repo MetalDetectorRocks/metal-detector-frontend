@@ -9,7 +9,7 @@ const GoogleLogin = () => {
 
   const handleGoogleLogin = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault()
-    window.location.href = `${process.env.REACT_APP_BACKEND_URL as string}${GOOGLE_OAUTH_PATH}`
+    window.location.href = `${import.meta.env.VITE_BACKEND_URL as string}${GOOGLE_OAUTH_PATH}`
   }
 
   return (

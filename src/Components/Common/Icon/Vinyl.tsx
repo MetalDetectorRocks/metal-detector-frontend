@@ -1,7 +1,7 @@
-import { ReactComponent as VinylSvg } from '../../../assets/svg/vinyl.svg'
+import ReactComponent from '../../../assets/svg/vinyl.svg'
 
 const Vinyl = () => {
-  return <VinylSvg />
+  return <ReactComponent />
 }
 
 export default Vinyl

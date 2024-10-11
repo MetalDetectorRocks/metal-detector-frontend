@@ -50,7 +50,7 @@ const SpotifySynchronizationArea = () => {
 
   const handleConnect = (event: React.SyntheticEvent) => {
     event.preventDefault()
-    window.location.href = `${process.env.REACT_APP_BACKEND_URL as string}${SPOTIFY_OAUTH_PATH}`
+    window.location.href = `${import.meta.env.VITE_BACKEND_URL as string}${SPOTIFY_OAUTH_PATH}`
   }
 
   const handleDisconnect = (event: React.SyntheticEvent) => {

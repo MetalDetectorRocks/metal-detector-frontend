@@ -10,7 +10,7 @@ import { disableReactDevTools } from '@fvilers/disable-react-devtools'
 
 configureDaysJs()
 
-if (process.env.NODE_ENV === 'production') {
+if (import.meta.env.NODE_ENV === 'production') {
   disableReactDevTools()
 }
 

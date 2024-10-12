@@ -5,7 +5,7 @@ import svgr from 'vite-plugin-svgr'
 
 export default defineConfig(() => {
   return {
-    base: './',
+    base: '',
     server: {
       port: 3000,
     },

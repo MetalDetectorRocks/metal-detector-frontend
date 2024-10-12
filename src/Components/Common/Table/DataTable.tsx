@@ -2,7 +2,7 @@ import { ArrowDownward } from '@mui/icons-material'
 import DataTable, { TableProps, createTheme } from 'react-data-table-component'
 import { StyleSheetManager } from 'styled-components'
 import isPropValid from '@emotion/is-prop-valid'
-import { darkThemeColorScheme } from '../../../Theme'
+import { darkThemeColorScheme } from '@/Theme'
 import React from 'react'
 
 const sortIcon = <ArrowDownward />

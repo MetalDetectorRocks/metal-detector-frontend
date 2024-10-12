@@ -1,9 +1,9 @@
 import useRefreshToken from './useRefreshToken'
 import { useEffect } from 'react'
-import { useAuthContext } from '../../Context/AuthContext'
-import { API_WITH_TOKEN } from '../../Api/Axios'
-import { signIn } from '../../Router/InternalRoutes'
-import { REST_ROUTES } from '../../Router/RestRoutes'
+import { useAuthContext } from '@/Context/AuthContext'
+import { API_WITH_TOKEN } from '@/Api/Axios'
+import { signIn } from '@/Router/InternalRoutes'
+import { REST_ROUTES } from '@/Router/RestRoutes'
 import { useNavigate } from 'react-router-dom'
 // import useFetchCsrfToken from './useFetchCsrfToken'
 

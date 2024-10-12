@@ -1,7 +1,7 @@
-import { REST_ROUTES } from '../../Router/RestRoutes'
+import { REST_ROUTES } from '@/Router/RestRoutes'
 import { useQuery } from 'react-query'
-import { API } from '../../Api/Axios'
-import { Artist } from '../../Api/Model/Artist/Artist'
+import { API } from '@/Api/Axios'
+import { Artist } from '@/Api/Model/Artist/Artist'
 
 const fetchMostFollowedArtists = () => {
   const {

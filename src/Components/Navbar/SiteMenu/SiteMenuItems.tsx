@@ -1,4 +1,4 @@
-import { blog, dashboard, home, myArtists, releases } from '../../../Router/InternalRoutes'
+import { blog, dashboard, home, myArtists, releases } from '@/Router/InternalRoutes'
 import Home from '@mui/icons-material/Home'
 import Dashboard from '@mui/icons-material/Dashboard'
 import Article from '@mui/icons-material/Article'

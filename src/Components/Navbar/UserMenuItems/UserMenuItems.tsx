@@ -14,7 +14,7 @@ import {
   spotifySynchronization,
   logout,
   home,
-} from '../../../Router/InternalRoutes'
+} from '@/Router/InternalRoutes'
 import classes from './UserMenuItems.module.scss'
 import useUser from '../../../Hooks/Auth/useUser'
 import useSignOut from '../../../Hooks/Auth/useSignOut'

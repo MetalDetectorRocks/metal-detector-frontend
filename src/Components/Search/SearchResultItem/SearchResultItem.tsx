@@ -1,4 +1,4 @@
-import { ArtistSearchResultEntry } from '../../../Api/Model/Artist/ArtistSearchResultEntry'
+import { ArtistSearchResultEntry } from '@/Api/Model/Artist/ArtistSearchResultEntry'
 import { Card, CardContent, CardMedia } from '@mui/material'
 import classes from './SearchResultItem.module.scss'
 import FollowingInfo from './FollowingInfo'

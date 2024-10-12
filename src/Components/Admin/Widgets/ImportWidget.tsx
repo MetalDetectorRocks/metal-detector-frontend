@@ -3,7 +3,7 @@ import { Grid } from '@mui/material'
 import NeedlePieChart from '../../Common/Chart/NeedlePieChart'
 import WidgetLabeledValue from './WidgetLabeledValue'
 import classes from './WidgetLabeledValue.module.scss'
-import { ImportInfo } from '../../../Api/Model/Statistics/ImportInfo'
+import { ImportInfo } from '@/Api/Model/Statistics/ImportInfo'
 import dayjs from 'dayjs'
 
 export type ImportWidgetProps = {

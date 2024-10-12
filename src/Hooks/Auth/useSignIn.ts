@@ -1,14 +1,14 @@
 import { useState } from 'react'
-import { SignInRequest } from '../../Api/Model/Auth/SignInRequest'
-import { REST_ROUTES } from '../../Router/RestRoutes'
+import { SignInRequest } from '@/Api/Model/Auth/SignInRequest'
+import { REST_ROUTES } from '@/Router/RestRoutes'
 import { AxiosError } from 'axios'
-import { useAuthContext } from '../../Context/AuthContext'
-import { SignInResponse } from '../../Api/Model/Auth/SignInResponse'
-import { home } from '../../Router/InternalRoutes'
+import { useAuthContext } from '@/Context/AuthContext'
+import { SignInResponse } from '@/Api/Model/Auth/SignInResponse'
+import { home } from '@/Router/InternalRoutes'
 import { useLocation, useNavigate } from 'react-router-dom'
-import { User } from '../../Api/Model/User/User'
-import { API } from '../../Api/Axios'
-import { ErrorResponse } from '../../Api/Model/Common/ErrorResponse'
+import { User } from '@/Api/Model/User/User'
+import { API } from '@/Api/Axios'
+import { ErrorResponse } from '@/Api/Model/Common/ErrorResponse'
 
 const useSignIn = () => {
   const { setCtx } = useAuthContext()

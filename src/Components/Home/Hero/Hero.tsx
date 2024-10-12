@@ -1,6 +1,6 @@
 import Button from '@mui/material/Button'
 import { NavLink } from 'react-router-dom'
-import { releases } from '../../../Router/InternalRoutes'
+import { releases } from '@/Router/InternalRoutes'
 import classes from './Hero.module.scss'
 import { Container } from '@mui/material'
 

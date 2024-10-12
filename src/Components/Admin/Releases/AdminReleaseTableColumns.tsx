@@ -1,7 +1,7 @@
 import dayjs from 'dayjs'
-import { Release } from '../../../Api/Model/Release/Release'
+import { Release } from '@/Api/Model/Release/Release'
 import { Chip } from '@mui/material'
-import { ReleaseState } from '../../../Api/Model/Release/ReleaseState'
+import { ReleaseState } from '@/Api/Model/Release/ReleaseState'
 
 export const columns = [
   {

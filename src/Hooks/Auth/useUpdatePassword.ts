@@ -1,8 +1,8 @@
-import { REST_ROUTES } from '../../Router/RestRoutes'
+import { REST_ROUTES } from '@/Router/RestRoutes'
 import { useMutation } from 'react-query'
 import { AxiosError } from 'axios'
-import { ErrorResponse } from '../../Api/Model/Common/ErrorResponse'
-import { UpdatePasswordRequest } from '../../Api/Model/Auth/UpdatePasswordRequest'
+import { ErrorResponse } from '@/Api/Model/Common/ErrorResponse'
+import { UpdatePasswordRequest } from '@/Api/Model/Auth/UpdatePasswordRequest'
 import useApiWithToken from './useApiWithToken'
 
 const useUpdatePassword = () => {

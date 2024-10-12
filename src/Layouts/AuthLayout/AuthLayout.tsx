@@ -3,7 +3,7 @@ import { Outlet } from 'react-router-dom'
 import classes from './AuthLayout.module.scss'
 import logo from '@/assets/img/logo.png'
 import AuthFooter from './AuthFooter'
-import { home } from '../../Router/InternalRoutes'
+import { home } from '@/Router/InternalRoutes'
 
 export const AuthLayout = () => {
   return (

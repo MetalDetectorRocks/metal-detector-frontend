@@ -1,9 +1,9 @@
 import useApiWithToken from '../Auth/useApiWithToken'
 import { useMutation } from 'react-query'
-import { REST_ROUTES } from '../../Router/RestRoutes'
+import { REST_ROUTES } from '@/Router/RestRoutes'
 import { AxiosError } from 'axios'
-import { ErrorResponse } from '../../Api/Model/Common/ErrorResponse'
-import { SpotifySynchronizeArtistsResponse } from '../../Api/Model/Artist/SpotifySynchronizeArtistsResponse'
+import { ErrorResponse } from '@/Api/Model/Common/ErrorResponse'
+import { SpotifySynchronizeArtistsResponse } from '@/Api/Model/Artist/SpotifySynchronizeArtistsResponse'
 
 const useSynchronizeArtists = () => {
   const API = useApiWithToken()

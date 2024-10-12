@@ -1,5 +1,5 @@
 import { NavLink } from 'react-router-dom'
-import { imprint, privacyPolicy } from '../../Router/InternalRoutes'
+import { imprint, privacyPolicy } from '@/Router/InternalRoutes'
 import Box from '@mui/material/Box'
 import classes from './AuthFooter.module.scss'
 

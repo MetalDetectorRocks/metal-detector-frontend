@@ -1,5 +1,5 @@
 import { NavLink } from 'react-router-dom'
-import { blog, dashboard, home, InternalRoute, myArtists, releases } from '../../../Router/InternalRoutes'
+import { blog, dashboard, home, InternalRoute, myArtists, releases } from '@/Router/InternalRoutes'
 import classes from './SiteMenu.module.scss'
 import Box from '@mui/material/Box'
 

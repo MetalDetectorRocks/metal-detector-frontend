@@ -3,7 +3,7 @@ import SimpleAreaChart from '../../Common/Chart/SimpleAreaChart'
 import { Grid } from '@mui/material'
 import WidgetLabeledValue from './WidgetLabeledValue'
 import classes from './WidgetLabeledValue.module.scss'
-import { UserInfo } from '../../../Api/Model/Statistics/UserInfo'
+import { UserInfo } from '@/Api/Model/Statistics/UserInfo'
 import { mapData } from './MapData'
 
 export type UsersWidgetProps = {

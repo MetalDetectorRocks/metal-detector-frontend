@@ -1,7 +1,7 @@
 import useApiWithToken from '../Auth/useApiWithToken'
-import { REST_ROUTES } from '../../Router/RestRoutes'
+import { REST_ROUTES } from '@/Router/RestRoutes'
 import { AxiosError } from 'axios'
-import { ErrorResponse } from '../../Api/Model/Common/ErrorResponse'
+import { ErrorResponse } from '@/Api/Model/Common/ErrorResponse'
 import { useMutation } from 'react-query'
 import { toast } from 'react-toastify'
 

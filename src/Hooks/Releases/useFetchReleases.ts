@@ -1,8 +1,8 @@
 import useApiWithToken from '../Auth/useApiWithToken'
-import { REST_ROUTES } from '../../Router/RestRoutes'
-import { ReleasesResponse } from '../../Api/Model/Release/ReleasesResponse'
+import { REST_ROUTES } from '@/Router/RestRoutes'
+import { ReleasesResponse } from '@/Api/Model/Release/ReleasesResponse'
 import { AxiosError } from 'axios'
-import { ErrorResponse } from '../../Api/Model/Common/ErrorResponse'
+import { ErrorResponse } from '@/Api/Model/Common/ErrorResponse'
 import { useQuery } from 'react-query'
 
 export type FetchReleasesProps = {

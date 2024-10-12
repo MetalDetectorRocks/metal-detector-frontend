@@ -13,7 +13,7 @@ import {
   adminReleaseImport,
   adminReleasesList,
   adminUsersList,
-} from '../../../../Router/InternalRoutes'
+} from '@/Router/InternalRoutes'
 import NavItem from '../../../Common/Menu/NavItem/NavItem'
 
 const AdminSideMenu = () => {

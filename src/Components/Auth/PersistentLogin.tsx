@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react'
 import useRefreshToken from '../../Hooks/Auth/useRefreshToken'
-import { useAuthContext } from '../../Context/AuthContext'
+import { useAuthContext } from '@/Context/AuthContext'
 import LoadingSpinner from '../Common/LoadingSpinner'
 import { Outlet } from 'react-router-dom'
-import { API } from '../../Api/Axios'
-import { REST_ROUTES } from '../../Router/RestRoutes'
-import { AuthenticationResponse } from '../../Api/Model/Auth/AuthenticationResponse'
+import { API } from '@/Api/Axios'
+import { REST_ROUTES } from '@/Router/RestRoutes'
+import { AuthenticationResponse } from '@/Api/Model/Auth/AuthenticationResponse'
 
 const PersistentLogin = () => {
   const [isLoading, setIsLoading] = useState(true)

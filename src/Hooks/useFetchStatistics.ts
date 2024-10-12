@@ -1,6 +1,6 @@
 import useApiWithToken from './Auth/useApiWithToken'
-import { StatisticsResponse } from '../Api/Model/Statistics/StatisticsResponse'
-import { REST_ROUTES } from '../Router/RestRoutes'
+import { StatisticsResponse } from '@/Api/Model/Statistics/StatisticsResponse'
+import { REST_ROUTES } from '@/Router/RestRoutes'
 import { useQuery } from 'react-query'
 
 const fetchStatistics = () => {

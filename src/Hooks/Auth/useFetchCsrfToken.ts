@@ -1,6 +1,6 @@
-import { API_WITH_TOKEN } from '../../Api/Axios'
-import { REST_ROUTES } from '../../Router/RestRoutes'
-import { CsrfTokenResponse } from '../../Api/Model/Auth/CsrfTokenResponse'
+import { API_WITH_TOKEN } from '@/Api/Axios'
+import { REST_ROUTES } from '@/Router/RestRoutes'
+import { CsrfTokenResponse } from '@/Api/Model/Auth/CsrfTokenResponse'
 
 const useFetchCsrfToken = () => {
   return async () => {

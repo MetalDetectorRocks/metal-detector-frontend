@@ -1,7 +1,7 @@
-import { REST_ROUTES } from '../../Router/RestRoutes'
+import { REST_ROUTES } from '@/Router/RestRoutes'
 import { useQuery } from 'react-query'
-import { API } from '../../Api/Axios'
-import { Release } from '../../Api/Model/Release/Release'
+import { API } from '@/Api/Axios'
+import { Release } from '@/Api/Model/Release/Release'
 
 const useFetchMostExpectedReleases = () => {
   const {

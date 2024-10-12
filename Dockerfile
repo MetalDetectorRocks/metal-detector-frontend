@@ -23,7 +23,6 @@ LABEL org.label-schema.vcs-ref=$VCS_REF
 
 COPY package.json package-lock.json ./
 RUN npm ci --ignore-scripts
-RUN npm rebuild node-sass
 
 COPY . /app
 

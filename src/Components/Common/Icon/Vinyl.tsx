@@ -1,4 +1,4 @@
-import ReactComponent from '../../../assets/svg/vinyl.svg'
+import ReactComponent from '@/assets/svg/vinyl.svg'
 
 const Vinyl = () => {
   return <ReactComponent />

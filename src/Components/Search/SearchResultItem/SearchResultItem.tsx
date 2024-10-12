@@ -5,7 +5,7 @@ import FollowingInfo from './FollowingInfo'
 import GenreBadges from './GenreBadges'
 import Box from '@mui/material/Box'
 import FollowIcon from './FollowIcon'
-import unknown from './../../../assets/img/unknown-img.jpg'
+import unknown from '@/assets/img/unknown-img.jpg'
 
 export type SearchResultItemProps = {
   artist: ArtistSearchResultEntry

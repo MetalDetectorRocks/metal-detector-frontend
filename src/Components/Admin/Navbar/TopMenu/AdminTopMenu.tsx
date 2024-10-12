@@ -1,5 +1,5 @@
 import { AppBar, Toolbar } from '@mui/material'
-import logo from '../../../../assets/img/logo.png'
+import logo from '@/assets/img/logo.png'
 import classes from './AdminTopMenu.module.scss'
 import Box from '@mui/material/Box'
 import { adminDashboard, home } from '../../../../Router/InternalRoutes'

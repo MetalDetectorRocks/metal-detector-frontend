@@ -4,7 +4,7 @@
 
 .hero {
   border-bottom: 1px solid $color-primary-border;
-  background-image: url("./../../../assets/img/hero-mobile.jpeg");
+  background-image: url("@/assets/img/hero-mobile.jpeg");
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -13,10 +13,10 @@
   padding-bottom: to-rem(24);
 
   @include respond-between(md, xxl) {
-    background-image: url("./../../../assets/img/hero-desktop.jpeg");
+    background-image: url("@/assets/img/hero-desktop.jpeg");
   }
   @include respond-above(xxl) {
-    background-image: url("./../../../assets/img/hero-4k.jpeg");
+    background-image: url("@/assets/img/hero-4k.jpeg");
   }
 
   & h1 {

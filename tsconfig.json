@@ -17,7 +17,7 @@
     "jsx": "react-jsx",
     "types": ["vite/client"],
     "paths": {
-      "@fonts/*": ["./src/Stlyes/fonts/*"]
+      "@/*": ["./src/*"]
     },
   },
   "include": ["src"]

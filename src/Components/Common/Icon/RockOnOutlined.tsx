@@ -1,4 +1,4 @@
-import ReactComponent from '../../../assets/svg/rock-on-outlined.svg'
+import ReactComponent from '@/assets/svg/rock-on-outlined.svg'
 
 const RockOnOutlined = () => {
   return <ReactComponent />

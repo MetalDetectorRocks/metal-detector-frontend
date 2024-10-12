@@ -3,6 +3,7 @@ import react from '@vitejs/plugin-react'
 import eslint from 'vite-plugin-eslint'
 import svgr from 'vite-plugin-svgr'
 import * as path from 'node:path'
+import tsconfigPaths from 'vite-tsconfig-paths'
 
 export default defineConfig(() => {
   return {
@@ -26,6 +27,7 @@ export default defineConfig(() => {
     },
     plugins: [
       react(),
+      tsconfigPaths(),
       eslint(),
       svgr({
         include: ['src/**/*.svg'],
@@ -33,7 +35,7 @@ export default defineConfig(() => {
     ],
     resolve: {
       alias: {
-        '@fonts': path.resolve(__dirname, './src/Styles/fonts'),
+        '@': path.resolve(__dirname, './src'),
       },
     },
   }

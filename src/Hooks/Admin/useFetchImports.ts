@@ -11,8 +11,12 @@ const useFetchImports = () => {
     isLoading,
     data: response,
     error,
-  } = useQuery(['imports'], () => {
-    return API.get<ImportDetails[]>(REST_ROUTES.imports)
+  } = useQuery({
+    queryKey: ['imports'],
+
+    queryFn: () => {
+      return API.get<ImportDetails[]>(REST_ROUTES.imports)
+    }
   })
 
   return {

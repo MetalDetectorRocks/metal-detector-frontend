@@ -8,14 +8,16 @@ import { SpotifySynchronizeArtistsResponse } from '@/Api/Model/Artist/SpotifySyn
 const useSynchronizeArtists = () => {
   const API = useApiWithToken()
 
-  const mutation = useMutation(async () => {
-    return await API.post<SpotifySynchronizeArtistsResponse>(REST_ROUTES.spotifySynchronization)
-      .then((response) => {
-        return response?.data?.artistNames || []
-      })
-      .catch(() => {
-        return []
-      })
+  const mutation = useMutation({
+    mutationFn: async () => {
+      return await API.post<SpotifySynchronizeArtistsResponse>(REST_ROUTES.spotifySynchronization)
+        .then((response) => {
+          return response?.data?.artistNames || []
+        })
+        .catch(() => {
+          return []
+        })
+    }
   })
 
   const synchronizeArtists = async () => {
@@ -29,7 +31,7 @@ const useSynchronizeArtists = () => {
 
   return {
     synchronizeArtists,
-    isLoading: mutation.isLoading,
+    isLoading: mutation.isPending,
     errorMessage:
       (mutation.error as AxiosError<ErrorResponse>)?.response?.data?.messages[0] ||
       (mutation.error as AxiosError<ErrorResponse>)?.message,

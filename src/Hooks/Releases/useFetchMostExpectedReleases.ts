@@ -9,8 +9,12 @@ const useFetchMostExpectedReleases = () => {
     data: response,
     error,
     isSuccess,
-  } = useQuery(['most-expected-releases'], () => {
-    return API.get<Release[]>(REST_ROUTES.mostExpectedReleases)
+  } = useQuery({
+    queryKey: ['most-expected-releases'],
+
+    queryFn: () => {
+      return API.get<Release[]>(REST_ROUTES.mostExpectedReleases)
+    }
   })
 
   return { releases: response?.data, isLoading, isSuccess, error }

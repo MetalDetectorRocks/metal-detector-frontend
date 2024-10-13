@@ -9,8 +9,12 @@ const fetchStatistics = () => {
     isLoading,
     data: response,
     error,
-  } = useQuery(['statistics'], () => {
-    return API.get<StatisticsResponse>(REST_ROUTES.statistics)
+  } = useQuery({
+    queryKey: ['statistics'],
+
+    queryFn: () => {
+      return API.get<StatisticsResponse>(REST_ROUTES.statistics)
+    }
   })
 
   return {

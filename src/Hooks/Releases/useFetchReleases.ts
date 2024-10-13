@@ -17,17 +17,19 @@ export type FetchReleasesProps = {
 
 const useFetchReleases = (props: FetchReleasesProps) => {
   const API = useApiWithToken()
-  const query = useQuery(
-    ['releases'],
-    () => {
+  const query = useQuery({
+    queryKey: ['releases'],
+
+    queryFn: () => {
       return API.get<ReleasesResponse>(REST_ROUTES.releases, {
         params: {
           ...props,
         },
       })
     },
-    { enabled: false },
-  )
+
+    enabled: false
+  })
 
   return {
     fetchReleases: query.refetch,

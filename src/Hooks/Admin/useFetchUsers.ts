@@ -11,8 +11,12 @@ const useFetchUsers = () => {
     isLoading,
     data: response,
     error,
-  } = useQuery(['users'], () => {
-    return API.get<UserDetails[]>(REST_ROUTES.users)
+  } = useQuery({
+    queryKey: ['users'],
+
+    queryFn: () => {
+      return API.get<UserDetails[]>(REST_ROUTES.users)
+    }
   })
 
   return {

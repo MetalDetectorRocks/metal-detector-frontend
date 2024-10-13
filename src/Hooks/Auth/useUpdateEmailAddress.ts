@@ -18,7 +18,7 @@ const useUpdateEmailAddress = () => {
     errorMsg:
       (mutation.error as AxiosError<ErrorResponse>)?.response?.data?.messages[0] ||
       (mutation.error as AxiosError<ErrorResponse>)?.message,
-    isLoading: mutation.isLoading,
+    isLoading: mutation.isPending,
     isSuccess: mutation.isSuccess,
   }
 }

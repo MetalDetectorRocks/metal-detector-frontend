@@ -9,8 +9,12 @@ const useFetchCurrentUserDetails = () => {
     isLoading,
     data: response,
     error,
-  } = useQuery(['current-user-details'], () => {
-    return API.get<CurrentUserDetailsResponse>(REST_ROUTES.currentUser)
+  } = useQuery({
+    queryKey: ['current-user-details'],
+
+    queryFn: () => {
+      return API.get<CurrentUserDetailsResponse>(REST_ROUTES.currentUser)
+    }
   })
 
   return { userDetails: response?.data, isLoading, error }

@@ -13,10 +13,14 @@ const useFetchAllReleases = () => {
     isLoading,
     data: response,
     error,
-  } = useQuery(['releases'], () => {
-    return API.get<Release[]>(REST_ROUTES.allReleases, {
-      params: { dateFrom: dateFrom },
-    })
+  } = useQuery({
+    queryKey: ['releases'],
+
+    queryFn: () => {
+      return API.get<Release[]>(REST_ROUTES.allReleases, {
+        params: { dateFrom: dateFrom },
+      })
+    }
   })
 
   return {

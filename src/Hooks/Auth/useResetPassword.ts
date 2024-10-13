@@ -29,7 +29,7 @@ const useResetPassword = () => {
   return {
     resetPassword: mutation.mutate,
     errorMsg,
-    isLoading: mutation.isLoading,
+    isLoading: mutation.isPending,
     isSuccess: mutation.isSuccess,
   }
 }

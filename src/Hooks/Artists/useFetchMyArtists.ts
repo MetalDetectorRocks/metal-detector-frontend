@@ -13,12 +13,16 @@ const useFetchMyArtists = (props: FetchMyArtistsProps) => {
     isLoading,
     data: response,
     error,
-  } = useQuery(['my-artists'], () => {
-    return API.get<MyArtistsResponse>(REST_ROUTES.myArtists, {
-      params: {
-        ...props,
-      },
-    })
+  } = useQuery({
+    queryKey: ['my-artists'],
+
+    queryFn: () => {
+      return API.get<MyArtistsResponse>(REST_ROUTES.myArtists, {
+        params: {
+          ...props,
+        },
+      })
+    }
   })
 
   return { artists: response?.data.myArtists, pagination: response?.data.pagination, isLoading, error }

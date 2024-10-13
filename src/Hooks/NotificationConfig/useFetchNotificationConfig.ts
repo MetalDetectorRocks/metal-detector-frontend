@@ -5,9 +5,13 @@ import { NotificationConfig } from '@/Api/Model/NotificationConfig/NotificationC
 
 const useFetchNotificationConfig = () => {
   const API = useApiWithToken()
-  return useQuery(['notification-config'], async () => {
-    return await API.get<NotificationConfig>(REST_ROUTES.notificationConfig)
-  })
+  return useQuery({
+    queryKey: ['notification-config'],
+
+    queryFn: async () => {
+      return await API.get<NotificationConfig>(REST_ROUTES.notificationConfig)
+    }
+  });
 }
 
 export default useFetchNotificationConfig

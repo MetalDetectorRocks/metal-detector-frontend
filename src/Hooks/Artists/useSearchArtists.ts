@@ -1,4 +1,4 @@
-import { useMutation } from 'react-query'
+import { useMutation } from '@tanstack/react-query'
 import { REST_ROUTES } from '@/Router/RestRoutes'
 import { ArtistSearchResponse } from '@/Api/Model/Artist/ArtistSearchResponse'
 import { API } from '@/Api/Axios'
@@ -16,22 +16,24 @@ const useSearchArtists = () => {
 
   const {
     mutate: searchArtists,
-    isLoading,
+    isPending,
     error,
-  } = useMutation((props: SearchArtistsProps) => {
-    const api = isAuthenticated ? API_WITH_TOKEN : API
-    return api.get<ArtistSearchResponse>(REST_ROUTES.searchArtists, {
-      params: {
-        size: 10,
-        ...props,
-      },
-    })
+  } = useMutation({
+    mutationFn: (props: SearchArtistsProps) => {
+      const api = isAuthenticated ? API_WITH_TOKEN : API
+      return api.get<ArtistSearchResponse>(REST_ROUTES.searchArtists, {
+        params: {
+          size: 10,
+          ...props,
+        },
+      })
+    },
   })
 
   return {
     searchArtists,
     error,
-    isLoading,
+    isLoading: isPending,
   }
 }
 

@@ -1,5 +1,5 @@
 import { REST_ROUTES } from '@/Router/RestRoutes'
-import { useMutation } from 'react-query'
+import { useMutation } from '@tanstack/react-query'
 import { AxiosError } from 'axios'
 import { ErrorResponse } from '@/Api/Model/Common/ErrorResponse'
 import { UpdateEmailRequest } from '@/Api/Model/Auth/UpdateEmailRequest'
@@ -18,7 +18,7 @@ const useUpdateEmailAddress = () => {
     errorMsg:
       (mutation.error as AxiosError<ErrorResponse>)?.response?.data?.messages[0] ||
       (mutation.error as AxiosError<ErrorResponse>)?.message,
-    isLoading: mutation.isLoading,
+    isLoading: mutation.isPending,
     isSuccess: mutation.isSuccess,
   }
 }

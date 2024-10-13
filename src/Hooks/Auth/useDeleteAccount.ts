@@ -1,5 +1,5 @@
 import { REST_ROUTES } from '@/Router/RestRoutes'
-import { useMutation } from 'react-query'
+import { useMutation } from '@tanstack/react-query'
 import { AxiosError } from 'axios'
 import { ErrorResponse } from '@/Api/Model/Common/ErrorResponse'
 import useApiWithToken from './useApiWithToken'
@@ -14,12 +14,11 @@ const useDeleteAccount = () => {
   const navigate = useNavigate()
 
   const mutation = useMutation({
-    mutationFn: () => {
-      return API.delete(REST_ROUTES.currentUser).then(() => {
-        setCtx({})
-        navigate(home.path, { replace: true })
-        toast.success('Account deleted!')
-      })
+    mutationFn: async () => {
+      await API.delete(REST_ROUTES.currentUser)
+      setCtx({})
+      navigate(home.path, { replace: true })
+      toast.success('Account deleted!')
     },
   })
 
@@ -28,7 +27,7 @@ const useDeleteAccount = () => {
     errorMsg:
       (mutation.error as AxiosError<ErrorResponse>)?.response?.data?.messages[0] ||
       (mutation.error as AxiosError<ErrorResponse>)?.message,
-    isLoading: mutation.isLoading,
+    isLoading: mutation.isPending,
     isSuccess: mutation.isSuccess,
   }
 }

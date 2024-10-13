@@ -1,5 +1,5 @@
 import useApiWithToken from '../Auth/useApiWithToken'
-import { useMutation } from 'react-query'
+import { useMutation } from '@tanstack/react-query'
 import { REST_ROUTES } from '@/Router/RestRoutes'
 import { AxiosError } from 'axios'
 import { ErrorResponse } from '@/Api/Model/Common/ErrorResponse'
@@ -8,14 +8,16 @@ import { OAuth2AuthorizationResponse } from '@/Api/Model/Auth/OAuth2Authorizatio
 const useFetchAuthorizationState = (registrationId: string) => {
   const API = useApiWithToken()
 
-  const mutation = useMutation(async () => {
-    return await API.get<OAuth2AuthorizationResponse>(`${REST_ROUTES.oAuthState}/${registrationId}`)
-      .then((response) => {
-        return response?.data?.exists || false
-      })
-      .catch(() => {
-        return false
-      })
+  const mutation = useMutation({
+    mutationFn: async () => {
+      return await API.get<OAuth2AuthorizationResponse>(`${REST_ROUTES.oAuthState}/${registrationId}`)
+        .then((response) => {
+          return response?.data?.exists || false
+        })
+        .catch(() => {
+          return false
+        })
+    },
   })
 
   const fetchAuthorization = async () => {
@@ -29,7 +31,7 @@ const useFetchAuthorizationState = (registrationId: string) => {
 
   return {
     fetchAuthorization,
-    isLoading: mutation.isLoading,
+    isLoading: mutation.isPending,
     errorMessage:
       (mutation.error as AxiosError<ErrorResponse>)?.response?.data?.messages[0] ||
       (mutation.error as AxiosError<ErrorResponse>)?.message,

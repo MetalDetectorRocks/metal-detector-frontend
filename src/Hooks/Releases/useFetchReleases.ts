@@ -3,7 +3,7 @@ import { REST_ROUTES } from '@/Router/RestRoutes'
 import { ReleasesResponse } from '@/Api/Model/Release/ReleasesResponse'
 import { AxiosError } from 'axios'
 import { ErrorResponse } from '@/Api/Model/Common/ErrorResponse'
-import { useQuery } from 'react-query'
+import { useQuery } from '@tanstack/react-query'
 
 export type FetchReleasesProps = {
   page: number
@@ -17,17 +17,19 @@ export type FetchReleasesProps = {
 
 const useFetchReleases = (props: FetchReleasesProps) => {
   const API = useApiWithToken()
-  const query = useQuery(
-    'releases',
-    () => {
+  const query = useQuery({
+    queryKey: ['releases'],
+
+    queryFn: () => {
       return API.get<ReleasesResponse>(REST_ROUTES.releases, {
         params: {
           ...props,
         },
       })
     },
-    { enabled: false },
-  )
+
+    enabled: false,
+  })
 
   return {
     fetchReleases: query.refetch,

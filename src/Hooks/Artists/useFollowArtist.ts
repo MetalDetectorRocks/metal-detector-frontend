@@ -1,6 +1,6 @@
 import useApiWithToken from '../Auth/useApiWithToken'
 import { REST_ROUTES } from '@/Router/RestRoutes'
-import { useMutation } from 'react-query'
+import { useMutation } from '@tanstack/react-query'
 
 export type FollowArtistProps = {
   source: string
@@ -14,9 +14,11 @@ const useFollowArtist = () => {
     mutate: followArtist,
     isError,
     isSuccess,
-  } = useMutation((props: FollowArtistProps) => {
-    const route = props.type === 'FOLLOW' ? REST_ROUTES.followArtist : REST_ROUTES.unfollowArtist
-    return API.post(`${route}/${props.source}/${props.externalId}`)
+  } = useMutation({
+    mutationFn: (props: FollowArtistProps) => {
+      const route = props.type === 'FOLLOW' ? REST_ROUTES.followArtist : REST_ROUTES.unfollowArtist
+      return API.post(`${route}/${props.source}/${props.externalId}`)
+    },
   })
 
   return {

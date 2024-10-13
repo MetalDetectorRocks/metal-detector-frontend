@@ -1,6 +1,6 @@
 import useApiWithToken from '../Auth/useApiWithToken'
 import { REST_ROUTES } from '@/Router/RestRoutes'
-import { useMutation } from 'react-query'
+import { useMutation } from '@tanstack/react-query'
 
 const useDeleteTelegramConfig = () => {
   const API = useApiWithToken()

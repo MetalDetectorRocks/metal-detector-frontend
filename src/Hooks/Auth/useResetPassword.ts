@@ -1,4 +1,4 @@
-import { useMutation } from 'react-query'
+import { useMutation } from '@tanstack/react-query'
 import { API } from '@/Api/Axios'
 import { REST_ROUTES } from '@/Router/RestRoutes'
 import { AxiosError } from 'axios'
@@ -29,7 +29,7 @@ const useResetPassword = () => {
   return {
     resetPassword: mutation.mutate,
     errorMsg,
-    isLoading: mutation.isLoading,
+    isLoading: mutation.isPending,
     isSuccess: mutation.isSuccess,
   }
 }

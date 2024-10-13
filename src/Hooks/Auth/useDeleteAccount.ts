@@ -14,12 +14,11 @@ const useDeleteAccount = () => {
   const navigate = useNavigate()
 
   const mutation = useMutation({
-    mutationFn: () => {
-      return API.delete(REST_ROUTES.currentUser).then(() => {
-        setCtx({})
-        navigate(home.path, { replace: true })
-        toast.success('Account deleted!')
-      })
+    mutationFn: async () => {
+      await API.delete(REST_ROUTES.currentUser)
+      setCtx({})
+      navigate(home.path, { replace: true })
+      toast.success('Account deleted!')
     },
   })
 

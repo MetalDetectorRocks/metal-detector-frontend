@@ -1,5 +1,5 @@
 import { REST_ROUTES } from '@/Router/RestRoutes'
-import { useMutation } from 'react-query'
+import { useMutation } from '@tanstack/react-query'
 import useApiWithToken from '../Auth/useApiWithToken'
 
 const useDeleteAuthorization = () => {

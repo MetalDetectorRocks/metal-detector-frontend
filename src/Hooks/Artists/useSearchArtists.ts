@@ -1,4 +1,4 @@
-import { useMutation } from 'react-query'
+import { useMutation } from '@tanstack/react-query'
 import { REST_ROUTES } from '@/Router/RestRoutes'
 import { ArtistSearchResponse } from '@/Api/Model/Artist/ArtistSearchResponse'
 import { API } from '@/Api/Axios'

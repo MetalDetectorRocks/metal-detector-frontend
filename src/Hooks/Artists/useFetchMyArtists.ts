@@ -1,7 +1,7 @@
 import useApiWithToken from '../Auth/useApiWithToken'
 import { MyArtistsResponse } from '@/Api/Model/Artist/MyArtistsResponse'
 import { REST_ROUTES } from '@/Router/RestRoutes'
-import { useQuery } from 'react-query'
+import { useQuery } from '@tanstack/react-query'
 
 export type FetchMyArtistsProps = {
   page: number
@@ -13,7 +13,7 @@ const useFetchMyArtists = (props: FetchMyArtistsProps) => {
     isLoading,
     data: response,
     error,
-  } = useQuery('my-artists', () => {
+  } = useQuery(['my-artists'], () => {
     return API.get<MyArtistsResponse>(REST_ROUTES.myArtists, {
       params: {
         ...props,

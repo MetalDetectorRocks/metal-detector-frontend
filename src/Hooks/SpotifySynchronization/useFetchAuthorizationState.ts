@@ -1,5 +1,5 @@
 import useApiWithToken from '../Auth/useApiWithToken'
-import { useMutation } from 'react-query'
+import { useMutation } from '@tanstack/react-query'
 import { REST_ROUTES } from '@/Router/RestRoutes'
 import { AxiosError } from 'axios'
 import { ErrorResponse } from '@/Api/Model/Common/ErrorResponse'

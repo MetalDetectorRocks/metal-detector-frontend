@@ -1,5 +1,5 @@
 import useApiWithToken from './useApiWithToken'
-import { useQuery } from 'react-query'
+import { useQuery } from '@tanstack/react-query'
 import { REST_ROUTES } from '@/Router/RestRoutes'
 import { CurrentUserDetailsResponse } from '@/Api/Model/Auth/CurrentUserDetailsResponse'
 
@@ -9,7 +9,7 @@ const useFetchCurrentUserDetails = () => {
     isLoading,
     data: response,
     error,
-  } = useQuery('current-user-details', () => {
+  } = useQuery(['current-user-details'], () => {
     return API.get<CurrentUserDetailsResponse>(REST_ROUTES.currentUser)
   })
 

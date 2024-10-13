@@ -1,7 +1,7 @@
 import useApiWithToken from './Auth/useApiWithToken'
 import { StatisticsResponse } from '@/Api/Model/Statistics/StatisticsResponse'
 import { REST_ROUTES } from '@/Router/RestRoutes'
-import { useQuery } from 'react-query'
+import { useQuery } from '@tanstack/react-query'
 
 const fetchStatistics = () => {
   const API = useApiWithToken()
@@ -9,7 +9,7 @@ const fetchStatistics = () => {
     isLoading,
     data: response,
     error,
-  } = useQuery('statistics', () => {
+  } = useQuery(['statistics'], () => {
     return API.get<StatisticsResponse>(REST_ROUTES.statistics)
   })
 

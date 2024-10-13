@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react'
 import { SwiperItemProps } from '../../Common/Swiper/SwiperItem'
 import useFetchMostExpectedReleases from '../../../Hooks/Releases/useFetchMostExpectedReleases'
 import Swiper from '../../Common/Swiper/Swiper'
-import { formatRelativeInDays } from '../../../Utils/DayJsUtils'
+import { formatRelativeInDays } from '@/Utils/DayJsUtils'
 
 const MostExpectedReleasesSwiper = () => {
   const [swiperItems, setSwiperItems] = useState<SwiperItemProps[]>([])

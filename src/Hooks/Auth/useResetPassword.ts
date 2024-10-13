@@ -1,9 +1,9 @@
 import { useMutation } from 'react-query'
-import { API } from '../../Api/Axios'
-import { REST_ROUTES } from '../../Router/RestRoutes'
+import { API } from '@/Api/Axios'
+import { REST_ROUTES } from '@/Router/RestRoutes'
 import { AxiosError } from 'axios'
-import { ErrorResponse } from '../../Api/Model/Common/ErrorResponse'
-import { ResetPasswordRequest } from '../../Api/Model/Auth/ResetPasswordRequest'
+import { ErrorResponse } from '@/Api/Model/Common/ErrorResponse'
+import { ResetPasswordRequest } from '@/Api/Model/Auth/ResetPasswordRequest'
 import { useEffect, useState } from 'react'
 
 const useResetPassword = () => {

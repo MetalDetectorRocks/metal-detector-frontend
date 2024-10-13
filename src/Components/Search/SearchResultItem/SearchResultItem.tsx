@@ -1,11 +1,11 @@
-import { ArtistSearchResultEntry } from '../../../Api/Model/Artist/ArtistSearchResultEntry'
+import { ArtistSearchResultEntry } from '@/Api/Model/Artist/ArtistSearchResultEntry'
 import { Card, CardContent, CardMedia } from '@mui/material'
 import classes from './SearchResultItem.module.scss'
 import FollowingInfo from './FollowingInfo'
 import GenreBadges from './GenreBadges'
 import Box from '@mui/material/Box'
 import FollowIcon from './FollowIcon'
-import unknown from './../../../assets/img/unknown-img.jpg'
+import unknown from '@/assets/img/unknown-img.jpg'
 
 export type SearchResultItemProps = {
   artist: ArtistSearchResultEntry

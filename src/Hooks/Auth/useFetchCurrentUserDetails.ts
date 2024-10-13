@@ -1,7 +1,7 @@
 import useApiWithToken from './useApiWithToken'
 import { useQuery } from 'react-query'
-import { REST_ROUTES } from '../../Router/RestRoutes'
-import { CurrentUserDetailsResponse } from '../../Api/Model/Auth/CurrentUserDetailsResponse'
+import { REST_ROUTES } from '@/Router/RestRoutes'
+import { CurrentUserDetailsResponse } from '@/Api/Model/Auth/CurrentUserDetailsResponse'
 
 const useFetchCurrentUserDetails = () => {
   const API = useApiWithToken()

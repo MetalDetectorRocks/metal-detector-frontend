@@ -5,7 +5,7 @@ import { columns } from './AdminReleaseTableColumns'
 import { Alignment } from 'react-data-table-component'
 import classes from './AdminReleaseList.module.scss'
 import useFetchAllReleases from '../../../Hooks/Releases/useFetchAllReleases'
-import { Release } from '../../../Api/Model/Release/Release'
+import { Release } from '@/Api/Model/Release/Release'
 
 const AdminReleaseList = () => {
   const { releases } = useFetchAllReleases()

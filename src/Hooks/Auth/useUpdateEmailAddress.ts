@@ -1,8 +1,8 @@
-import { REST_ROUTES } from '../../Router/RestRoutes'
+import { REST_ROUTES } from '@/Router/RestRoutes'
 import { useMutation } from 'react-query'
 import { AxiosError } from 'axios'
-import { ErrorResponse } from '../../Api/Model/Common/ErrorResponse'
-import { UpdateEmailRequest } from '../../Api/Model/Auth/UpdateEmailRequest'
+import { ErrorResponse } from '@/Api/Model/Common/ErrorResponse'
+import { UpdateEmailRequest } from '@/Api/Model/Auth/UpdateEmailRequest'
 import useApiWithToken from './useApiWithToken'
 
 const useUpdateEmailAddress = () => {

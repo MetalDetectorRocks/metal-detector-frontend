@@ -1,7 +1,7 @@
-import { ImportDetails } from '../../../Api/Model/Jobs/ImportDetails'
+import { ImportDetails } from '@/Api/Model/Jobs/ImportDetails'
 import dayjs from 'dayjs'
 import { Chip } from '@mui/material'
-import { ImportDetailsState } from '../../../Api/Model/Jobs/ImportDetailsState'
+import { ImportDetailsState } from '@/Api/Model/Jobs/ImportDetailsState'
 
 export const columns = [
   {

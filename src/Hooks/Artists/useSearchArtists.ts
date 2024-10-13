@@ -1,7 +1,7 @@
 import { useMutation } from 'react-query'
-import { REST_ROUTES } from '../../Router/RestRoutes'
-import { ArtistSearchResponse } from '../../Api/Model/Artist/ArtistSearchResponse'
-import { API } from '../../Api/Axios'
+import { REST_ROUTES } from '@/Router/RestRoutes'
+import { ArtistSearchResponse } from '@/Api/Model/Artist/ArtistSearchResponse'
+import { API } from '@/Api/Axios'
 import useApiWithToken from '../Auth/useApiWithToken'
 import useUser from '../Auth/useUser'
 

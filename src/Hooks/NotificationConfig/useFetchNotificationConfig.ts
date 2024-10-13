@@ -1,7 +1,7 @@
 import { useQuery } from 'react-query'
-import { REST_ROUTES } from '../../Router/RestRoutes'
+import { REST_ROUTES } from '@/Router/RestRoutes'
 import useApiWithToken from '../Auth/useApiWithToken'
-import { NotificationConfig } from '../../Api/Model/NotificationConfig/NotificationConfig'
+import { NotificationConfig } from '@/Api/Model/NotificationConfig/NotificationConfig'
 
 const useFetchNotificationConfig = () => {
   const API = useApiWithToken()

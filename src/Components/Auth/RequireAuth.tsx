@@ -1,6 +1,6 @@
-import { useAuthContext } from '../../Context/AuthContext'
+import { useAuthContext } from '@/Context/AuthContext'
 import { useLocation, Outlet, Navigate } from 'react-router-dom'
-import { signIn, unauthorized } from '../../Router/InternalRoutes'
+import { signIn, unauthorized } from '@/Router/InternalRoutes'
 
 export type RequireAuthProps = {
   allowedRoles: string[]

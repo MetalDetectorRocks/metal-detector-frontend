@@ -4,7 +4,7 @@ import { Container } from '@mui/material'
 import FooterBar from '../../Components/Footer/FooterBar'
 import Hero from '../../Components/Home/Hero/Hero'
 import { useEffect, useState } from 'react'
-import { dashboard, home } from '../../Router/InternalRoutes'
+import { dashboard, home } from '@/Router/InternalRoutes'
 
 export const MainLayout = () => {
   const location = useLocation()

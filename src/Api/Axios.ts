@@ -1,16 +1,13 @@
 import Axios from 'axios'
-import qs from 'qs'
+import paramsSerializer from '@/Api/paramsSerializer'
 
-const BASE_URL = process.env.REACT_APP_BACKEND_URL
+const BASE_URL = import.meta.env.VITE_BACKEND_URL
 const TIMEOUT = 60000
 const HEADERS = {
   'Cache-Control': 'no-cache, no-index, must-revalidate',
   Pragma: 'no-cache',
   'Content-Type': 'application/json',
   Accept: 'application/json',
-}
-const paramsSerializer = {
-  serialize: (params: Record<string, any>) => qs.stringify(params, { indices: false }),
 }
 
 export const API = Axios.create({

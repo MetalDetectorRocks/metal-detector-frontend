@@ -1,6 +1,6 @@
-import { useAuthContext } from '../../Context/AuthContext'
-import { API_WITH_TOKEN } from '../../Api/Axios'
-import { REST_ROUTES } from '../../Router/RestRoutes'
+import { useAuthContext } from '@/Context/AuthContext'
+import { API_WITH_TOKEN } from '@/Api/Axios'
+import { REST_ROUTES } from '@/Router/RestRoutes'
 import { toast } from 'react-toastify'
 
 const useSignOut = () => {

@@ -1,4 +1,4 @@
-import { ItemsPerMonth } from '../../../Api/Model/Statistics/StatisticsResponse'
+import { ItemsPerMonth } from '@/Api/Model/Statistics/StatisticsResponse'
 
 export function mapData(responseData: ItemsPerMonth | undefined): {}[] {
   if (!responseData) {

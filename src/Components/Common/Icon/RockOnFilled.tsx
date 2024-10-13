@@ -1,7 +1,7 @@
-import { ReactComponent as RockOnFilledSvg } from '../../../assets/svg/rock-on-filled.svg'
+import ReactComponent from '@/assets/svg/rock-on-filled.svg'
 
 const RockOnFilled = () => {
-  return <RockOnFilledSvg />
+  return <ReactComponent />
 }
 
 export default RockOnFilled

@@ -5,7 +5,7 @@ import ListItemIcon from '@mui/material/ListItemIcon'
 import { useNavigate } from 'react-router-dom'
 import classes from './AdminUserMenuItems.module.scss'
 import useSignOut from '../../../../Hooks/Auth/useSignOut'
-import { home, logout } from '../../../../Router/InternalRoutes'
+import { home, logout } from '@/Router/InternalRoutes'
 
 const AdminUserMenuItems = () => {
   const navigate = useNavigate()

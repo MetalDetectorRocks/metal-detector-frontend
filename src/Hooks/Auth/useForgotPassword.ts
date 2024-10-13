@@ -1,9 +1,9 @@
 import { useMutation } from 'react-query'
-import { API } from '../../Api/Axios'
-import { REST_ROUTES } from '../../Router/RestRoutes'
+import { API } from '@/Api/Axios'
+import { REST_ROUTES } from '@/Router/RestRoutes'
 import { AxiosError } from 'axios'
-import { ErrorResponse } from '../../Api/Model/Common/ErrorResponse'
-import { ForgotPasswordRequest } from '../../Api/Model/Auth/ForgotPasswordRequest'
+import { ErrorResponse } from '@/Api/Model/Common/ErrorResponse'
+import { ForgotPasswordRequest } from '@/Api/Model/Auth/ForgotPasswordRequest'
 
 const useForgotPassword = () => {
   const mutation = useMutation({

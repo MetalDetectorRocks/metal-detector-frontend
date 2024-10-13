@@ -1,9 +1,9 @@
 import useApiWithToken from '../Auth/useApiWithToken'
 import { useMutation } from 'react-query'
-import { REST_ROUTES } from '../../Router/RestRoutes'
+import { REST_ROUTES } from '@/Router/RestRoutes'
 import { AxiosError } from 'axios'
-import { ErrorResponse } from '../../Api/Model/Common/ErrorResponse'
-import { OAuth2AuthorizationResponse } from '../../Api/Model/Auth/OAuth2AuthorizationResponse'
+import { ErrorResponse } from '@/Api/Model/Common/ErrorResponse'
+import { OAuth2AuthorizationResponse } from '@/Api/Model/Auth/OAuth2AuthorizationResponse'
 
 const useFetchAuthorizationState = (registrationId: string) => {
   const API = useApiWithToken()

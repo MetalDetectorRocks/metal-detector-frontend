@@ -1,4 +1,4 @@
-FROM --platform=linux/amd64 node:22.9.0-alpine3.19 as build-step
+FROM --platform=linux/amd64 node:22.9.0-alpine3.19 AS build-step
 
 ENV TZ=Europe/Berlin
 
@@ -23,14 +23,13 @@ LABEL org.label-schema.vcs-ref=$VCS_REF
 
 COPY package.json package-lock.json ./
 RUN npm ci --ignore-scripts
-RUN npm rebuild node-sass
 
 COPY . /app
 
 RUN npm run-script build
 
 FROM nginxinc/nginx-unprivileged:1.27.2-alpine
-COPY --from=build-step /app/build /usr/share/nginx/html
+COPY --from=build-step /app/dist /usr/share/nginx/html
 COPY nginx/default.conf /etc/nginx/conf.d/default.conf
 
 USER 12345

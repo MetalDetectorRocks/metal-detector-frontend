@@ -6,7 +6,7 @@ import useFetchStatistics from '../../../Hooks/useFetchStatistics'
 import LoadingSpinner from '../../Common/LoadingSpinner'
 import ErrorAlert from '../../Common/ErrorAlert'
 import ImportWidget from './ImportWidget'
-import { ImportInfo } from '../../../Api/Model/Statistics/ImportInfo'
+import { ImportInfo } from '@/Api/Model/Statistics/ImportInfo'
 
 const WidgetGrid = () => {
   const { userInfo, artistFollowingInfo, releaseInfo, importInfo, isLoading, error } = useFetchStatistics()

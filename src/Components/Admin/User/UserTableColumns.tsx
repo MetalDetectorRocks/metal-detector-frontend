@@ -2,8 +2,8 @@ import EditIcon from '@mui/icons-material/Edit'
 import { Chip } from '@mui/material'
 import UserNameCellRenderer from './UserNameCellRenderer'
 import IconButton from '@mui/material/IconButton'
-import { UserDetails } from '../../../Api/Model/User/UserDetails'
-import { UserRole } from '../../../Api/Model/User/UserRole'
+import { UserDetails } from '@/Api/Model/User/UserDetails'
+import { UserRole } from '@/Api/Model/User/UserRole'
 
 export const columns = [
   {

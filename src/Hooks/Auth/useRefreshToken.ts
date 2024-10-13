@@ -1,8 +1,8 @@
-import { API_WITH_TOKEN } from '../../Api/Axios'
-import { REST_ROUTES } from '../../Router/RestRoutes'
-import { useAuthContext } from '../../Context/AuthContext'
-import { SignInResponse } from '../../Api/Model/Auth/SignInResponse'
-import { User } from '../../Api/Model/User/User'
+import { API_WITH_TOKEN } from '@/Api/Axios'
+import { REST_ROUTES } from '@/Router/RestRoutes'
+import { useAuthContext } from '@/Context/AuthContext'
+import { SignInResponse } from '@/Api/Model/Auth/SignInResponse'
+import { User } from '@/Api/Model/User/User'
 
 const useRefreshToken = () => {
   const { setCtx } = useAuthContext()

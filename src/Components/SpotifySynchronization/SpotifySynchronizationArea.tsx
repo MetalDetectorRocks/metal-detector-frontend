@@ -9,7 +9,7 @@ import Button from '@mui/material/Button'
 import CachedIcon from '@mui/icons-material/Cached'
 import useSynchronizeArtists from '../../Hooks/SpotifySynchronization/useSynchronizeArtists'
 import { List, ListItem, Typography } from '@mui/material'
-import { MISC_BACKEND_ROUTES } from '../../Router/MiscBackendRoutes'
+import { MISC_BACKEND_ROUTES } from '@/Router/MiscBackendRoutes'
 
 const SpotifySynchronizationArea = () => {
   const SPOTIFY_REGISTRATION_ID = 'spotify-user'
@@ -50,7 +50,7 @@ const SpotifySynchronizationArea = () => {
 
   const handleConnect = (event: React.SyntheticEvent) => {
     event.preventDefault()
-    window.location.href = `${process.env.REACT_APP_BACKEND_URL as string}${SPOTIFY_OAUTH_PATH}`
+    window.location.href = `${import.meta.env.VITE_BACKEND_URL as string}${SPOTIFY_OAUTH_PATH}`
   }
 
   const handleDisconnect = (event: React.SyntheticEvent) => {

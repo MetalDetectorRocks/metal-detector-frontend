@@ -14,7 +14,7 @@ const fetchStatistics = () => {
 
     queryFn: () => {
       return API.get<StatisticsResponse>(REST_ROUTES.statistics)
-    }
+    },
   })
 
   return {

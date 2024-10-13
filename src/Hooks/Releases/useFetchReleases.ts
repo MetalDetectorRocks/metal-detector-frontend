@@ -28,7 +28,7 @@ const useFetchReleases = (props: FetchReleasesProps) => {
       })
     },
 
-    enabled: false
+    enabled: false,
   })
 
   return {

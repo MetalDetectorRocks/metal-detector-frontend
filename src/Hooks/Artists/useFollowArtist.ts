@@ -18,7 +18,7 @@ const useFollowArtist = () => {
     mutationFn: (props: FollowArtistProps) => {
       const route = props.type === 'FOLLOW' ? REST_ROUTES.followArtist : REST_ROUTES.unfollowArtist
       return API.post(`${route}/${props.source}/${props.externalId}`)
-    }
+    },
   })
 
   return {

@@ -14,7 +14,7 @@ const useFetchMostExpectedReleases = () => {
 
     queryFn: () => {
       return API.get<Release[]>(REST_ROUTES.mostExpectedReleases)
-    }
+    },
   })
 
   return { releases: response?.data, isLoading, isSuccess, error }

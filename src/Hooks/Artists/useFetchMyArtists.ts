@@ -22,7 +22,7 @@ const useFetchMyArtists = (props: FetchMyArtistsProps) => {
           ...props,
         },
       })
-    }
+    },
   })
 
   return { artists: response?.data.myArtists, pagination: response?.data.pagination, isLoading, error }

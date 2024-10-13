@@ -14,7 +14,7 @@ const useFetchCurrentUserDetails = () => {
 
     queryFn: () => {
       return API.get<CurrentUserDetailsResponse>(REST_ROUTES.currentUser)
-    }
+    },
   })
 
   return { userDetails: response?.data, isLoading, error }

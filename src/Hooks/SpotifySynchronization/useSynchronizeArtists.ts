@@ -17,7 +17,7 @@ const useSynchronizeArtists = () => {
         .catch(() => {
           return []
         })
-    }
+    },
   })
 
   const synchronizeArtists = async () => {

@@ -14,7 +14,7 @@ const fetchMostFollowedArtists = () => {
 
     queryFn: () => {
       return API.get<Artist[]>(REST_ROUTES.mostFollowedArtists)
-    }
+    },
   })
 
   return { artists: response?.data, isLoading, isSuccess, error }

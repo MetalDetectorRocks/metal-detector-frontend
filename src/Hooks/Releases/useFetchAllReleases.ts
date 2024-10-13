@@ -20,7 +20,7 @@ const useFetchAllReleases = () => {
       return API.get<Release[]>(REST_ROUTES.allReleases, {
         params: { dateFrom: dateFrom },
       })
-    }
+    },
   })
 
   return {

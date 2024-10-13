@@ -17,7 +17,7 @@ const useFetchAuthorizationState = (registrationId: string) => {
         .catch(() => {
           return false
         })
-    }
+    },
   })
 
   const fetchAuthorization = async () => {

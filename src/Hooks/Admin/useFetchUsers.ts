@@ -16,7 +16,7 @@ const useFetchUsers = () => {
 
     queryFn: () => {
       return API.get<UserDetails[]>(REST_ROUTES.users)
-    }
+    },
   })
 
   return {

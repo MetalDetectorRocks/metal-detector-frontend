@@ -27,7 +27,7 @@ const useSearchArtists = () => {
           ...props,
         },
       })
-    }
+    },
   })
 
   return {

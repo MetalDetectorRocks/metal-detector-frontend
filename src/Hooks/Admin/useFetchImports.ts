@@ -16,7 +16,7 @@ const useFetchImports = () => {
 
     queryFn: () => {
       return API.get<ImportDetails[]>(REST_ROUTES.imports)
-    }
+    },
   })
 
   return {

@@ -10,8 +10,8 @@ const useFetchNotificationConfig = () => {
 
     queryFn: async () => {
       return await API.get<NotificationConfig>(REST_ROUTES.notificationConfig)
-    }
-  });
+    },
+  })
 }
 
 export default useFetchNotificationConfig

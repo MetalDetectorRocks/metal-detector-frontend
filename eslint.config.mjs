@@ -74,6 +74,7 @@ export default [
 
       'no-unused-vars': 'off',
       '@typescript-eslint/no-unused-vars': ['error'],
+      'no-multiple-empty-lines': ['error', { max: 1 }],
     },
   },
 ]

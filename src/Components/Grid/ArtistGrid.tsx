@@ -1,7 +1,7 @@
 import { Grid } from '@mui/material'
 import ArtistCard from '../Card/ArtistCard'
 import classes from './ArtistGrid.module.scss'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import DefaultPagination from '../Pagination/DefaultPagination'
 import LoadingSpinner from '../Common/LoadingSpinner'
 import useFetchMyArtists from '../../Hooks/Artists/useFetchMyArtists'
@@ -10,7 +10,12 @@ import ErrorAlert from '../Common/ErrorAlert'
 
 const ArtistGrid = () => {
   const [page, setPage] = useState(1)
-  const { artists, pagination, isLoading, error } = useFetchMyArtists({ page })
+  const { fetchArtists, artists, pagination, isLoading, error } = useFetchMyArtists({ page })
+
+  useEffect(() => {
+    // noinspection JSIgnoredPromiseFromCall, is extracted from useFetchReleases hook
+    fetchArtists()
+  }, [page])
 
   const handlePaginationChange = (event: React.ChangeEvent<unknown>, page: number) => {
     event.preventDefault()

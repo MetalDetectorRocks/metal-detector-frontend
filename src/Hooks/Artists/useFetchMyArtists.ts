@@ -2,6 +2,8 @@ import useApiWithToken from '../Auth/useApiWithToken'
 import { MyArtistsResponse } from '@/Api/Model/Artist/MyArtistsResponse'
 import { REST_ROUTES } from '@/Router/RestRoutes'
 import { useQuery } from '@tanstack/react-query'
+import { AxiosError } from 'axios'
+import { ErrorResponse } from '@/Api/Model/Common/ErrorResponse'
 
 export type FetchMyArtistsProps = {
   page: number
@@ -9,11 +11,7 @@ export type FetchMyArtistsProps = {
 
 const useFetchMyArtists = (props: FetchMyArtistsProps) => {
   const API = useApiWithToken()
-  const {
-    isLoading,
-    data: response,
-    error,
-  } = useQuery({
+  const query = useQuery({
     queryKey: ['my-artists'],
 
     queryFn: () => {
@@ -25,7 +23,13 @@ const useFetchMyArtists = (props: FetchMyArtistsProps) => {
     },
   })
 
-  return { artists: response?.data.myArtists, pagination: response?.data.pagination, isLoading, error }
+  return {
+    fetchArtists: query.refetch,
+    artists: query.data?.data.myArtists,
+    pagination: query.data?.data.pagination,
+    isLoading: query.isLoading,
+    error: query.error as AxiosError<ErrorResponse>,
+  }
 }
 
 export default useFetchMyArtists

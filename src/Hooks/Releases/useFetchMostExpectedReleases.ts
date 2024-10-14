@@ -17,7 +17,7 @@ const useFetchMostExpectedReleases = () => {
     },
   })
 
-  return { releases: response?.data, isLoading, isSuccess, error }
+  return { releases: response?.data || [], isLoading, isSuccess, error }
 }
 
 export default useFetchMostExpectedReleases

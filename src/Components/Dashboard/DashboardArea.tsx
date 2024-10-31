@@ -23,12 +23,20 @@ const DashboardArea = () => {
       {isLoading ? (
         <LoadingSpinner />
       ) : (
-        <ArtistSwiper title={'Your recently followed artists'} artists={recentlyFollowedArtists} />
+        <ArtistSwiper
+          title={'Your recently followed artists'}
+          artists={recentlyFollowedArtists}
+          displayFollower={false}
+        />
       )}
       {isLoading ? (
         <LoadingSpinner />
       ) : (
-        <ArtistSwiper title={"The community's favorite artists"} artists={favoriteCommunityArtists} />
+        <ArtistSwiper
+          title={"The community's favorite artists"}
+          artists={favoriteCommunityArtists}
+          displayFollower={true}
+        />
       )}
       {isLoading ? (
         <LoadingSpinner />

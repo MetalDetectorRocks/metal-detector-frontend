@@ -4,6 +4,7 @@ export const REST_ROUTES = {
   cover: '/rest/v1/releases/cover-reload',
   csrf: '/rest/v1/csrf',
   currentUser: '/rest/v1/me',
+  dashboard: '/rest/v1/dashboard',
   followArtist: '/rest/v1/artists/follow',
   forgotPassword: '/rest/v1/auth/forgot-password',
   imports: '/rest/v1/releases/import',

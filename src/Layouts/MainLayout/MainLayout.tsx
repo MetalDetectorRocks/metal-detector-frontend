@@ -5,14 +5,16 @@ import FooterBar from '../../Components/Footer/FooterBar'
 import Hero from '../../Components/Home/Hero/Hero'
 import { useEffect, useState } from 'react'
 import { dashboard, home } from '@/Router/InternalRoutes'
+import useUser from '@/Hooks/Auth/useUser'
 
 export const MainLayout = () => {
   const location = useLocation()
   const [showHero, setShowHero] = useState(false)
+  const { isAuthenticated } = useUser()
 
   useEffect(() => {
-    setShowHero([home.path, dashboard.path].includes(location.pathname))
-  }, [location.pathname])
+    setShowHero(!isAuthenticated && [home.path, dashboard.path].includes(location.pathname))
+  }, [location.pathname, isAuthenticated])
 
   return (
     <>

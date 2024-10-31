@@ -17,7 +17,7 @@ const fetchMostFollowedArtists = () => {
     },
   })
 
-  return { artists: response?.data, isLoading, isSuccess, error }
+  return { artists: response?.data || [], isLoading, isSuccess, error }
 }
 
 export default fetchMostFollowedArtists

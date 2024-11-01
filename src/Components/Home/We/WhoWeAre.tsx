@@ -11,7 +11,7 @@ const WhoWeAre = () => {
       <div className={classes['author-area']}>
         <img src={daniel} alt="Daniel" className={classes['author-image']} />
         <div>
-          <h3>Daniel</h3>
+          <h2>Daniel</h2>
           <Typography>
             I have been faithful to metal since my youth. Since those days, the problem of keeping up to date with new
             releases of my favorite artists has accompanied me. Before I started the &#34;Metal Detector&#34; with Nils,
@@ -23,7 +23,7 @@ const WhoWeAre = () => {
       </div>
       <div className={classes['author-area']}>
         <div>
-          <h3>Nils</h3>
+          <h2>Nils</h2>
           <Typography>
             As I have never been keen on social media, finding out about new releases of my favorite bands has always
             been a messy, time-consuming task of browsing various sites with huge ugly tables, seeing the same releases

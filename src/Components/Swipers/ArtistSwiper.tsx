@@ -1,7 +1,7 @@
-import Heading from '../Heading/Heading'
-import Swiper from '../../Common/Swiper/Swiper'
+import Heading from '../Home/Heading/Heading'
+import Swiper from '../Common/Swiper/Swiper'
 import { useEffect, useState } from 'react'
-import { SwiperItemProps } from '../../Common/Swiper/SwiperItem'
+import { SwiperItemProps } from '../Common/Swiper/SwiperItem'
 import { Artist } from '@/Api/Model/Artist/Artist'
 import { formatRelativeInDays } from '@/Utils/DayJsUtils'
 

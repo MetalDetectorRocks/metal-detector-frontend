@@ -3,9 +3,10 @@ import FeatureGrid from '../Components/Home/Features/FeatureGrid'
 import BlogPreview from '../Components/Home/Blog/BlogPreview'
 import useFetchMostFollowedArtists from '@/Hooks/Artists/useFetchMostFollowedArtists'
 import useFetchMostExpectedReleases from '@/Hooks/Releases/useFetchMostExpectedReleases'
-import ArtistSwiper from '@/Components/Home/Swipers/ArtistSwiper'
+import ArtistSwiper from '@/Components/Swipers/ArtistSwiper'
 import LoadingSpinner from '@/Components/Common/LoadingSpinner'
-import ReleaseSwiper from '@/Components/Home/Swipers/ReleaseSwiper'
+import ReleaseSwiper from '@/Components/Swipers/ReleaseSwiper'
+import WhoWeAre from '@/Components/Home/We/WhoWeAre'
 
 export const LandingPage = () => {
   const { artists, isLoading: isLoadingFetchArtists } = useFetchMostFollowedArtists()
@@ -18,13 +19,18 @@ export const LandingPage = () => {
   return (
     <>
       <FeatureGrid />
-      {isLoadingFetchArtists ? <LoadingSpinner /> : <ArtistSwiper title={'Most Followed Artists'} artists={artists} />}
+      {isLoadingFetchArtists ? (
+        <LoadingSpinner />
+      ) : (
+        <ArtistSwiper title={'Most Followed Artists'} artists={artists} displayFollower={true} />
+      )}
       {isLoadingFetchReleases ? (
         <LoadingSpinner />
       ) : (
         <ReleaseSwiper title={'Most Expected Releases'} releases={releases} />
       )}
       <BlogPreview />
+      <WhoWeAre />
     </>
   )
 }

@@ -1,7 +1,7 @@
 import useFetchDashboard from '@/Hooks/useFetchDashboard'
 import LoadingSpinner from '@/Components/Common/LoadingSpinner'
-import ReleaseSwiper from '@/Components/Home/Swipers/ReleaseSwiper'
-import ArtistSwiper from '@/Components/Home/Swipers/ArtistSwiper'
+import ReleaseSwiper from '@/Components/Swipers/ReleaseSwiper'
+import ArtistSwiper from '@/Components/Swipers/ArtistSwiper'
 import ErrorAlert from '@/Components/Common/ErrorAlert'
 
 const DashboardArea = () => {

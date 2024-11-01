@@ -1,0 +1,21 @@
+@import '../../../Styles/partials/02-general/general.to-rem';
+
+.who-we-are {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.author-area {
+  display: flex;
+  flex-direction: row;
+  margin-bottom: to-rem(30);
+  width: 75%;
+}
+
+.author-image {
+  margin: to-rem(15);
+  height: to-rem(250);
+  border-radius: 50%;
+}

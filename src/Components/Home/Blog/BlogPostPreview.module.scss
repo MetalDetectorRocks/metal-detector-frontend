@@ -1,0 +1,11 @@
+@import '../../../Styles/partials/02-general/general.to-rem';
+
+.blog-post-preview {
+  display: flex;
+  flex-direction: column;
+  width: to-rem(300);
+}
+
+.blog-post-preview-image {
+  height: to-rem(185);
+}

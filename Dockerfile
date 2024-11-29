@@ -28,7 +28,7 @@ COPY . /app
 
 RUN npm run-script build
 
-FROM nginxinc/nginx-unprivileged:1.27.2-alpine
+FROM nginxinc/nginx-unprivileged:1.27.3-alpine
 COPY --from=build-step /app/dist /usr/share/nginx/html
 COPY nginx/default.conf /etc/nginx/conf.d/default.conf
 

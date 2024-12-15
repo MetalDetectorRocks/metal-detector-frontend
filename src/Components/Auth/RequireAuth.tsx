@@ -1,5 +1,5 @@
 import { useAuthContext } from '@/Context/AuthContext'
-import { useLocation, Outlet, Navigate } from 'react-router-dom'
+import { useLocation, Outlet, Navigate } from 'react-router'
 import { signIn, unauthorized } from '@/Router/InternalRoutes'
 
 export type RequireAuthProps = {

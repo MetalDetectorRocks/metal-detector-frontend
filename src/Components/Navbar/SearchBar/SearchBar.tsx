@@ -2,7 +2,7 @@ import classes from './SearchBar.module.scss'
 import { TextField } from '@mui/material'
 import DoubleArrowIcon from '@mui/icons-material/DoubleArrow'
 import IconButton from '@mui/material/IconButton'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router'
 import { search } from '@/Router/InternalRoutes'
 import { KeyboardEvent, useEffect, useState } from 'react'
 

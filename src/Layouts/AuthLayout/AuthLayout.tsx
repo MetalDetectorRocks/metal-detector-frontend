@@ -1,5 +1,5 @@
 import Container from '@mui/material/Container'
-import { Outlet } from 'react-router-dom'
+import { Outlet } from 'react-router'
 import classes from './AuthLayout.module.scss'
 import logo from '@/assets/img/logo.png'
 import AuthFooter from './AuthFooter'

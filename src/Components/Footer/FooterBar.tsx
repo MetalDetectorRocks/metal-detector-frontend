@@ -1,7 +1,7 @@
 import Box from '@mui/material/Box'
 import classes from './FooterBar.module.scss'
 import Divider from '@mui/material/Divider'
-import { Link, NavLink } from 'react-router-dom'
+import { Link, NavLink } from 'react-router'
 import { imprint, privacyPolicy } from '@/Router/InternalRoutes'
 import buyUsABeerLogo from '@/assets/img/buy-us-a-beer-logo.png'
 import instagramLogo from '@/assets/img/instagram-logo.png'

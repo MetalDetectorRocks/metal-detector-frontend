@@ -1,5 +1,5 @@
 import classes from './AdminLayout.module.scss'
-import { Outlet } from 'react-router-dom'
+import { Outlet } from 'react-router'
 import AdminSideMenu from '../../Components/Admin/Navbar/SideMenu/AdminSideMenu'
 import { Box, Container, Toolbar } from '@mui/material'
 import AdminTopMenu from '../../Components/Admin/Navbar/TopMenu/AdminTopMenu'

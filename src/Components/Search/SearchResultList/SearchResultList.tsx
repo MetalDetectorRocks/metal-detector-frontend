@@ -1,4 +1,4 @@
-import { useSearchParams } from 'react-router-dom'
+import { useSearchParams } from 'react-router'
 import { useEffect, useState } from 'react'
 import useSearchArtists from '../../../Hooks/Artists/useSearchArtists'
 import Box from '@mui/material/Box'

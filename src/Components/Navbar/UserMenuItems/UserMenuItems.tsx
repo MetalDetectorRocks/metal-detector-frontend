@@ -6,7 +6,7 @@ import MenuItem from '@mui/material/MenuItem'
 import Divider from '@mui/material/Divider'
 import ListItemIcon from '@mui/material/ListItemIcon'
 import Spotify from '../../Common/Icon/Spotify'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router'
 import {
   adminDashboard,
   notificationSettings,

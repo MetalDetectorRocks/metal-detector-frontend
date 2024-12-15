@@ -6,7 +6,7 @@ import DataTableSearch from '../../Common/Table/DataTableSearch'
 import classes from './UsersList.module.scss'
 import useFetchUsers from '../../../Hooks/Admin/useFetchUsers'
 import { UserDetails } from '@/Api/Model/User/UserDetails'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router'
 import { adminUsersList } from '@/Router/InternalRoutes'
 import UserJobButtons from './UserJobButtons'
 

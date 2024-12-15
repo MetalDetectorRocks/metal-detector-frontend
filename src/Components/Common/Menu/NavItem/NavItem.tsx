@@ -1,7 +1,7 @@
 import classes from './NavItem.module.scss'
 import MenuItem from '@mui/material/MenuItem'
 import ListItemIcon from '@mui/material/ListItemIcon'
-import { NavLink } from 'react-router-dom'
+import { NavLink } from 'react-router'
 import * as React from 'react'
 
 export type NavItemProps = {

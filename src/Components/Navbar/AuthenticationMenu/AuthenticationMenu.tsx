@@ -1,7 +1,7 @@
 import classes from './AuthenticationMenu.module.scss'
 import Button from '@mui/material/Button'
 import { signIn, signUp } from '@/Router/InternalRoutes'
-import { NavLink } from 'react-router-dom'
+import { NavLink } from 'react-router'
 import { Stack } from '@mui/material'
 
 const AuthenticationMenu = () => {

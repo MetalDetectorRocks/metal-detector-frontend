@@ -30,7 +30,7 @@
     "react-dom": "^18.3.1",
     "react-hook-form": "^7.54.1",
     "react-infinite-scroll-component": "^6.1.0",
-    "react-router-dom": "^7.0.2",
+    "react-router": "^7.0.2",
     "react-toastify": "^10.0.5",
     "recharts": "^2.15.0",
     "sass": "^1.83.0",

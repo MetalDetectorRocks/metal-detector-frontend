@@ -6,7 +6,7 @@ import useApiWithToken from './useApiWithToken'
 import { useAuthContext } from '@/Context/AuthContext'
 import { home } from '@/Router/InternalRoutes'
 import { toast } from 'react-toastify'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router'
 
 const useDeleteAccount = () => {
   const { setCtx } = useAuthContext()

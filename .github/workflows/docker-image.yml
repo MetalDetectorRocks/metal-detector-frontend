@@ -15,7 +15,7 @@ jobs:
 
       - name: Create version string
         id: version
-        run: echo "::set-output name=version::$(date -u +'%Y%m%dT%H%M%S')"
+        run: echo "version=$(date -u +'%Y%m%dT%H%M%S')" >> $GITHUB_ENV
 
       - name: Login to DockerHub
         uses: docker/login-action@9780b0c442fbb1117ed29e0efdff1e18412f7567 # 3.3.0
@@ -30,8 +30,8 @@ jobs:
           context: ./
           file: ./Dockerfile
           tags: |
-            metaldetectorrocks/metal-detector-frontend:${{ steps.version.outputs.version }}
+            metaldetectorrocks/metal-detector-frontend:${{ env.version }}
             metaldetectorrocks/metal-detector-frontend:latest
           build-args: |
-            BUILD_DATE=${{ steps.version.outputs.version }}
+            BUILD_DATE=${{ env.version }}
             VCS_REF=${{ github.ref }}
